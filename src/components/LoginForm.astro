@@ -1,0 +1,198 @@
+---
+---
+<main>
+    <div id="login-form">
+        <h1>Iniciar sesión</h1>
+        <h2>Accede a tu cuenta ingresando tu dirección de correo electrónico y tu código de acceso.</h2>
+        <form novalidate>
+            <input type="email" id="email" placeholder="Correo electrónico" />
+            <span class="field-error" id="email-error"></span>
+
+            <div class="password-wrapper">
+                <input type="password" id="code" placeholder="Código" minlength="4" />
+                <span class="field-error" id="code-error"></span>
+                <p id="login-error">Código o email incorrecto</p>
+                <label class="show-code">
+                    <input type="checkbox" id="show-code-checkbox" />
+                    <span>Mostrar código</span>
+                </label>
+            </div>
+
+            <button id="login-btn" type="button">Iniciar sesión</button>
+        </form>
+    </div>
+</main>
+
+<style>
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #2c0db3;
+}
+
+h2 {
+    width: 400px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #444;
+    font-weight: 400;
+    font-size: 18px;
+    text-wrap: balance;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-form {
+    margin: auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#login-form input:not([type="checkbox"]) {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.password-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.show-code {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.show-code input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.field-error {
+    display: none;
+    color: #ff1111;
+    font-size: 14px;
+    margin-top: -6px;
+    margin-bottom: 8px;
+}
+
+#login-form button {
+    display: block;
+    margin: auto;
+    padding: 8px 16px;
+    background-color: #2c0db3;
+    color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-form button:hover {
+    background-color: #1a0a8a;
+}
+
+#login-error {
+    display: none;
+    color: #ff1111;
+}
+</style>
+
+<script type="module">
+const ACCESS_CODES = {
+    "usuario1@example.com": "1234",
+    "usuario2@example.com": "5678",
+};
+
+const loginBtn = document.getElementById("login-btn");
+const errorMsg = document.getElementById("login-error");
+const emailInput = document.getElementById("email");
+const codeInput = document.getElementById("code");
+const showCodeCheckbox = document.getElementById("show-code-checkbox");
+const emailError = document.getElementById("email-error");
+const codeError = document.getElementById("code-error");
+
+function clearFieldErrors() {
+    emailError.style.display = "none";
+    emailError.textContent = "";
+    codeError.style.display = "none";
+    codeError.textContent = "";
+    errorMsg.style.display = "none";
+}
+
+function showFieldError(el, msg) {
+    el.textContent = msg;
+    el.style.display = "block";
+}
+
+if (showCodeCheckbox) {
+    showCodeCheckbox.addEventListener('change', () => {
+        codeInput.type = showCodeCheckbox.checked ? 'text' : 'password';
+    });
+}
+
+loginBtn.addEventListener("click", () => {
+    clearFieldErrors();
+
+    const email = emailInput.value.trim();
+    const code = codeInput.value.trim();
+
+    let hasError = false;
+
+    if (!email) {
+        showFieldError(emailError, "El correo electrónico es obligatorio");
+        hasError = true;
+    } else if (!email.includes('@') || !/\S+@\S+\.\S+/.test(email)) {
+
+        if (!email.includes('@')) {
+            showFieldError(emailError, "El correo debe contener '@'");
+        } else {
+            showFieldError(emailError, "Ingresa un correo electrónico válido");
+        }
+        hasError = true;
+    }
+
+    if (!code) {
+        showFieldError(codeError, "El código es obligatorio");
+        hasError = true;
+    }
+
+    const minLen = 4;
+    if (code && code.length < minLen) {
+        showFieldError(codeError, `El código debe tener al menos ${minLen} caracteres`);
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    if (ACCESS_CODES[email] && ACCESS_CODES[email] === code) {
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "/PropositoSerUno/";
+    } else {
+        errorMsg.style.display = "block";
+    }
+});
+</script>

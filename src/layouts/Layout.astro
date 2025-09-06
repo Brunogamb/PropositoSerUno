@@ -1,5 +1,7 @@
 ---
 import Header from '../components/Header.astro';
+
+const loggedIn = typeof window !== 'undefined' ? localStorage.getItem('loggedIn') === 'true' : false;
 const { title } = Astro.props;
 ---
 
@@ -15,7 +17,7 @@ const { title } = Astro.props;
 		<title>Propósito Ser Uno</title>
 	</head>
 	<body>
-		<Header />
+		<Header loggedIn={loggedIn} />
 		<slot />
 	</body>
 </html>

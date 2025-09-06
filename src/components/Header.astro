@@ -13,14 +13,15 @@ import logo from '../assets/img/logo.png';
                 <li><a href="/PropositoSerUno/programa">Programa</a></li>
                 <li><a href="/PropositoSerUno/comunidad">Comunidad</a></li>
                 <li><a href="/PropositoSerUno/resultados">Resultados</a></li>
-                <li><a href="/PropositoSerUno/terapias" class="hidden-buttons">Terapias</a></li>
-                <li><a href="/PropositoSerUno/material" class="hidden-buttons">Material</a></li>
-                <li><a href="/PropositoSerUno/talleres" class="hidden-buttons">Talleres</a></li>
                 <li><a href="/PropositoSerUno/fundadores">Fundadores</a></li>
+
+                <li><a href="/PropositoSerUno/terapias" class="hidden-buttons" style="display:none;">Terapias</a></li>
+                <li><a href="/PropositoSerUno/material" class="hidden-buttons" style="display:none;">Material</a></li>
+                <li><a href="/PropositoSerUno/talleres" class="hidden-buttons" style="display:none;">Talleres</a></li>
             </ul>
         </nav>
 
-        <a href="/PropositoSerUno/acceso">Acceso</a>
+    <a id="acceso-btn" href="/PropositoSerUno/acceso" class="acceso">Acceso</a>
     </div>
 </header>
 
@@ -44,6 +45,7 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 52px;
+    position: relative;
 }
 
 .top-nav a {
@@ -74,7 +76,38 @@ header {
     gap: inherit;
 }
 
+.services-nav a {
+    transition: all 0.3s ease;
+}
+
+.services-nav a:not(.hidden-buttons):hover, .acceso:hover {
+    text-shadow: 0 0px 2px rgb(255, 255, 255);
+}
+
 .hidden-buttons:hover {
     color: #d6674f;
+    text-shadow: 0 0px 2px #d6674f;
 }
 </style>
+
+<script type="module">
+const accesoBtn = document.getElementById("acceso-btn");
+const headerLinks = document.querySelectorAll(".hidden-buttons");
+
+function updateHeader() {
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+    headerLinks.forEach(link => link.style.display = loggedIn ? "inline-block" : "none");
+    accesoBtn.textContent = loggedIn ? "Cerrar sesión" : "Acceso";
+    accesoBtn.href = loggedIn ? "#" : "/PropositoSerUno/acceso";
+}
+
+accesoBtn.addEventListener("click", (e) => {
+    if (localStorage.getItem("loggedIn") === "true") {
+        e.preventDefault();
+        localStorage.removeItem("loggedIn");
+        updateHeader();
+    }
+});
+
+updateHeader();
+</script>
