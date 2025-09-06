@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/img/logo.png';
+---
+
+<header>
+    <div class="top-nav">
+        <a href="/" class="header-logo"><Image src={logo} alt="Logo Propósito Ser Uno" class="logo" loading="eager"/></a>
+        
+        <nav class="services-nav">
+            <ul>
+                <li><a href="/membresia">Membresía</a></li>
+                <li><a href="/programa">Programa</a></li>
+                <li><a href="/comunidad">Comunidad</a></li>
+                <li><a href="/resultados">Resultados</a></li>
+                <li><a href="/terapias" class="hidden-buttons">Terapias</a></li>
+                <li><a href="/material" class="hidden-buttons">Material</a></li>
+                <li><a href="/talleres" class="hidden-buttons">Talleres</a></li>
+                <li><a href="/fundadores">Fundadores</a></li>
+            </ul>
+        </nav>
+
+        <a href="/acceso">Acceso</a>
+    </div>
+</header>
+
+<style>
+header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    padding: 0 20px;
+}
+
+.top-nav {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 52px;
+}
+
+.top-nav a {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.header-logo {
+    height: 32px;
+}
+
+.header-logo img {
+    height: 100%;
+    width: auto;
+}
+
+.services-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-content: flex-end; 
+    flex: 1;
+}
+
+.services-nav ul {
+    list-style: none;
+    display: flex;
+    gap: inherit;
+}
+
+.hidden-buttons:hover {
+    color: #d6674f;
+}
+</style>
