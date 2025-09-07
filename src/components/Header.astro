@@ -15,9 +15,9 @@ import logo from '../assets/img/logo.png';
                 <li><a href="/PropositoSerUno/resultados">Resultados</a></li>
                 <li><a href="/PropositoSerUno/fundadores">Fundadores</a></li>
 
-                <li><a href="/PropositoSerUno/terapias" class="hidden-buttons" style="display:none;">Terapias</a></li>
-                <li><a href="/PropositoSerUno/material" class="hidden-buttons" style="display:none;">Material</a></li>
-                <li><a href="/PropositoSerUno/talleres" class="hidden-buttons" style="display:none;">Talleres</a></li>
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/terapias">Terapias</a></li>
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/material">Material</a></li>
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/talleres">Talleres</a></li>
             </ul>
         </nav>
 
@@ -45,7 +45,6 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    position: relative;
 }
 
 .top-nav a {
@@ -79,8 +78,7 @@ header {
     display: flex;
     gap: 32px;
     align-items: center;
-    justify-content: flex-end; 
-    flex: 1;
+    justify-content: center; 
 }
 
 .services-nav ul {
@@ -109,7 +107,7 @@ const headerLinks = document.querySelectorAll(".hidden-buttons");
 
 function updateHeader() {
     const loggedIn = localStorage.getItem("loggedIn") === "true";
-    headerLinks.forEach(link => link.style.display = loggedIn ? "inline-block" : "none");
+    headerLinks.forEach(li => li.style.display = loggedIn ? "list-item" : "none");
     accesoBtn.textContent = loggedIn ? "Cerrar sesión" : "Acceso";
     accesoBtn.href = loggedIn ? "#" : "/PropositoSerUno/acceso";
 }
