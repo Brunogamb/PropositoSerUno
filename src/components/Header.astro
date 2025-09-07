@@ -101,11 +101,23 @@ function updateHeader() {
     accesoBtn.href = loggedIn ? "#" : "/PropositoSerUno/acceso";
 }
 
+function clearAuthCookies() {
+    document.cookie = "loggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+}
+
 accesoBtn.addEventListener("click", (e) => {
     if (localStorage.getItem("loggedIn") === "true") {
         e.preventDefault();
+        
         localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userId");
+        
+        clearAuthCookies();
+        
         updateHeader();
+        
+        window.location.href = "/PropositoSerUno/";
     }
 });
 

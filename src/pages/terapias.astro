@@ -3,5 +3,29 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Terapias - Propósito Ser Uno">
-
+    <main style="display: none;" id="protected-content">
+        <h1>Terapias</h1>
+        <p>Contenido exclusivo para miembros autenticados.</p>
+    </main>
+    
+    <div id="loading" style="text-align: center; padding: 50px;">
+        <p>Verificando acceso...</p>
+    </div>
 </Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    const protectedContent = document.getElementById("protected-content");
+    const loading = document.getElementById("loading");
+    
+    if (loggedIn === "true") {
+
+        if (loading) loading.style.display = "none";
+        if (protectedContent) protectedContent.style.display = "block";
+    } else {
+
+        window.location.href = "/PropositoSerUno/acceso";
+    }
+});
+</script>

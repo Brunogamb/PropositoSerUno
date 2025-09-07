@@ -122,10 +122,7 @@ form {
 </style>
 
 <script type="module">
-const ACCESS_CODES = {
-    "usuario1@example.com": "1234",
-    "usuario2@example.com": "5678",
-};
+import { supabase } from '/PropositoSerUno/src/lib/supabaseClient.js';
 
 const loginBtn = document.getElementById("login-btn");
 const errorMsg = document.getElementById("login-error");
@@ -154,7 +151,7 @@ if (showCodeCheckbox) {
     });
 }
 
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click", async () => {
     clearFieldErrors();
 
     const email = emailInput.value.trim();
@@ -166,7 +163,6 @@ loginBtn.addEventListener("click", () => {
         showFieldError(emailError, "El correo electrónico es obligatorio");
         hasError = true;
     } else if (!email.includes('@') || !/\S+@\S+\.\S+/.test(email)) {
-
         if (!email.includes('@')) {
             showFieldError(emailError, "El correo debe contener '@'");
         } else {
@@ -188,11 +184,45 @@ loginBtn.addEventListener("click", () => {
 
     if (hasError) return;
 
-    if (ACCESS_CODES[email] && ACCESS_CODES[email] === code) {
-        localStorage.setItem("loggedIn", "true");
-        window.location.href = "/PropositoSerUno/";
-    } else {
+    try {
+        loginBtn.textContent = "Iniciando sesión...";
+        loginBtn.disabled = true;
+
+        const { data, error } = await supabase
+            .from('users')
+            .select('id, email')
+            .eq('email', email)
+            .eq('code', code);
+
+        if (error) {
+            if (error.code === '42501') {
+                errorMsg.textContent = "Error de permisos. La tabla no es accesible";
+                errorMsg.style.display = "block";
+            } else {
+                errorMsg.textContent = "Error de conexión. Inténtalo de nuevo";
+                errorMsg.style.display = "block";
+            }
+            return;
+        }
+
+        if (data && data.length > 0) {
+            document.cookie = "loggedIn=true; path=/; max-age=86400"; // 24 horas
+            document.cookie = `userId=${data[0].id}; path=/; max-age=86400`;
+            
+            localStorage.setItem("loggedIn", "true");
+            localStorage.setItem("userId", data[0].id);
+            
+            window.location.href = "/PropositoSerUno/";
+        } else {
+            errorMsg.style.display = "block";
+        }
+    } catch (err) {
+        errorMsg.textContent = "Error inesperado. Verifica tu conexión a internet";
         errorMsg.style.display = "block";
+    } finally {
+
+        loginBtn.textContent = "Iniciar sesión";
+        loginBtn.disabled = false;
     }
 });
 </script>
