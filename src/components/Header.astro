@@ -7,7 +7,21 @@ import logo from '../assets/img/logo.png';
     <div class="top-nav">
         <a href="/PropositoSerUno/" class="header-logo"><Image src={logo} alt="Logo Propósito Ser Uno" class="logo" loading="eager"/></a>
 
-        <nav class="services-nav">
+        <nav class="services-nav desktop-menu">
+            <ul>
+                <li><a href="/PropositoSerUno/membresia">Membresía</a></li>
+                <li><a href="/PropositoSerUno/programa">Programa</a></li>
+                <li><a href="/PropositoSerUno/comunidad">Comunidad</a></li>
+                <li><a href="/PropositoSerUno/resultados">Resultados</a></li>
+                <li><a href="/PropositoSerUno/fundadores">Fundadores</a></li>
+
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/terapias">Terapias</a></li>
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/material">Material</a></li>
+                <li class="hidden-buttons" style="display:none;"><a href="/PropositoSerUno/talleres">Talleres</a></li>
+            </ul>
+        </nav>
+        
+        <nav class="services-nav mobile-menu">
             <ul>
                 <li><a href="/PropositoSerUno/membresia">Membresía</a></li>
                 <li><a href="/PropositoSerUno/programa">Programa</a></li>
@@ -21,7 +35,12 @@ import logo from '../assets/img/logo.png';
             </ul>
         </nav>
 
-    <a id="acceso-btn" href="/PropositoSerUno/acceso" class="acceso">Acceso</a>
+        <a id="acceso-btn" href="/PropositoSerUno/acceso" class="acceso">Acceso</a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </header>
 
@@ -57,6 +76,7 @@ header {
     border-radius: 20px;
     transition: all 0.3s ease;
     border: 2px solid #f1f1f1;
+    text-wrap: nowrap;
 }
 
 #acceso-btn:hover {
@@ -99,6 +119,108 @@ header {
     color: #d6674f;
     text-shadow: 0 0px 2px #d6674f;
 }
+
+.hamburger {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0; 
+    background: #2c0db3;
+    animation: fadeInMenu 0.3s ease forwards;
+}
+
+@keyframes fadeInMenu {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@media (max-width: 1268px) {
+    .services-nav ul {
+        gap: 20px;
+    }
+
+    .header-logo {
+        height: 30px;
+    }
+
+    #acceso-btn {
+        font-size: 15px;
+        padding: 3px 10px 5px 10px;
+    }
+}
+
+@media (max-width: 938px) {
+    .top-nav {
+        position: relative;
+    }
+
+    .mobile-menu.active {
+        display: flex;
+    }
+
+    .desktop-menu {
+        display: none;
+    }
+    
+    .header-logo {
+        height: 26px;
+        z-index: 20;
+    }
+
+    #acceso-btn {
+        position: absolute;
+        right: 44px; 
+        white-space: nowrap; 
+    }
+
+    .hamburger {
+        position: absolute;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 20px; 
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        width: 28px;
+        height: 2px; 
+        background: #f1f1f1;
+        border-radius: 2px;
+        transition: all 0.3s linear;
+        transform-origin: 4px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        gap: 40px;
+    }
+
+    .mobile-menu a {
+        font-size: 20px;
+    }
+}
 </style>
 
 <script type="module">
@@ -133,4 +255,28 @@ accesoBtn.addEventListener("click", (e) => {
 });
 
 updateHeader();
+
+const btnHamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const body = document.body;
+
+    btnHamburger.addEventListener('click', () => {
+        const expanded = btnHamburger.getAttribute('aria-expanded') === 'true' || false;
+        btnHamburger.setAttribute('aria-expanded', !expanded);
+        btnHamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        mobileMenu.setAttribute('aria-hidden', expanded);
+        body.classList.toggle('menu-open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('active')) {
+            if (!mobileMenu.contains(e.target) && !btnHamburger.contains(e.target)) {
+                btnHamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-hidden', true);
+                body.classList.remove('menu-open');
+            }
+        }
+    });
 </script>
