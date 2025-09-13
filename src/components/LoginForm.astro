@@ -200,39 +200,93 @@ loginBtn.addEventListener("click", async () => {
         loginBtn.textContent = "Iniciando sesión...";
         loginBtn.disabled = true;
 
-        const { data, error } = await supabase
+        if (!supabase) {
+            errorMsg.textContent = "Error de inicialización. Recarga la página";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        console.log('Buscando código:', code);
+        const { data: existingCode, error: searchError } = await supabase
             .from('users')
-            .select('id, email')
-            .eq('email', email)
+            .select('id, email, code')
             .eq('code', code);
 
-        if (error) {
-            if (error.code === '42501') {
+        console.log('Resultado búsqueda:', { data: existingCode, error: searchError });
+
+        if (searchError) {
+            console.error('Error en búsqueda:', searchError);
+            if (searchError.code === '42501') {
                 errorMsg.textContent = "Error de permisos. La tabla no es accesible";
                 errorMsg.style.display = "block";
+            } else if (searchError.message && searchError.message.toLowerCase().includes('permission')) {
+                errorMsg.textContent = "Error de permisos en la base de datos";
+                errorMsg.style.display = "block";
             } else {
-                errorMsg.textContent = "Error de conexión. Inténtalo de nuevo";
+                errorMsg.textContent = `Error: ${searchError.message || 'Error de conexión'}`;
                 errorMsg.style.display = "block";
             }
             return;
         }
 
-        if (data && data.length > 0) {
-            document.cookie = "loggedIn=true; path=/; max-age=86400"; // 24 horas
-            document.cookie = `userId=${data[0].id}; path=/; max-age=86400`;
-            
-            localStorage.setItem("loggedIn", "true");
-            localStorage.setItem("userId", data[0].id);
-            
-            window.location.href = "/PropositoSerUno/";
-        } else {
+        if (!existingCode || existingCode.length === 0) {
+            console.log('No se encontró el código o está vacío');
+            errorMsg.textContent = "Código inválido";
             errorMsg.style.display = "block";
+            return;
+        }
+
+        const codeRecord = existingCode[0];
+        console.log('Registro encontrado:', codeRecord);
+
+        if (codeRecord.email) {
+            console.log('El código ya tiene email asociado:', codeRecord.email);
+            if (codeRecord.email === email) {
+                document.cookie = "loggedIn=true; path=/; max-age=86400";
+                document.cookie = `userId=${codeRecord.id}; path=/; max-age=86400`;
+                
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("userId", codeRecord.id);
+                
+                window.location.href = "/PropositoSerUno/";
+            } else {
+                errorMsg.textContent = "Código o email incorrecto";
+                errorMsg.style.display = "block";
+            }
+        } else {
+            console.log('El código no tiene email, asociando:', email);
+            const { data: updateResult, error: updateError } = await supabase
+                .from('users')
+                .update({ email: email })
+                .eq('id', codeRecord.id)
+                .select();
+                
+            console.log('Resultado actualización:', { data: updateResult, error: updateError });
+
+            if (updateError) {
+                console.error('Error en actualización:', updateError);
+                errorMsg.textContent = `Error al asociar email: ${updateError.message || 'Error de conexión'}`;
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (updateResult && updateResult.length > 0) {
+                document.cookie = "loggedIn=true; path=/; max-age=86400";
+                document.cookie = `userId=${codeRecord.id}; path=/; max-age=86400`;
+                
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("userId", codeRecord.id);
+                
+                window.location.href = "/PropositoSerUno/";
+            } else {
+                errorMsg.textContent = "Error de conexión. Inténtalo de nuevo";
+                errorMsg.style.display = "block";
+            }
         }
     } catch (err) {
         errorMsg.textContent = "Error inesperado. Verifica tu conexión a internet";
         errorMsg.style.display = "block";
     } finally {
-
         loginBtn.textContent = "Iniciar sesión";
         loginBtn.disabled = false;
     }
