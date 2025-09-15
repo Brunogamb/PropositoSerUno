@@ -67,21 +67,22 @@ header {
 }
 
 .top-nav a {
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 #acceso-btn {
-    padding: 4px 12px 6px 12px;
-    border-radius: 20px;
+    padding: 4px 18px 6px 18px;
+    border-radius: 50px;
     transition: all 0.3s ease;
     border: 2px solid #f1f1f1;
     text-wrap: nowrap;
+    text-align: center;
 }
 
 #acceso-btn:hover {
     background-color: #f1f1f1;
-    color: #2c0db3;
+    color: #7b1fa2;
     box-shadow: 0 10px 30px rgba(241, 241, 241, 0.12);
 }
 
@@ -133,7 +134,7 @@ header {
     display: none;
     position: fixed;
     inset: 0; 
-    background: #2c0db3;
+    background: linear-gradient(180deg, #2a0745 0%, #591583 80%);
     animation: fadeInMenu 0.3s ease forwards;
 }
 
@@ -142,7 +143,7 @@ header {
     to {opacity: 1; transform: translateY(0);}
 }
 
-@media (max-width: 1268px) {
+@media (max-width: 1024px) {
     .services-nav ul {
         gap: 20px;
     }
@@ -157,7 +158,7 @@ header {
     }
 }
 
-@media (max-width: 938px) {
+@media (max-width: 894px) {
     .top-nav {
         position: relative;
     }
