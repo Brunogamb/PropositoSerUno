@@ -72,6 +72,14 @@ main {
 	}
 }
 
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 @font-face {
     font-family: 'Humanist521 BT';
     src: url('../fonts/Humanst521 Lt BT Light.ttf') format('truetype');
