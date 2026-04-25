@@ -1,4 +1,5 @@
 ---
+import heroImage from '../assets/HeroBackground.webp';
 ---
 
 <section class="hero">
@@ -8,7 +9,7 @@
     </div>
 </section>
 
-<style>
+<style define:vars={{ heroBg: `url(${heroImage.src})` }}>
     h1 {
         font-weight: 500;
         font-size: 71px;
@@ -30,7 +31,7 @@
         width: 100%;
         aspect-ratio: 16/11;
         padding: 120px 20px; 
-        background: url(/src/assets/HeroBackground.webp);
+        background-image: var(--heroBg);
         background-repeat: no-repeat;
         background-size: cover;
         color: var(--white);
