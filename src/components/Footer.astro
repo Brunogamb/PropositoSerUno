@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<footer>
+    <div class="footer-content">
+        <a href="/PropositoSerUno/">Redes Sociales</a>
+        <a href="/PropositoSerUno/aviso-legal">Aviso Legal</a>
+        <a href="/PropositoSerUno/e-mails-de-psu">e-mails de PSU</a>
+    </div>
+</footer>
+
+<style>
+footer {
+    background: var(--brand-900);
+    box-shadow: var(--shadow-top);
+    display: flex;
+    justify-content: center;
+    color: var(--white);
+    text-wrap: balance;
+    height: 236px;
+    border-bottom: 26px solid var(--brand-orange-dark);
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 60px 0;
+}
+
+footer a {
+    font-size: 20px;
+}
+</style>

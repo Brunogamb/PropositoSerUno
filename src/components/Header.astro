@@ -1,0 +1,274 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.webp';
+---
+
+<header>
+    <div class="header-container">
+        <a href="/PropositoSerUno/" class="header-logo" aria-label="Propósito Ser Uno - Inicio">
+            <Image src={logo} alt="Logo Propósito Ser Uno" class="logo" loading="eager" />
+        </a> 
+
+        <nav class="services-nav desktop-menu">
+            <ul>
+                <li><a href="/PropositoSerUno/programa">Programa</a></li>
+                <li><a href="/PropositoSerUno/membresia">Membresía</a></li>
+                <li><a href="/PropositoSerUno/comunidad">Comunidad</a></li>
+                <li><a href="/PropositoSerUno/testimonios">Testimonios</a></li>
+                <li><a href="/PropositoSerUno/fundadores">Fundadores</a></li>
+            </ul>
+        </nav>
+
+        <div>
+            <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        
+        <nav class="services-nav mobile-menu" id="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="/PropositoSerUno/programa">Programa</a></li>
+                <li><a href="/PropositoSerUno/membresia">Membresía</a></li>
+                <li><a href="/PropositoSerUno/comunidad">Comunidad</a></li>
+                <li><a href="/PropositoSerUno/testimonios">Testimonios</a></li>
+                <li><a href="/PropositoSerUno/fundadores">Fundadores</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+header {
+    position: relative;
+    background: var(--brand-orange);
+    border-bottom: 3px solid var(--brand-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 66px;
+    gap: 20px;
+}
+
+.header-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.desktop-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-logo {
+    position: relative;
+    height: 32px;
+    z-index: 10000;
+}
+
+.header-logo img {
+    height: 100%;
+    width: auto;
+}
+
+.services-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+}
+
+.services-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 4px;   
+    gap: 28px;
+}
+
+.services-nav a {
+    color: var(--brand-900);
+    font-family: var(--open-sans-font);
+    font-weight: 600;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.services-nav a:hover {
+    color: var(--brand-700);
+}
+
+.hamburger {
+    display: none;
+    margin: auto;
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--brand-orange);
+    border-bottom: 3px solid var(--brand-700);
+    z-index: 15000;
+    padding: 20px;
+    animation: slideDown 0.25s ease forwards;
+    text-align: center;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        height: 32px;
+    }
+
+    .text {
+        display: none;
+    }
+
+    .hamburger:hover span {
+        background: var(--brand-700);
+    }
+
+    .mobile-menu.active {
+        display: flex;
+    }
+
+    .desktop-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 28px;
+        height: 22px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        width: 28px;
+        height: 3px;
+        background: var(--white);
+        border-radius: var(--radius-xs);
+        transition: all 0.3s linear;
+        transform-origin: 4px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .mobile-menu li {
+        margin-bottom: 20px;
+    }
+
+    .mobile-menu a {
+        gap: 20px;
+    }
+
+    .mobile-menu .text {
+        display: flex;
+        font-size: 1.1rem;
+        word-break: break-word;
+        flex: 1;
+    }
+
+    .services-nav {
+        padding: 0 20px;
+    }
+
+    .services-nav ul {
+        align-items: start;
+    }
+
+    header {
+        min-height: 80px;
+        height: 80px;
+    }
+}
+</style>
+
+<script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+        const btnHamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const body = document.body;
+
+        if (!btnHamburger || !mobileMenu) return;
+
+        const toggleMenu = () => {
+            const expanded = btnHamburger.getAttribute('aria-expanded') === 'true';
+            btnHamburger.setAttribute('aria-expanded', !expanded);
+            btnHamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileMenu.setAttribute('aria-hidden', expanded);
+            body.classList.toggle('menu-open');
+        };
+
+        const closeMenu = () => {
+            btnHamburger.setAttribute('aria-expanded', 'false');
+            btnHamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            body.classList.remove('menu-open');
+        };
+
+        btnHamburger.addEventListener('click', toggleMenu);
+
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(e.target) && 
+                !btnHamburger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+    });
+</script>
