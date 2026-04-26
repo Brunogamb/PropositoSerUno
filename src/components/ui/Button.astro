@@ -1,0 +1,95 @@
+---
+interface Props {
+    text: string;
+    href: string;
+    variant?: 'primary' | 'secondary' | 'outline';
+    className?: string;
+}
+
+const { text, href, variant = 'primary', className = '' } = Astro.props;
+
+const variantStyles = {
+    primary: 'button-primary text-white border-transparent hover:bg-brand-800',
+    secondary: 'bg-brand-orange-dark text-white border-transparent hover:bg-brand-orange-hover',
+    outline: 'bg-transparent text-brand-700 border-brand-700 hover:bg-brand-700 hover:text-white'
+};
+
+const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-all duration-300 border-2 text-center min-w-[200px]";
+---
+
+<a href={href} class={`${baseStyles} ${variantStyles[variant]} ${className}`}>
+    {text}
+</a>
+
+<style>
+    .inline-block { 
+        display: inline-block; 
+    }
+
+    .px-10 { 
+        padding-left: 40px; 
+        padding-right: 40px; 
+    }
+
+    .py-3 { 
+        padding-top: 12px;
+        padding-bottom: 12px; 
+    }
+
+    .rounded-full { 
+        border-radius: 9999px; 
+    }
+
+    .font-medium { 
+        font-weight: 500; 
+    }
+
+    .text-center { 
+        text-align: center;
+        font-family: var(--open-sans-font);
+        font-size: 25px;
+    }
+
+    .transition-all { 
+        transition: all 0.3s ease; 
+    }
+
+    .border-2 { 
+        border-width: 2px; 
+    }
+    
+    .bg-brand-700 { 
+        background-color: var(--brand-700); 
+    }
+
+    .button-primary { 
+        background-color: var(--button-primary); 
+    }
+
+    .bg-brand-orange-dark { 
+        background-color: var(--brand-orange-dark); 
+    }
+    
+    .text-white { 
+        color: var(--white); 
+    }
+
+    .text-brand-700 { 
+        color: var(--brand-700); 
+    }
+
+    .border-brand-700 { 
+        border-color: var(--brand-700); 
+    }
+
+    .border-transparent { 
+        border-color: transparent; 
+    }
+
+    @media (hover: hover) {
+        a:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+    }
+</style>

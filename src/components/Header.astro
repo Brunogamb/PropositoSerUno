@@ -27,7 +27,6 @@ import logo from '../assets/logo.webp';
             </button>
         </div>
         
-        
         <nav class="services-nav mobile-menu" id="mobile-menu" aria-hidden="true">
             <ul>
                 <li><a href="/PropositoSerUno/programa">Programa</a></li>
@@ -69,7 +68,7 @@ header {
 
 .header-logo {
     position: relative;
-    height: 38px;
+    height: 36px;
     z-index: 10000;
 }
 
@@ -106,10 +105,6 @@ header {
     transition: all 0.2s ease;
 }
 
-.services-nav a:hover {
-    color: var(--brand-700);
-}
-
 .hamburger {
     display: none;
     margin: auto;
@@ -127,6 +122,12 @@ header {
     padding: 20px;
     animation: slideDown 0.25s ease forwards;
     text-align: center;
+}
+
+@media (hover: hover) {
+    .services-nav a:hover {
+        color: var(--brand-700);
+    }
 }
 
 @keyframes slideDown {
@@ -147,10 +148,6 @@ header {
 
     .text {
         display: none;
-    }
-
-    .hamburger:hover span {
-        background: var(--brand-700);
     }
 
     .mobile-menu.active {

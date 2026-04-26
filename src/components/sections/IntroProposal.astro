@@ -1,0 +1,108 @@
+---
+import Button from '../../components/ui/Button.astro';
+---
+
+<section>
+    <div class="container">
+        <h2>Tu salud puede mejorar cuando comenzás a participar activamente en ella.</h2>
+        <article>
+            <h3>Un espacio pensado para acompañarte en tu proceso de salud.</h3>
+            <p>Si actualmente estás atravesando un proceso de salud —físico, emocional o 
+            mental—, este espacio está pensado para acompañarte. No importa en qué 
+            etapa te encuentres: podés comenzar hoy mismo a participar activamente en 
+            dicho proceso.</p>
+        </article>
+        <article>
+            <h3>Qué es Propósito Ser Uno</h3>
+            <p>Propósito Ser Uno es una comunidad sin nes de lucro que acompaña 
+            procesos de recuperación y bienestar a través de un programa de evolución 
+            mental y desarrollo espiritual.</p>
+        </article>
+        <article>
+            <h3>Cómo te acompañamos</h3>
+            <p>Compartimos un método para complementar activamente cualquier 
+            tratamiento de salud que estés realizando (por ejemplo: enfermedades 
+            crónicas, estrés, cáncer, ansiedad, depresión, obesidad, adicciones, entre 
+            otros).</p>
+        </article>
+        <article>
+            <h3>Por qué tu participación es clave</h3>
+            <p>Tu participación activa es un factor clave que aumenta considerablemente las 
+            posibilidades de recuperación y permite sostener en el tiempo estados de salud 
+            y bienestar.</p>
+        </article>
+        <article>
+            <h3>Como acceder</h3>
+            <p>Para acceder a los conocimientos y prácticas que brindamos, debés hacerte 
+            miembro. Hacerte miembro no implica costos de admisión ni cuotas 
+            mensuales: la organización se sostiene gracias al aporte voluntario de sus 
+            miembros.</p>
+        </article>
+
+        <div class="actions">
+            <Button variant="primary" text="Hazte miembro" href="/PropositoSerUno/" />
+        </div>
+    </div>
+</section>
+
+<style>
+    section {
+        color: var(--text);
+        background: var(--white);
+    }
+
+    .container {
+        max-width: 900px;
+        padding: 60px 20px;
+        margin: 0 auto;
+    }
+
+    .intro-proposal {
+        background-color: var(--white);
+        padding: 100px 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    h2 {
+        font-family: var(--lora-font);
+        font-size: 42px;
+        font-weight: 500;
+        line-height: 1.2;
+        text-align: center;
+        margin: 20px 0 80px 0;
+    }
+
+    article {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+        width: 100%;
+        margin-bottom: 60px;
+    }
+
+    article h3 {
+        font-family: var(--lora-font);
+        font-size: 24px;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    article p {
+        font-family: var(--open-sans-font);
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 1.6;
+        text-indent: 20px; 
+    }
+
+    article strong {
+        font-weight: 700;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+</style>
