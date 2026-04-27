@@ -1,0 +1,128 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<section class="our-program">
+    <div class="container">
+        <header class="section-header">
+        <span class="eyebrow">NUESTRO PROGRAMA</span>
+        <h2 class="title">“Conquistando Salud y Bienestar”</h2>
+        <p class="subtitle">Para la evolución mental y el desarrollo espiritual</p>
+        </header>
+
+        <div class="content">
+        <p>
+            Creamos un programa simple y transformador diseñado para complementar
+            procesos de recuperación de la salud y lograr estados sostenidos de bienestar.
+        </p>
+        <p>
+            Con solo <strong>30 minutos al día</strong>, aplicando conocimientos y prácticas invaluables,
+            descubrirás la forma de generar cambios sostenidos en tu estado físico, mental y emocional.
+        </p>
+        <p>
+            <strong>Adquirís conocimientos</strong> actuales que integran distintas disciplinas. Estos
+            conocimientos se combinan con enseñanzas espirituales milenarias, prácticas
+            orientadas al bienestar y experiencias reales de transformación.
+        </p>
+        <p>
+            Por otro lado, <strong>la comunidad y los grupos de acompañamiento</strong> generan un
+            espacio de apoyo mutuo donde el esfuerzo individual y el crecimiento personal
+            se vuelve una <em>experiencia colectiva, humana y sumamente sanadora.</em>
+        </p>
+        <p>
+            <strong>El resultado</strong> es un proceso de transformación interior real, que aumenta
+            significativamente las probabilidades de recuperación y el mantenimiento de la salud.
+        </p>
+        </div>
+
+        <div class="actions">
+        <Button variant="primary" text="Explorar programa" href="/programa" />
+        </div>
+    </div>
+</section>
+
+<style>
+    .our-program {
+        background-color: var(--bg-section);
+        padding: 60px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+    .eyebrow {
+        display: block;
+        font-family: var(--open-sans-font);
+        color: var(--brand-700);
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+    }
+
+    .title {
+        font-family: var(--open-sans-font);
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text);
+    }
+
+    .subtitle {
+        font-family: var(--open-sans-font);
+        font-size: 24px;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--text-light);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    .content p {
+        font-family: var(--open-sans-font);
+        font-size: 20px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text-light);
+        text-indent: 45px; 
+        text-align: left;
+    }
+
+    .content strong {
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+        .title { 
+            font-size: 26px; 
+        }
+
+        .our-program { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+    }
+</style>

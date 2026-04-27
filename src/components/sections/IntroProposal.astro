@@ -52,21 +52,21 @@ import Button from '../../components/ui/Button.astro';
     }
 
     .container {
-        max-width: 900px;
+        max-width: 800px;
         padding: 60px 20px;
         margin: 0 auto;
     }
 
     .intro-proposal {
         background-color: var(--white);
-        padding: 100px 20px;
+        padding: 60px 20px;
         display: flex;
         justify-content: center;
     }
 
     h2 {
         font-family: var(--lora-font);
-        font-size: 42px;
+        font-size: 38px;
         font-weight: 500;
         line-height: 1.2;
         text-align: center;
@@ -78,6 +78,10 @@ import Button from '../../components/ui/Button.astro';
         flex-direction: column;
         gap: 10px; 
         width: 100%;
+        margin-bottom: 40px;
+    }
+
+    article:last-of-type {
         margin-bottom: 60px;
     }
 
@@ -85,15 +89,16 @@ import Button from '../../components/ui/Button.astro';
         font-family: var(--lora-font);
         font-size: 24px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: var(--text);
     }
 
     article p {
         font-family: var(--open-sans-font);
         font-size: 20px;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1.6;
         text-indent: 20px; 
+        color: var(--text-light);
     }
 
     article strong {
