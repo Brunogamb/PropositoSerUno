@@ -113,15 +113,14 @@ header {
 .mobile-menu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 98%;
     left: 0;
     width: 100%;
     background: var(--brand-orange);
     border-bottom: 3px solid var(--brand-700);
     z-index: 15000;
-    padding: 20px;
+    padding: 10px 20px 20px;
     animation: slideDown 0.25s ease forwards;
-    text-align: center;
 }
 
 @media (hover: hover) {
@@ -192,17 +191,33 @@ header {
     }
 
     .mobile-menu ul {
-        display: flex;
-        flex-direction: column;
-        gap: 0px;
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
     }
 
     .mobile-menu li {
-        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .mobile-menu li:last-child:nth-child(odd) {
+        grid-column: 1 / span 2;
+        width: max-content;
+        margin: auto;
     }
 
     .mobile-menu a {
-        gap: 20px;
+        justify-content: center;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1); 
+        border: 1px solid var(--brand-700);
+        border-radius: 8px;
+        transition: background 0.2s ease;
+        font-size: 18px;
+    }
+
+    .mobile-menu a:active {
+        background: var(--brand-700);
+        color: var(--white);
     }
 
     .mobile-menu .text {
@@ -210,19 +225,6 @@ header {
         font-size: 1.1rem;
         word-break: break-word;
         flex: 1;
-    }
-
-    .services-nav {
-        padding: 0 20px;
-    }
-
-    .services-nav ul {
-        align-items: start;
-    }
-
-    header {
-        min-height: 80px;
-        height: 80px;
     }
 }
 </style>
