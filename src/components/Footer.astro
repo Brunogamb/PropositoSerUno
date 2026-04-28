@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 ---
 
 <footer>
@@ -18,9 +17,8 @@ footer {
     justify-content: center;
     color: var(--white);
     text-wrap: balance;
-    height: 236px;
     border-bottom: 13px solid var(--brand-orange-dark);
-    padding: 0 20px;
+    padding: 0 20px 70px;
 }
 
 .footer-content {
@@ -37,4 +35,13 @@ footer a {
     font-size: 22px;
     height: fit-content;
 }
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+        padding: 60px 20px 0;
+    }
+}   
 </style>
