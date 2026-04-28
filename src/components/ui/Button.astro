@@ -9,9 +9,9 @@ interface Props {
 const { text, href, variant = 'primary', className = '' } = Astro.props;
 
 const variantStyles = {
-    primary: 'button-primary text-white border-transparent hover:bg-brand-800',
-    secondary: 'bg-brand-orange-dark text-white border-transparent hover:bg-brand-orange-hover',
-    outline: 'bg-transparent text-brand-700 border-brand-700 hover:bg-brand-700 hover:text-white'
+    primary: 'button-primary text-white border hover:bg-brand-800',
+    secondary: 'bg-brand-orange-dark text-white border hover:bg-brand-orange-hover',
+    outline: 'bg-transparent text-brand-700 border hover:bg-brand-700 hover:text-white'
 };
 
 const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-all duration-300 border-2 text-center min-w-[200px]";
@@ -54,8 +54,8 @@ const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-
         transition: all 0.3s ease; 
     }
 
-    .border-2 { 
-        border-width: 2px; 
+    .border { 
+        border: 3px solid var(--white);
     }
     
     .bg-brand-700 { 
@@ -78,17 +78,9 @@ const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-
         color: var(--brand-700); 
     }
 
-    .border-brand-700 { 
-        border-color: var(--brand-700); 
-    }
-
-    .border-transparent { 
-        border-color: transparent; 
-    }
-
     @media (hover: hover) {
         a:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-md);
         }
     }
