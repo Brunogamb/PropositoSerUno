@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+
+import DesktopView from "../../assets/Devices/DesktopView.webp";
+import MobileView from "../../assets/Devices/MobileView.webp";
+---
+
+<section class="access-device">
+    <div class="container">
+        <span class="eyebrow">ACCESO DISPONIBLE</span>
+
+        <div class="content">
+            <p>
+                Ingresá desde tu celular, computadora o entorno virtual y avanzá a tu propio
+                ritmo, donde y cuando lo desees.
+            </p>
+        </div>
+
+        <div class="images">
+            <Image src={MobileView} alt="Mobile View" />
+            <Image src={DesktopView} alt="Desktop View" />
+        </div>
+</section>
+
+<style>
+    .access-device {
+        background-color: var(--white);
+        padding: 60px 20px 40px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .eyebrow {
+        display: block;
+        font-family: var(--open-sans-font);
+        color: var(--brand-700);
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 34px;
+    }
+
+    .content p {
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text-light);
+        text-indent: 20px; 
+        text-align: left;
+    }
+
+    .images {
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .images img {
+        width: 100%; 
+        height: auto;
+        flex: 1; 
+        min-width: 0;
+        object-fit: cover; 
+    }
+
+    @media (max-width: 768px) {
+        .access-device { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+
+        .images {
+            flex-direction: column; 
+            align-items: center;
+        }
+        
+        .images img {
+            width: 100%;
+        }
+    }
+</style>
