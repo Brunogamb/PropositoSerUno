@@ -7,6 +7,12 @@
         <a href="/PropositoSerUno/aviso-legal">Aviso Legal</a>
         <a href="/PropositoSerUno/e-mails-de-psu">e-mails de PSU</a>
     </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Propósito Ser Uno.</p>
+        <p class="dev">Desarrollado por <a href="https://brunogamb.github.io/CVDEV/" target="_blank" rel="noopener noreferrer">BrunoGamb</a>
+        </p>
+    </div>
 </footer>
 
 <style>
@@ -14,11 +20,13 @@ footer {
     background: var(--brand-900);
     box-shadow: var(--shadow-top);
     display: flex;
+    flex-direction: column; 
+    align-items: center;
     justify-content: center;
     color: var(--white);
     text-wrap: balance;
     border-bottom: 13px solid var(--brand-orange-dark);
-    padding: 0 20px 70px;
+    padding: 0 20px 20px;
 }
 
 .footer-content {
@@ -26,7 +34,7 @@ footer {
     gap: 180px;
     max-width: 1200px;
     width: 100%;
-    padding: 60px 0;
+    padding: 60px 0 90px;
     font-weight: 500;
     font-family: var(--open-sans-font);
 }
@@ -36,12 +44,42 @@ footer a {
     height: fit-content;
 }
 
+.footer-bottom {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    max-width: 1200px;
+    font-size: 14px;
+    font-family: var(--open-sans-font);
+    color: rgba(var(--white-rgb), 0.6);
+}
+
+.dev a {
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.6);
+}
+
+@media (hover: hover) {
+    .dev a:hover {
+        color: var(--brand-orange);
+        border-bottom-color: var(--brand-orange);
+        border-bottom-width: 2px;
+    }
+}
+
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
         gap: 40px;
         text-align: center;
-        padding: 60px 20px 0;
+        padding: 40px 20px;
     }
-}   
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
 </style>
