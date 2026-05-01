@@ -9,12 +9,12 @@ interface Props {
 const { text, href, variant = 'primary', className = '' } = Astro.props;
 
 const variantStyles = {
-    primary: 'button-primary text-white border hover:bg-brand-800',
-    secondary: 'bg-brand-orange-dark text-white border hover:bg-brand-orange-hover',
-    outline: 'bg-transparent text-brand-700 border hover:bg-brand-700 hover:text-white'
+    primary: 'btn-primary',
+    secondary: 'btn-secondary',
+    outline: 'btn-outline'
 };
 
-const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-all duration-300 border-2 text-center min-w-[200px]";
+const baseStyles = "btn-base";
 ---
 
 <a href={href} class={`${baseStyles} ${variantStyles[variant]} ${className}`}>
@@ -22,66 +22,56 @@ const baseStyles = "inline-block px-10 py-3 rounded-full font-medium transition-
 </a>
 
 <style>
-    .inline-block { 
+    .btn-base { 
         display: inline-block; 
-    }
-
-    .px-10 { 
         padding-left: 34px; 
         padding-right: 34px; 
-    }
-
-    .py-3 { 
         padding-top: 10px;
         padding-bottom: 12px; 
-    }
-
-    .rounded-full { 
         border-radius: 9999px; 
-    }
-
-    .font-medium { 
         font-weight: 500; 
-    }
-
-    .text-center { 
         text-align: center;
         font-family: var(--open-sans-font);
         font-size: 26px;
-    }
-
-    .transition-all { 
         transition: all 0.3s ease; 
-    }
-
-    .border { 
+        min-width: 200px;
+        text-decoration: none;
         border: 3px solid var(--white);
     }
-    
-    .bg-brand-700 { 
-        background-color: var(--brand-700); 
-    }
 
-    .button-primary { 
+    .btn-primary { 
         background-color: var(--button-primary); 
-    }
-
-    .bg-brand-orange-dark { 
-        background-color: var(--brand-orange-dark); 
-    }
-    
-    .text-white { 
         color: var(--white); 
     }
 
-    .text-brand-700 { 
+    .btn-secondary { 
+        background-color: var(--brand-orange-dark); 
+        color: var(--white); 
+    }
+
+    .btn-outline { 
+        background-color: transparent; 
         color: var(--brand-700); 
+        border: 3px solid var(--brand-700);
     }
 
     @media (hover: hover) {
-        a:hover {
+        .btn-base:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-800);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--brand-orange-hover);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--brand-700);
+            color: var(--white);
         }
     }
 </style>

@@ -7,9 +7,32 @@ import heroImage from '../../assets/HeroBackground.webp';
         <h1>Conquistando <br> salud y bienestar cada día</h1>
         <h2>Iniciativa independiente sin fines de lucro</h2>
     </div>
+
+    <div class="video-container">
+        <div class="video-skeleton">
+            <span>Video</span>
+        </div>
+    </div>
 </section>
 
 <style define:vars={{ heroBg: `url(${heroImage.src})` }}>
+    .hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        text-align: center;
+        width: 100%;
+        aspect-ratio: 16/9.2;
+        padding: 80px 20px 160px 20px; 
+        background-image: var(--heroBg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom center;
+        color: var(--white); 
+    }
+    
     h1 {
         font-weight: 600;
         font-size: 71px;
@@ -21,21 +44,26 @@ import heroImage from '../../assets/HeroBackground.webp';
         font-size: 34px;
     }
 
-    section {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start; 
-        text-align: center;
+    .video-container {
+        position: absolute;
+        top: 400px;
         width: 100%;
-        aspect-ratio: 16/11;
-        padding: 80px 20px; 
-        background-image: var(--heroBg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom center;;
-        color: var(--white);
+        max-width: 850px;
+        aspect-ratio: 16 / 9;
+        z-index: 10;
+    }
+
+    .video-skeleton {
+        width: 100%;
+        height: 100%;
+        background-color: var(--white);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        color: var(--text);
+        font-size: 3rem;
     }
 
     @media (max-width: 768px) {
@@ -45,6 +73,18 @@ import heroImage from '../../assets/HeroBackground.webp';
         
         h2 {
             font-size: 22px;
+        }
+
+        .hero {
+            height: 100svh; 
+        }
+        
+        .video-container {
+            position: absolute;
+            top: auto; 
+            top: 450px;
+            width: 90%;
+            max-width: 600px;
         }
     }
 </style>
