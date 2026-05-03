@@ -30,7 +30,7 @@ const faqs = [
     },
     {
         question: "¿Es Propósito Ser Uno para mí?",
-        answer: "Autoevaluación — preguntas que solo vos podés responder con honestidad. Si respondés “sí” a una o más de estas preguntas, ser parte de Propósito Ser Uno puede representar un paso significativo en tu camino. - ¿Estás en tratamiento de alguna condición física, mental o emocional y te interesa participar activamente en tu proceso de recuperación? - ¿El estrés está afectando tu salud y te gustaría aprender a gestionarlo con herramientas concretas? - ¿Estás atravesando una crisis, una pérdida o una etapa difícil y sentís que necesitás apoyo y contención? - ¿Lidiás con alguna adicción y te gustaría transformar viejos patrones? - ¿Sentís que hay áreas de tu vida —como la salud, el amor, el dinero o tus metas personales— que no están como quisieras, y te gustaría mejorarlas? - ¿Aun teniendo logros o estabilidad material, sentís que algo falta para vivir con mayor plenitud? - ¿Te sentís solo o sola y te gustaría formar parte de un espacio con personas que acompañen tu proceso? - ¿Te interesa la evolución mental y el desarrollo personal y espiritual?"
+        answer: "Autoevaluación — preguntas que solo vos podés responder con honestidad. Si respondés “sí” a una o más de estas preguntas, ser parte de Propósito Ser Uno puede representar un paso significativo en tu camino: <ul class='faq-list-inner'><li>¿Estás en tratamiento de alguna condición física, mental o emocional y te interesa participar activamente en tu proceso de recuperación?</li><li>¿El estrés está afectando tu salud y te gustaría aprender a gestionarlo con herramientas concretas?</li><li>¿Estás atravesando una crisis, una pérdida o una etapa difícil y sentís que necesitás apoyo y contención?</li><li>¿Lidiás con alguna adicción y te gustaría transformar viejos patrones?</li><li>¿Sentís que hay áreas de tu vida —como la salud, el amor, el dinero o tus metas personales— que no están como quisieras, y te gustaría mejorarlas?</li><li>¿Aun teniendo logros o estabilidad material, sentís que algo falta para vivir con mayor plenitud?</li><li>¿Te sentís solo o sola y te gustaría formar parte de un espacio con personas que acompañen tu proceso?</li><li>¿Te interesa la evolución mental y el desarrollo personal y espiritual?</li></ul>"
     }
 ];
 ---
@@ -143,6 +143,27 @@ const faqs = [
         text-decoration: underline;
         font-weight: 500;
         cursor: pointer;
+    }
+
+    .answer :global(.faq-list-inner) {
+        margin-top: 15px;
+        padding-left: 20px;
+        list-style-type: disc; 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .answer :global(.faq-list-inner li) {
+        font-family: var(--open-sans-font);
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: 300;
+        color: var(--text);
+    }
+
+    .answer :global(.faq-list-inner li::marker) {
+        color: var(--brand-700);
     }
 
     @media (hover: hover) {
