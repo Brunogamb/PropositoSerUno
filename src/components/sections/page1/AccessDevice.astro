@@ -1,35 +1,30 @@
 ---
-import Button from '../ui/Button.astro';
+import { Image } from 'astro:assets';
+
+import DesktopView from "../../../assets/Devices/DesktopView.webp";
+import MobileView from "../../../assets/Devices/MobileView.webp";
 ---
 
-<section class="testimonials-intro">
+<section class="access-device">
     <div class="container">
-        <span class="eyebrow">TESTIMONIOS</span>
+        <span class="eyebrow">ACCESO DISPONIBLE</span>
 
         <div class="content">
             <p>
-                Cada testimonio refleja el poder interior que todos tenemos para sanar,
-                crecer y transformar nuestras vidas.
-            </p>
-            <p>
-                En Propósito Ser Uno, creemos que compartir las experiencias vividas no
-                solo inspira a otros, sino que también fortalece nuestro propio camino.
-            </p>
-            <p>
-                Estas son algunas de las voces que nos recuerdan que recuperar la salud,
-                alcanzar el bienestar y mantenerlo en el tiempo sí es posible.
+                Ingresá desde tu celular, computadora o entorno virtual y avanzá a tu propio
+                ritmo, donde y cuando lo desees.
             </p>
         </div>
 
-        <div class="actions">
-            <Button variant="primary" text="Leer testimonios" href="/PropositoSerUno/" />
+        <div class="images">
+            <Image src={MobileView} alt="Mobile View" />
+            <Image src={DesktopView} alt="Desktop View" />
         </div>
-    </div>
 </section>
 
 <style>
-    .testimonials-intro {
-        background-color: var(--bg-section);
+    .access-device {
+        background-color: var(--white);
         padding: 60px 20px 40px 20px;
         color: var(--text);
         display: flex;
@@ -39,10 +34,6 @@ import Button from '../ui/Button.astro';
     .container {
         max-width: 800px;
         width: 100%;
-    }
-
-    .section-header {
-        margin-bottom: 40px;
     }
 
     .eyebrow {
@@ -60,7 +51,7 @@ import Button from '../ui/Button.astro';
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 34px;
+        margin-bottom: 30px;
     }
 
     .content p {
@@ -73,18 +64,38 @@ import Button from '../ui/Button.astro';
         text-align: left;
     }
 
-    .actions {
+    .images {
         display: flex;
+        gap: 25px;
         justify-content: center;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .images img {
+        width: 100%; 
+        height: auto;
+        flex: 1; 
+        min-width: 0;
+        object-fit: cover; 
     }
 
     @media (max-width: 768px) {
-        .testimonials-intro { 
+        .access-device { 
             padding: 60px 20px; 
         }
 
         .content p { 
             text-indent: 30px; 
+        }
+
+        .images {
+            flex-direction: column; 
+            align-items: center;
+        }
+        
+        .images img {
+            width: 100%;
         }
     }
 </style>

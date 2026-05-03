@@ -1,30 +1,35 @@
 ---
-import { Image } from 'astro:assets';
-
-import DesktopView from "../../assets/Devices/DesktopView.webp";
-import MobileView from "../../assets/Devices/MobileView.webp";
+import Button from '../../ui/Button.astro';
 ---
 
-<section class="access-device">
+<section class="testimonials-intro">
     <div class="container">
-        <span class="eyebrow">ACCESO DISPONIBLE</span>
+        <span class="eyebrow">TESTIMONIOS</span>
 
         <div class="content">
             <p>
-                Ingresá desde tu celular, computadora o entorno virtual y avanzá a tu propio
-                ritmo, donde y cuando lo desees.
+                Cada testimonio refleja el poder interior que todos tenemos para sanar,
+                crecer y transformar nuestras vidas.
+            </p>
+            <p>
+                En Propósito Ser Uno, creemos que compartir las experiencias vividas no
+                solo inspira a otros, sino que también fortalece nuestro propio camino.
+            </p>
+            <p>
+                Estas son algunas de las voces que nos recuerdan que recuperar la salud,
+                alcanzar el bienestar y mantenerlo en el tiempo sí es posible.
             </p>
         </div>
 
-        <div class="images">
-            <Image src={MobileView} alt="Mobile View" />
-            <Image src={DesktopView} alt="Desktop View" />
+        <div class="actions">
+            <Button variant="primary" text="Leer testimonios" href="/PropositoSerUno/" />
         </div>
+    </div>
 </section>
 
 <style>
-    .access-device {
-        background-color: var(--white);
+    .testimonials-intro {
+        background-color: var(--bg-section);
         padding: 60px 20px 40px 20px;
         color: var(--text);
         display: flex;
@@ -34,6 +39,10 @@ import MobileView from "../../assets/Devices/MobileView.webp";
     .container {
         max-width: 800px;
         width: 100%;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
     }
 
     .eyebrow {
@@ -51,7 +60,7 @@ import MobileView from "../../assets/Devices/MobileView.webp";
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 30px;
+        margin-bottom: 34px;
     }
 
     .content p {
@@ -64,38 +73,18 @@ import MobileView from "../../assets/Devices/MobileView.webp";
         text-align: left;
     }
 
-    .images {
+    .actions {
         display: flex;
-        gap: 25px;
         justify-content: center;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .images img {
-        width: 100%; 
-        height: auto;
-        flex: 1; 
-        min-width: 0;
-        object-fit: cover; 
     }
 
     @media (max-width: 768px) {
-        .access-device { 
+        .testimonials-intro { 
             padding: 60px 20px; 
         }
 
         .content p { 
             text-indent: 30px; 
-        }
-
-        .images {
-            flex-direction: column; 
-            align-items: center;
-        }
-        
-        .images img {
-            width: 100%;
         }
     }
 </style>
