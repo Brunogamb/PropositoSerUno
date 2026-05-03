@@ -1,0 +1,56 @@
+---
+---
+
+<section class="hero">
+    <div class="content">
+        <div class="text">
+            <h1>Conquistando <br> salud y bienestar</h1>
+            <h2>Un programa para la evolución mental y el desarrollo espiritual</h2>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        padding: 80px 20px 40px 20px; 
+        color: var(--white); 
+        background-color: var(--brand-900);
+    }
+
+    .content {
+        max-width: 800px;
+        width: 100%;
+    }
+    
+    h1 {
+        font-weight: 600;
+        font-size: 71px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    
+    h2 {
+        font-weight: 400;
+        font-size: 26px;
+        font-family: var(--open-sans-font);
+        opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 42px;
+        }
+        
+        h2 {
+            font-size: 22px;
+        }
+
+        .hero {
+            height: 100svh; 
+        }
+    }
+</style>
