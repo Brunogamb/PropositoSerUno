@@ -145,8 +145,10 @@ const faqs = [
         cursor: pointer;
     }
 
-    .answer :global(.faq-link:hover) {
-        color: var(--brand-orange-dark);
+    @media (hover: hover) {
+        .answer :global(.faq-link:hover) {
+            color: var(--brand-orange-dark);
+        }
     }
 
     @keyframes slideDown {
@@ -162,10 +164,11 @@ const faqs = [
 
     @media (max-width: 768px) {
         .faq-item summary {
-        font-size: 18px;
+            font-size: 18px;
         }
+
         .answer {
-        padding-left: 30px;
+            padding-left: 30px;
         }
     }
 </style>
