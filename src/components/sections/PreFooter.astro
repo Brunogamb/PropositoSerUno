@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import Logo from '../../assets/Logo.webp';
+import Button from '../ui/Button.astro';
+---
+
+<section class="prefooter">
+    <div class="container">
+        <div class="content">
+            <a href="/PropositoSerUno/"><Image src={Logo} alt="Logo" class="logo" /></a>
+            <h2>Comunidad en formación, hacia una organización civil sin fines de lucro</h2>
+        </div>
+
+        <div class="actions">
+            <Button variant="primary" text="Hazte Miembro" href="/PropositoSerUno/" />
+            <Button variant="outline" text="Explorar Programa" href="/PropositoSerUno/" />
+            <Button variant="primary" text="Fundadores" href="/PropositoSerUno/" />
+            <Button variant="secondary" text="Ver Comunidad" href="/PropositoSerUno/" />
+        </div>
+    </div>
+</section>
+
+<style>
+    .prefooter {
+        background-color: var(--bg-section);
+        padding: 60px 20px 40px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 34px;
+    }
+
+    .content h2 {
+        font-family: var(--open-sans-font);
+        font-size: 30px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text-light);
+        text-align: left;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;     
+        width: 100%; 
+    }
+
+    .logo {
+        width: 400px;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        .prefooter { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+
+        .actions {
+            justify-content: center; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    }
+</style>
