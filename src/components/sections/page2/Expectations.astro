@@ -1,0 +1,220 @@
+---
+---
+
+<section class="expectations">
+    <div class="container">
+        <span class="eyebrow">NO HAY SOLUCIONES MÁGICAS</span>
+
+        <div class="content">
+        <p>
+            Este es un proceso que requiere compromiso, voluntad y constancia.
+        </p>
+        <p class="last-paragraph">
+            Ofrecemos un espacio de aprendizaje y acompañamiento, junto con un método comprobado para avanzar paso a paso hacia estados sostenidos de salud y bienestar.
+        </p>
+
+        <span class="eyebrow">SOBRE LO QUE APRENDERÁS</span>
+        <p><em>Un recorrido teórico-práctico completo para comprender el funcionamiento de la mente, transformar tus emociones y mejorar tu salud, bienestar y desarrollo espiritual.</em></p>
+        </div>
+
+            <details>
+            <summary>
+                <span class="icon">+</span>
+                <span class="question-text">Ver temario completo</span>
+            </summary>
+            <div class="answer">
+                <h2>Temario del Material Teórico - Práctico del Programa</h2>
+                <ul>
+                    <li>- La composición humana. Consciencia. Mente: consciente, inconsciente, ego.</li>
+                    <li>- Dualidad. La sombra, la proyección, el efecto espejo. La formación del ego. La programación del inconsciente y su proyección en la salud y en la realidad personal. La influencia del inconsciente en la biología. ¿Qué es la enfermedad?</li>
+                    <li>- Las cuatro fases del desarrollo mental del adolescente y del adulto.</li>
+                    <li>- Siglo XXI, la era de la consciencia. Zona de confort, zona de aprendizaje y zona de cambio. La necesidad de aumentar la energía para cambiar. Cómo generar energía de alta calidad. Origen y desarrollo del ego.</li>
+                    <li>- La mente y el Ser. La dilución del ego. Principios de unidad: los juicios, la culpa, el perdón, la desidentificación con la mente, el momento presente. El ego y la mente evolucionada: diferencias. Dominancia cerebral. El hacer. Armonizar el Ser con el hacer para una vida plena. Creación de la realidad personal consciente y deliberadamente. Cambio de paradigma. La realidad personal se crea conociendo el mecanismo.</li>
+                    <li>- Programas inconscientes. Interpretación de los sucesos del entorno. Pensamientos y emociones. Cambiando los programas inconscientes cambia la realidad personal.</li>
+                    <li>- Reprogramación del inconsciente en base a la emoción y repetición. La meditación como método de reprogramación del inconsciente, evolución mental, desarrollo del ser y enfoque hacia un resultado. De la filosofía a la práctica. Hacer desde el Ser.</li>
+                    <li>- 7 Meditaciones guiadas, cada una con un objetivo específico: “Atención plena”. - “Alíneo mis centros de energía”. - “Disuelvo las emociones para dormir bien”. - “Crear Bienestar”. - “Activo la glándula pineal para conseguir un resultado”. - “Consciencia creadora de la realidad personal”. - “Visualizo mi futuro hoy”.</li>
+                    <li>- Todas en voz femenina y masculina.</li>
+                </ul>
+            </div>
+            </details>
+    </div>
+</section>
+
+<style>
+    .expectations {
+        background-color: var(--white);
+        padding: 60px 20px 40px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .eyebrow {
+        display: block;
+        font-family: var(--open-sans-font);
+        color: var(--brand-700);
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 34px;
+    }
+
+    .content p, li {
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text-light);
+        text-indent: 20px; 
+        text-align: left;
+        list-style: none;
+    }
+
+    .last-paragraph {
+        margin: 0 0 40px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    details {
+        border-bottom: 1px solid var(--muted);
+        cursor: pointer;
+    }
+
+    summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        font-weight: 400;
+        color: var(--text);
+        padding: 10px 0; 
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .icon {
+        font-size: 34px;
+        font-weight: 300;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        color: var(--brand-700);
+    }
+
+    details[open] .icon {
+        transform: rotate(45deg);
+        color: var(--brand-orange-dark);
+    }
+
+    .question-text {
+        flex: 1;
+    }
+
+    .answer {
+        padding: 20px 0 10px 40px;
+        overflow: hidden;
+        display: none;
+    }
+
+    details[open] .answer {
+        animation: slideDown 0.3s ease forwards;
+        display: block;
+    }
+
+    .answer p {
+        font-family: var(--open-sans-font);
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: 300;
+        color: var(--text);
+    }
+
+    .answer :global(.faq-link) {
+        color: var(--brand-700);
+        text-decoration: underline;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .answer :global(.faq-list-inner) {
+        margin-top: 15px;
+        padding-left: 20px;
+        list-style-type: disc; 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .answer :global(.faq-list-inner li) {
+        font-family: var(--open-sans-font);
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: 300;
+        color: var(--text);
+    }
+
+    .answer :global(.faq-list-inner li::marker) {
+        color: var(--brand-700);
+    }
+
+    @media (hover: hover) {
+        .answer :global(.faq-link:hover) {
+            color: var(--brand-orange-dark);
+        }
+
+        .faq-item summary:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+            border-radius: 8px 8px 0 0;
+        }
+    }
+
+    @keyframes slideDown {
+        from {
+        opacity: 0;
+        transform: translateY(-10px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .expectations { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+
+        summary {
+            font-size: 18px;
+        }
+    }
+</style>

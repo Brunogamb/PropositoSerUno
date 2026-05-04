@@ -127,7 +127,12 @@ const faqs = [
     .answer {
         padding: 20px 0 10px 40px;
         overflow: hidden;
-        animation: slideDown 0.3s ease;
+        display: none;
+    }
+
+    .faq-item[open] .answer {
+        display: block;
+        animation: slideDown 0.3s ease forwards;
     }
 
     .answer p {
