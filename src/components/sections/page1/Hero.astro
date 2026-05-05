@@ -9,9 +9,17 @@ import heroImage from '../../../assets/HeroBackground.webp';
     </div>
 
     <div class="video-container">
-        <div class="video-skeleton">
-            <span>Video</span>
-        </div>
+        <video 
+            class="hero-video"
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            controlslist="nodownload"
+        >
+            <source src="/PropositoSerUno/HeroVideo.mp4" type="video/mp4" />
+            Tu navegador no soporta el elemento video
+        </video>
     </div>
 </section>
 
@@ -24,7 +32,7 @@ import heroImage from '../../../assets/HeroBackground.webp';
         justify-content: flex-start; 
         text-align: center;
         width: 100%;
-        aspect-ratio: 16/9.2;
+        aspect-ratio: 16/11;
         padding: 80px 20px 160px 20px; 
         background-image: var(--heroBg);
         background-repeat: no-repeat;
@@ -35,35 +43,30 @@ import heroImage from '../../../assets/HeroBackground.webp';
     
     h1 {
         font-weight: 600;
-        font-size: 71px;
-        margin-bottom: 40px;
+        font-size: 64.5px;
+        margin-bottom: 29px;
     }
     
     h2 {
         font-weight: 400;
-        font-size: 34px;
+        font-size: 31.5px;
     }
 
     .video-container {
         position: absolute;
-        top: 400px;
+        top: 390px;
         width: 100%;
-        max-width: 850px;
+        max-width: 790px;
         aspect-ratio: 16 / 9;
         z-index: 10;
     }
 
-    .video-skeleton {
+    .hero-video {
         width: 100%;
         height: 100%;
-        background-color: var(--white);
+        object-fit: cover;
         border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        color: var(--text);
-        font-size: 3rem;
     }
 
     @media (max-width: 768px) {
@@ -85,12 +88,6 @@ import heroImage from '../../../assets/HeroBackground.webp';
             top: 450px;
             width: 90%;
             max-width: 600px;
-        }
-    }
-
-    @media (max-width: 1280px) {
-        .hero {
-            aspect-ratio: 16/12;
         }
     }
 </style>
