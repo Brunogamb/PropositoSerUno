@@ -1,12 +1,34 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/HeaderLogo.webp';
+import logoNaranja from '../assets/LogoNaranja.webp';
+
+interface Props {
+    variant?: 'default' | 'light';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const variants = {
+    default: {
+        bg: 'var(--brand-orange)',
+        text: 'var(--brand-900)',
+        logo: logo
+    },
+    light: {
+        bg: '#EBE9F5',
+        text: 'var(--brand-orange-dark)', 
+        logo: logoNaranja 
+    }
+};
+
+const current = variants[variant];
 ---
 
-<header>
+<header style={`background-color: ${current.bg}; --header-bg: ${current.bg}; --nav-color: ${current.text};`}>
     <div class="header-container">
         <a href="/PropositoSerUno/" class="header-logo" aria-label="Propósito Ser Uno - Inicio">
-            <Image src={logo} alt="Logo Propósito Ser Uno" class="logo" loading="eager" />
+            <Image src={current.logo} alt="Logo" class="logo" loading="eager" />
         </a> 
 
         <nav class="services-nav desktop-menu">
@@ -20,7 +42,7 @@ import logo from '../assets/HeaderLogo.webp';
         </nav>
 
         <div>
-            <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <button class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -42,7 +64,6 @@ import logo from '../assets/HeaderLogo.webp';
 <style>
 header {
     position: relative;
-    background: var(--brand-orange);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,7 +113,7 @@ header {
 }
 
 .services-nav a {
-    color: var(--brand-900);
+    color: var(--nav-color);
     font-family: var(--open-sans-font);
     font-weight: 600;
     font-size: 17px;
@@ -116,7 +137,7 @@ header {
     top: 98%;
     left: 0;
     width: 100%;
-    background: var(--brand-orange);
+    background: var(--header-bg);
     z-index: 15000;
     padding: 10px 20px 20px;
     animation: slideDown 0.25s ease forwards;
@@ -170,7 +191,7 @@ header {
     .hamburger span {
         width: 28px;
         height: 3px;
-        background: var(--white);
+        background: var(--nav-color);
         border-radius: var(--radius-xs);
         transition: all 0.3s linear;
         transform-origin: 4px;
@@ -212,6 +233,7 @@ header {
         border-radius: 8px;
         transition: background 0.2s ease;
         font-size: 18px;
+        color: var(--nav-color);
     }
 
     .mobile-menu a:active {

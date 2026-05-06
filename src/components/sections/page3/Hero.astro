@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+
+import HeroLogo from '../../../assets/HeroLogo.webp'
+---
+
+<section class="hero">
+    <div class="content">
+        <div class="text">
+            <h1>Membresía</h1>
+            <Image src={HeroLogo} alt="Hero Logo" />
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        padding: 115px 20px 76px 20px; 
+        color: var(--white); 
+        background-color: var(--brand-900);
+    }
+
+    .content {
+        max-width: 800px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    h1 {
+        font-weight: 600;
+        font-size: 94px;
+        margin-bottom: 28px;
+        line-height: 1.3;
+        color: var(--brand-orange-dark);
+        text-align: center;
+    }
+
+    img {
+        width: 600px;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 42px;
+        }
+    }
+</style>
