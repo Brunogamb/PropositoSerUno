@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Logo from '../../../assets/Logo.webp';
+---
+
+<section class="prefooter">
+    <div class="container">
+        <div class="content">
+            <a href="/PropositoSerUno/"><Image src={Logo} alt="Logo" class="logo" /></a>
+            <h2>Un espacio simple para momentos dificiles</h2>
+        </div>
+    </div>
+</section>
+
+<style>
+    .prefooter {
+        background-color: var(--bg-section);
+        padding: 54px 20px 0px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .content h2 {
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        line-height: 1.6;
+        font-weight: 600;
+        color: var(--text-light);
+        text-align: left;
+        font-style: italic;
+    }
+
+    .logo {
+        width: 300px;
+        height: auto;
+    }
+
+    a {
+        width: fit-content;
+    }
+
+    @media (max-width: 768px) {
+        .prefooter { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+    }
+</style>
