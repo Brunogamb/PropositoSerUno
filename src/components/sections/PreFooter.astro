@@ -12,10 +12,10 @@ import Button from '../ui/Button.astro';
         </div>
 
         <div class="actions">
-            <Button variant="primary" text="Hazte Miembro" href="/PropositoSerUno/membresia" />
-            <Button variant="outline" text="Explorar Programa" href="/PropositoSerUno/programa" />
-            <Button variant="primary" text="Fundadores" href="/PropositoSerUno/fundadores" />
-            <Button variant="secondary" text="Ver Comunidad" href="/PropositoSerUno/comunidad" />
+            <Button variant="primary" text="Hazte Miembro" href="/PropositoSerUno/membresia" className="small-btn" />
+            <Button variant="outline" text="Explorar Programa" href="/PropositoSerUno/programa" className="small-btn" />
+            <Button variant="primary" text="Fundadores" href="/PropositoSerUno/fundadores" className="small-btn" />
+            <Button variant="secondary" text="Ver Comunidad" href="/PropositoSerUno/comunidad" className="small-btn" />
         </div>
     </div>
 </section>
@@ -38,7 +38,7 @@ import Button from '../ui/Button.astro';
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 42px;
+        margin-bottom: 50px;
     }
 
     .content h2 {
@@ -54,6 +54,14 @@ import Button from '../ui/Button.astro';
         display: flex;
         justify-content: space-between;     
         width: 100%; 
+    }
+
+    :global(.btn-base.small-btn) {
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 24px;
     }
 
     .logo {
