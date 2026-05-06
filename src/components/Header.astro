@@ -2,9 +2,10 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/HeaderLogo.webp';
 import logoNaranja from '../assets/LogoNaranja.webp';
+import logoNaranjaClaro from '../assets/LogoNaranjaClaro.webp';
 
 interface Props {
-    variant?: 'default' | 'light';
+    variant?: 'default' | 'light' | 'dark';
 }
 
 const { variant = 'default' } = Astro.props;
@@ -19,6 +20,11 @@ const variants = {
         bg: '#EBE9F5',
         text: 'var(--brand-orange-dark)', 
         logo: logoNaranja 
+    },
+    dark: {
+        bg: 'var(--brand-900)',
+        text: 'var(--brand-orange)', 
+        logo: logoNaranjaClaro 
     }
 };
 
