@@ -1,0 +1,152 @@
+---
+---
+
+<section class="membership-access">
+    <div class="container">
+        <span class="eyebrow">QUÉ INCLUYE LA MEMBRESÍA</span>
+
+        <div class="content">
+            <h3>
+                <strong>Al formar parte de Propósito Ser Uno, tendrás acceso a:</strong>
+            </h3>
+            <ul>
+                <li>El programa completo Conquistando Salud y Bienestar, con material de estudio en formato escrito y audiolibros.</li>
+                <li>La comunidad exclusiva de miembros, un espacio de acompañamiento y crecimiento compartido.</li>
+                <li>Reuniones temáticas pensadas para profundizar el proceso y sostenerlo en el tiempo.</li>
+                <li>Meditaciones guiadas, cada una con un propósito específico.</li>
+                <li>Grupos de encuentro por Zoom y WhatsApp, para intercambio, consulta y apoyo continuo.</li>
+                <li>Talleres complementarios que amplían y enriquecen el aprendizaje.</li>
+                <li>Acceso a una red de terapeutas y coaches recomendados para acompañarte en tu desarrollo personal.</li>
+            </ul>
+            <p>Si sentís que este espacio puede ser para vos, te invitamos a inscribirte.</p>
+        </div>
+        <h3><strong>Para hacerte miembro o realizar cualquier consulta, podés ponerte en contacto con nosotros:</strong></h3>
+
+        <div class="contact-methods">
+            <a href="https://wa.me/5493512891029" class="whatsapp-link" rel="noopener noreferrer" target="_blank">
+                <img src="/PropositoSerUno/icons/whatsapp.svg" alt="WhatsApp" class="ws-icon" />
+                <span class="phone-number">54 9 351 289-1029</span>
+            </a>
+            <a href="mailto:membresia@propositoseruno.com" class="email-link">
+                membresia@propositoseruno.com
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .membership-access {
+        background-color: var(--bg-section);
+        padding: 60px 20px 30px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .eyebrow {
+        display: block;
+        font-family: var(--open-sans-font);
+        color: var(--brand-700);
+        font-weight: 600;
+        font-size: 19px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 48px;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .content p, h3, li {
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        line-height: 1.6;
+        font-weight: 500;
+        color: var(--text-light); 
+        text-align: left;
+        list-style: none;
+        text-indent: 20px;
+    }
+
+    li {
+        position: relative;
+        padding-left: 35px; 
+        text-indent: 0;
+    }
+
+    li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px; 
+        width: 22px;
+        height: 22px;
+        background-color: var(--brand-orange-dark, #ff5a1f);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
+    }
+
+    h3 {
+        font-size: 22px;
+        text-indent: 0;
+    }
+
+    .content strong {
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        margin-top: 28px;
+    }
+
+    .whatsapp-link {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-decoration: none;
+        color: var(--brand-700);
+        font-size: 41px;
+        font-weight: 600;
+    }
+
+    .ws-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .email-link {
+        font-family: var(--open-sans-font);
+        font-size: 37px;
+        color: var(--brand-700);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .membership-access { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+    }
+</style>
