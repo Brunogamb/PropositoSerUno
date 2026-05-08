@@ -38,7 +38,7 @@ import Button from '../../ui/Button.astro';
         color: var(--text-light);
         text-align: center;
         margin: auto auto 70px auto;
-        width: 450px;
+        max-width: 450px;
         text-wrap: balance;
         line-height: 1.5;
     }
@@ -58,7 +58,7 @@ import Button from '../../ui/Button.astro';
         color: var(--text-light);
         text-indent: 20px; 
         text-align: center;
-        width: 450px;
+        max-width: 450px;
         margin: auto;
         font-style: italic;
     }
@@ -79,15 +79,24 @@ import Button from '../../ui/Button.astro';
 
     @media (max-width: 768px) {
         .title { 
-            font-size: 26px; 
+            font-size: 20px; 
+            margin-bottom: 40px;
+        }
+
+        .content p {
+            font-size: 18px;
+        }
+
+        :global(.btn-base.big-btn) {
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 25px;
         }
 
         .community-vision { 
             padding: 60px 20px; 
-        }
-
-        .content p { 
-            text-indent: 30px; 
         }
     }
 </style>
