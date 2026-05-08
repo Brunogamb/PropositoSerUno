@@ -1,9 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import Logo from '../../../assets/Logo.webp';
+
+const { bgColor = 'var(--white)' } = Astro.props;
 ---
 
-<section class="prefooter">
+<section class="prefooter" style={{ backgroundColor: bgColor }}>
     <div class="container">
         <div class="content">
             <a href="/PropositoSerUno/"><Image src={Logo} alt="Logo" class="logo" /></a>
@@ -14,7 +16,6 @@ import Logo from '../../../assets/Logo.webp';
 
 <style>
     .prefooter {
-        background-color: var(--white);
         padding: 85px 20px 20px 20px;
         color: var(--text);
         display: flex;

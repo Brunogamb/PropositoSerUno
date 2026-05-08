@@ -1,0 +1,93 @@
+---
+import Button from '../../ui/Button.astro';
+---
+
+<section class="community-vision">
+    <div class="container">
+        <p class="title">Evolucionar mental y espiritualmente es una necesidad individual y colectiva para vivir en un mundo mejor.</p>
+        <div class="actions">
+            <Button variant="primary" text="Hazte miembro" href="/PropositoSerUno/programa" className="big-btn"/>
+        </div>
+        <div class="content">
+            <p>
+                En la simpleza de escuchar y ser escuchado habita una gran fuerza sanadora.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .community-vision {
+        background-color: var(--white);
+        padding: 60px 20px 10px 20px;
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .title {
+        font-family: var(--lora-font);
+        font-size: 24px;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--text-light);
+        text-align: center;
+        margin: auto auto 70px auto;
+        width: 450px;
+        text-wrap: balance;
+        line-height: 1.5;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 34px;
+    }
+
+    .content p {
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        line-height: 1.7;
+        font-weight: 400;
+        color: var(--text-light);
+        text-indent: 20px; 
+        text-align: center;
+        width: 450px;
+        margin: auto;
+        font-style: italic;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 14px;
+    }
+
+    :global(.btn-base.big-btn) {
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .title { 
+            font-size: 26px; 
+        }
+
+        .community-vision { 
+            padding: 60px 20px; 
+        }
+
+        .content p { 
+            text-indent: 30px; 
+        }
+    }
+</style>
