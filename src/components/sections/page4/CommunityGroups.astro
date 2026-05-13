@@ -24,6 +24,22 @@
             <p>Los encuentros son altamente recomendados, ya que resultan esenciales para el proceso de evolución y desarrollo.</p>
             <p>Si lo preferís, <strong>podés participar de forma anónima</strong> utilizando un sobrenombre o solo tu nombre.</p>
         </article>
+
+        <article class="group-detail">
+            <h2><strong>Acompañamiento Diario</strong></h2>
+            <h3>A través del grupo de <strong>WhatsApp,</strong> recibís cada día:</h3>
+            <ul>
+                <li><strong>- Un repaso breve</strong> de los contenidos teóricos y prácticos del programa.</li>
+                <li><strong>- Frases motivacionales</strong> que te impulsen a mantener la energía, la confianza y la perseverancia en tu camino.</li>
+                <li><strong>- Afirmaciones inspiradoras</strong> para que conectes con tu propósito interior y refuerces pensamientos positivos en tu vida diaria.</li>
+                <li><strong>- Prácticas breves</strong> para integrar en tu día a día sin dificultad.</li>
+                <li><strong>- Interacción social</strong> con otros miembros de la comunidad: la posibilidad de consultar, compartir, saludar o simplemente sentirte acompañado/a en este camino.</li>
+            </ul>
+
+            <h3><strong>¿Te gustaría crear o inspirar un impacto positivo en la recuperación y bienestar de alguien más?</strong></h3>
+            <p>Únete a Propósito Ser Uno una comunidad comprometida con impulsar la evolución mental y el desarrollo espiritual en el mundo.</p>
+            <p>Abre la puerta a personas que, como tú, buscan recuperar su salud y alcanzar estados sostenidos de bienestar.</p>
+        </article>
         
         </div>
     </div>
@@ -32,7 +48,7 @@
 <style>
     .community-groups {
         background-color: var(--brand-orange-light);
-        padding: 46px 20px 56px 20px;
+        padding: 10px 20px 18px 20px;
         color: var(--text);
         display: flex;
         justify-content: center;
@@ -56,7 +72,14 @@
         gap: inherit;
     }
 
-    .content p, h2 {
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .content p, h2, li, h3 {
         font-family: var(--open-sans-font);
         font-size: 21px;
         line-height: 1.6;
@@ -64,6 +87,11 @@
         color: var(--text-light);
         text-indent: 20px; 
         text-align: left;
+        list-style: none;
+    }
+
+    h3 {
+        text-indent: 0;
     }
 
     h2 {
