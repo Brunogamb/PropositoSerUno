@@ -1,30 +1,36 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/Header/HeaderLogo.webp';
-import logoNaranja from '../assets/Header/LogoNaranja.webp';
-import logoNaranjaClaro from '../assets/Header/LogoNaranjaClaro.webp';
+import logoMain from '../assets/Header/logo-main.webp';
+import logoOrange from '../assets/Header/logo-orange.webp';
+import logoOrangeLight from '../assets/Header/logo-orange-light.webp';
+import logoOrangeWhite from '../assets/Header/logo-orange-white.webp'
 
 interface Props {
-    variant?: 'default' | 'light' | 'dark';
+    variant?: 'main' | 'orange' | 'orangeLight' | 'orangeWhite';
 }
 
-const { variant = 'default' } = Astro.props;
+const { variant = 'main' } = Astro.props;
 
 const variants = {
-    default: {
+    main: {
         bg: 'var(--brand-orange)',
         text: 'var(--brand-900)',
-        logo: logo
+        logo: logoMain
     },
-    light: {
-        bg: '#EBE9F5',
+    orange: {
+        bg: 'var(--bg-section)',
         text: 'var(--brand-orange-dark)', 
-        logo: logoNaranja 
+        logo: logoOrange 
     },
-    dark: {
+    orangeLight: {
         bg: 'var(--brand-900)',
         text: 'var(--brand-orange)', 
-        logo: logoNaranjaClaro 
+        logo: logoOrangeLight
+    },
+    orangeWhite: {
+        bg: 'var(--brand-orange-darker)',
+        text: 'var(--brand-orange-light)', 
+        logo: logoOrangeWhite
     }
 };
 
