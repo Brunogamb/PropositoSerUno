@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+
+import HeroLogo from '/src/assets/Hero/HeroLogo.webp';
+---
+
+<section class="hero">
+    <div class="content">
+        <div class="text">
+            <h1>Fundadores</h1>
+            <Image src={HeroLogo} alt="Hero Logo" />
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        padding: 130px 20px 60px 20px; 
+        color: var(--white); 
+        background-color: var(--button-primary);
+    }
+
+    .content {
+        max-width: 800px;
+        width: 100%;
+        display: flex;
+        justify-content:left;
+    }
+    
+    h1 {
+        font-weight: 600;
+        font-size: 94px;
+        margin-bottom: 40px;
+        line-height: 1.3;
+        color: var(--white);
+    }
+
+    img {
+        width: 600px;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 47px;
+        }
+
+        img {
+            width: 300px;
+        }
+    }
+</style>

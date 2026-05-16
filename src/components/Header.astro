@@ -6,7 +6,7 @@ import logoOrangeLight from '../assets/Header/logo-orange-light.webp';
 import logoOrangeWhite from '../assets/Header/logo-orange-white.webp'
 
 interface Props {
-    variant?: 'main' | 'orange' | 'orangeLight' | 'orangeWhite';
+    variant?: 'main' | 'orange' | 'orangeLight' | 'orangeWhite' | 'white';
 }
 
 const { variant = 'main' } = Astro.props;
@@ -31,6 +31,11 @@ const variants = {
         bg: 'var(--brand-orange-darker)',
         text: 'var(--brand-orange-light)', 
         logo: logoOrangeWhite
+    },
+    white: {
+        bg: 'var(--bg-section)',
+        text: 'var(--brand-900)',
+        logo: logoMain
     }
 };
 
