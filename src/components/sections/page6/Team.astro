@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import robertoudrisar from '../../../assets/Team/robertoudrisar.webp';
 import yaninachami from '../../../assets/Team/yaninachami.webp';
 import marceloudrisar from '../../../assets/Team/marceloudrisar.webp';
@@ -15,7 +16,7 @@ const team = [
         "Creador del taller Logros.",
         "Director de Propósito Ser Uno."
         ],
-        image: robertoudrisar.src
+        image: robertoudrisar
     },
     {
         name: "Yanina Chami",
@@ -24,7 +25,7 @@ const team = [
         "Maestría en Canalización Angelical.",
         "Formación en Merkaba."
         ],
-        image: yaninachami.src
+        image: yaninachami
     },
     {
         name: "Marcelo Udrisar",
@@ -33,7 +34,7 @@ const team = [
         "Emprendedor, Investigador.",
         "Encargado ejecutivo de PSU."
         ],
-        image: marceloudrisar.src
+        image: marceloudrisar
     },
     {
         name: "Silvia Soria",
@@ -42,7 +43,7 @@ const team = [
         "Operador de Bio Well.",
         "Facilitadora de Biodanza."
         ],
-        image: silviasoria.src
+        image: silviasoria
     },
     {
         name: "Analía Herrlein",
@@ -50,7 +51,7 @@ const team = [
         "Master Coach, Facilitador de Procesos de cambio personales y de equipos.",
         "Educadora de Padres en Disciplina Positiva en la Familia y en Educación Consciente."
         ],
-        image: amaliaherrlein.src
+        image: amaliaherrlein
     }
 ];
 ---
@@ -70,7 +71,7 @@ const team = [
                 {team.map((member) => (
                     <article class="member-card">
                     <div class="image-wrapper">
-                        <img src={member.image} alt={member.name} class="member-photo" />
+                        <Image src={member.image} alt={member.name} class="member-photo" loading="lazy" width={200} height={200} />
                     </div>
                     <div class="member-info">
                         <h3>{member.name}</h3>
