@@ -46,9 +46,7 @@ const faqs = [
                 <span class="icon">+</span>
                 <span class="question-text">{question}</span>
             </summary>
-            <div class="answer">
-                <p set:html={answer}></p>
-            </div>
+            <div class="answer" set:html={answer}></div>
             </details>
         ))}
         </div>
@@ -134,7 +132,7 @@ const faqs = [
         animation: slideDown 0.3s ease forwards;
     }
 
-    .answer p {
+    .answer {
         font-family: var(--open-sans-font);
         font-size: 18px;
         line-height: 1.6;
