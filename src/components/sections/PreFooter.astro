@@ -52,8 +52,10 @@ import Button from '../ui/Button.astro';
 
     .actions {
         display: flex;
-        justify-content: space-between;     
-        width: 100%; 
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 18px;
     }
 
     :global(.btn-base.small-btn) {
@@ -65,7 +67,7 @@ import Button from '../ui/Button.astro';
     }
 
     .logo {
-        width: 380px;
+        width: min(380px, 100%);
         height: auto;
     }
 
@@ -73,19 +75,68 @@ import Button from '../ui/Button.astro';
         width: fit-content;
     }
 
-    @media (max-width: 768px) {
-        .prefooter { 
-            padding: 60px 20px; 
+    @media (max-width: 1024px) {
+        .prefooter {
+            padding: 80px 20px 24px;
         }
 
-        .content p { 
-            text-indent: 30px; 
+        .content h2 {
+            font-size: 26px;
+            line-height: 1.55;
+        }
+
+        :global(.btn-base.small-btn) {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .prefooter {
+            padding: 52px 18px;
+        }
+
+        .content h2 {
+            font-size: 22px;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .actions {
-            justify-content: center; 
-            gap: 20px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        :global(.btn-base.small-btn) {
+            width: 100%;
+            min-width: 0;
+            padding-left: 18px;
+            padding-right: 18px;
+            font-size: 20px;
+        }
+
+        .content p {
+            text-indent: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .prefooter {
+            padding: 40px 16px;
+        }
+
+        .content h2 {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+
+        :global(.btn-base.small-btn) {
+            font-size: 18px;
+            padding-left: 14px;
+            padding-right: 14px;
+            padding-top: 12px;
+            padding-bottom: 12px;
         }
     }
 </style>
