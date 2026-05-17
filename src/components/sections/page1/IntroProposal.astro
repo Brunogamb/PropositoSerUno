@@ -103,4 +103,30 @@ import Button from '../../../components/ui/Button.astro';
         justify-content: center;
         width: 100%;
     }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 40px 16px 50px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+
+        article {
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        article h3 {
+            font-size: 20px;
+        }
+
+        article p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-indent: 0;
+        }
+    }
 </style>
