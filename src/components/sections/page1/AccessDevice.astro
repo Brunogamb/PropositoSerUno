@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 
 import DesktopView from "../../../assets/Devices/DesktopView.webp";
 import MobileView from "../../../assets/Devices/MobileView.webp";
+import { lazy } from 'astro:schema';
 ---
 
 <section class="access-device">
@@ -17,8 +18,8 @@ import MobileView from "../../../assets/Devices/MobileView.webp";
         </div>
 
         <div class="images">
-            <Image src={MobileView} alt="Mobile View" />
-            <Image src={DesktopView} alt="Desktop View" />
+            <Image src={MobileView} alt="Mobile View" loading="lazy"/>
+            <Image src={DesktopView} alt="Desktop View" loading="lazy"/>
         </div>
 </section>
 

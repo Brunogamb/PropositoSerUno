@@ -1,7 +1,37 @@
 ---
 import Footer from '../components/Footer.astro';
 
-const { title } = Astro.props;
+const {
+	title = 'Propósito Ser Uno | Conquistando salud y bienestar cada día',
+	description = 'Propósito Ser Uno: un espacio pensado para acompañarte en tu proceso de salud. Compartimos un método para complementar activamente cualquier tratamiento de salud que estés realizando.',
+	image = '/PropositoSerUno/favicon.png',
+	imageAlt = 'Propósito Ser Uno - Conquistando salud y bienestar cada día',
+	type = 'website',
+	siteName = 'Propósito Ser Uno',
+	locale = 'es_AR',
+} = Astro.props;
+
+const siteBase = String(Astro.site ?? 'https://propositoseruno.com').replace(/\/$/, '');
+const canonical = `${siteBase}${Astro.url?.pathname ?? '/'}`;
+const ogImage = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? image : `/${image}`}`;
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"url": canonical,
+	"name": title,
+	"description": description,
+	"publisher": {
+		"@type": "Organization",
+		"name": siteName,
+		"url": siteBase,
+	},
+	"inLanguage": "es-ES",
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": `${siteBase}/?s={search_term_string}`,
+		"query-input": "required name=search_term_string",
+	},
+};
 ---
 
 <!doctype html>
@@ -11,16 +41,34 @@ const { title } = Astro.props;
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<meta name="description" content="Propósito Ser Uno: un espacio de crecimiento personal y espiritual para alcanzar tu máximo potencial. Descubre herramientas, recursos y comunidad para transformar tu vida y vivir con propósito.">
-		<meta name="author" content="Propósito Ser Uno">
-		<meta name="robots" content="index, follow">
-		<meta property="og:locale" content="es_AR">
-		<meta property="og:title" content="Propósito Ser Uno">
-		<meta property="og:description" content="Propósito Ser Uno: un espacio de crecimiento personal y espiritual para alcanzar tu máximo potencial. Descubre herramientas, recursos y comunidad para transformar tu vida y vivir con propósito.">
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		</script>
+		<meta name="description" content={description}>
+		<meta name="author" content={siteName}>
+		<meta name="theme-color" content="#260090">
+		<meta name="format-detection" content="telephone=no,email=no,address=no">
+		<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+		<link rel="canonical" href={canonical}>
+		<link rel="alternate" href={canonical} hreflang="es">
+		<meta property="og:locale" content={locale}>
+		<meta property="og:type" content={type}>
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
+		<meta property="og:url" content={canonical}>
+		<meta property="og:site_name" content={siteName}>
+		<meta property="og:image" content={ogImage}>
+		<meta property="og:image:alt" content={imageAlt}>
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content={title}>
+		<meta name="twitter:description" content={description}>
+		<meta name="twitter:image" content={ogImage}>
+		<meta name="twitter:image:alt" content={imageAlt}>
+		<link rel="icon" type="image/x-icon" href="/PropositoSerUno/favicon.ico" />
+		<link rel="icon" type="image/png" href="/PropositoSerUno/favicon.png" />
+		<link rel="preload" as="font" href="/PropositoSerUno/fonts/Lora-VariableFont_wght.woff2" type="font/woff2" crossorigin>
+		<link rel="preload" as="font" href="/PropositoSerUno/fonts/OpenSans-VariableFont_wdth,wght.woff2" type="font/woff2" crossorigin>
+		<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 	</head>
 	<body>
 		<main>
