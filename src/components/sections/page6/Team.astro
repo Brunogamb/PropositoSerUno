@@ -1,0 +1,201 @@
+---
+import robertoudrisar from '../../../assets/Team/robertoudrisar.webp';
+import yaninachami from '../../../assets/Team/yaninachami.webp';
+import marceloudrisar from '../../../assets/Team/marceloudrisar.webp';
+import silviasoria from '../../../assets/Team/silviasoria.webp';
+import amaliaherrlein from '../../../assets/Team/amaliaherrlein.webp';
+
+const team = [
+    {
+        name: "Roberto Udrisar",
+        roles: [
+        "Investigador, Escritor y Disertante.",
+        "Creador del taller Logros.",
+        "Director de Propósito Ser Uno."
+        ],
+        image: robertoudrisar.src
+    },
+    {
+        name: "Yanina Chami",
+        roles: [
+        "Terapeuta Holístico Integral",
+        "Maestría en Canalización Angelical.",
+        "Formación en Merkaba."
+        ],
+        image: yaninachami.src
+    },
+    {
+        name: "Marcelo Udrisar",
+        roles: [
+        "Diseñador gráfico y publicista.",
+        "Emprendedor, Investigador.",
+        "Encargado ejecutivo de PSU."
+        ],
+        image: marceloudrisar.src
+    },
+    {
+        name: "Silvia Soria",
+        roles: [
+        "Descodificadora Biológica Transgeneracional y Terapeuta de terapias de integración.",
+        "Operador de Bio Well.",
+        "Facilitadora de Biodanza."
+        ],
+        image: silviasoria.src
+    },
+    {
+        name: "Analía Herrlein",
+        roles: [
+        "Master Coach, Facilitador de Procesos de cambio personales y de equipos.",
+        "Educadora de Padres en Disciplina Positiva en la Familia y en Educación Consciente."
+        ],
+        image: amaliaherrlein.src
+    }
+];
+---
+
+<section class="team">
+    <div class="container">
+        <h2 class="main-quote">
+        Un espacio creado desde la experiencia, el compromiso y la vocación de acompañar a otros.
+        </h2>
+
+        <div class="content">
+            <p>
+                Creemos en el poder de cada persona para sanar y transformar su vida. <strong>Nuestra misión</strong> es acompañar e inspirar procesos de recuperación y bienestar.
+            </p>
+
+            <div class="team-list">
+                {team.map((member) => (
+                    <article class="member-card">
+                    <div class="image-wrapper">
+                        <img src={member.image} alt={member.name} class="member-photo" />
+                    </div>
+                    <div class="member-info">
+                        <h3>{member.name}</h3>
+                        <ul>
+                        {member.roles.map((role) => (
+                            <li>{role}</li>
+                        ))}
+                        </ul>
+                    </div>
+                    </article>
+                ))}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .team {
+        background-color: var(--white);
+        padding: 50px 20px;
+        display: flex;
+        justify-content: center;
+        color: var(--text);
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-quote {
+        font-family: var(--lora-font);
+        font-size: 35px;
+        line-height: 1.4;
+        font-weight: 400;
+        margin-bottom: 30px;
+        color: var(--text);
+        text-wrap: balance;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-family: var(--open-sans-font);
+        font-size: 26px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text);
+        text-align: left;
+    }
+
+    .team-list {
+        display: flex;
+        flex-direction: column;
+        gap: 27px;
+        margin-top: 40px;
+    }
+
+    .member-card {
+        display: flex;
+        align-items: end; 
+        gap: 25px;
+    }
+
+    .image-wrapper {
+        flex-shrink: 0;
+        width: 200px;
+        height: 200px;
+        border: 1px solid #7030a0; 
+    }
+
+    .member-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .member-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: top;
+    }
+
+    .member-info h3 {
+        font-family: var(--lora-font);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+
+    .member-info ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .member-info li {
+        font-family: var(--open-sans-font);
+        font-size: 22px;
+        line-height: 1.4;
+        font-weight: 300;
+        color: var(--text);
+        margin-bottom: 3px;
+    }
+
+    @media (max-width: 768px) {
+        .main-quote {
+            font-size: 24px;
+        }
+
+        .content p {
+            font-size: 17px;
+            text-indent: 25px;
+        }
+
+        .final-invitation {
+            font-size: 19px;
+        }
+    }
+</style>
