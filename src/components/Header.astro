@@ -45,7 +45,7 @@ const current = variants[variant];
 <header style={`background-color: ${current.bg}; --header-bg: ${current.bg}; --nav-color: ${current.text};`}>
     <div class="header-container">
         <a href="/PropositoSerUno/" class="header-logo" aria-label="Propósito Ser Uno - Inicio">
-            <Image src={current.logo} alt="Logo" class="logo" loading="eager" />
+            <Image src={current.logo} alt="Logo de Propósito Ser Uno" class="logo" loading="eager" />
         </a> 
 
         <nav class="services-nav desktop-menu">
@@ -59,7 +59,7 @@ const current = variants[variant];
         </nav>
 
         <div>
-            <button class="hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu">
+            <button class="hamburger" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -277,7 +277,8 @@ header {
 
         const toggleMenu = () => {
             const expanded = btnHamburger.getAttribute('aria-expanded') === 'true';
-            btnHamburger.setAttribute('aria-expanded', !expanded);
+            btnHamburger.setAttribute('aria-expanded', (!expanded).toString());
+            btnHamburger.setAttribute('aria-label', expanded ? 'Abrir menú de navegación' : 'Cerrar menú de navegación');
             btnHamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             mobileMenu.setAttribute('aria-hidden', expanded);
@@ -286,6 +287,7 @@ header {
 
         const closeMenu = () => {
             btnHamburger.setAttribute('aria-expanded', 'false');
+            btnHamburger.setAttribute('aria-label', 'Abrir menú de navegación');
             btnHamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
             mobileMenu.setAttribute('aria-hidden', 'true');
