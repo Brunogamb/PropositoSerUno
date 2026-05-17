@@ -5,6 +5,8 @@ import marceloudrisar from '../../../assets/Team/marceloudrisar.webp';
 import silviasoria from '../../../assets/Team/silviasoria.webp';
 import amaliaherrlein from '../../../assets/Team/amaliaherrlein.webp';
 
+import Button from '../../../components/ui/Button.astro';
+
 const team = [
     {
         name: "Roberto Udrisar",
@@ -60,7 +62,7 @@ const team = [
         </h2>
 
         <div class="content">
-            <p>
+            <p class="first-paragraph">
                 Creemos en el poder de cada persona para sanar y transformar su vida. <strong>Nuestra misión</strong> es acompañar e inspirar procesos de recuperación y bienestar.
             </p>
 
@@ -81,6 +83,15 @@ const team = [
                     </article>
                 ))}
             </div>
+            <p>Propósito Ser Uno nace desde la convicción profunda de que cada persona puede recuperar y fortalecer cada área de su vida cuando decide involucrarse activamente en su proceso de recuperación y desarrollo personal.</p>
+            <p>Sabemos que muchas veces ese camino puede volverse confuso, solitario o difícil de sostener. Por eso creamos este espacio para acompañar y acercar herramientas basadas en conocimientos científicos actuales, integradas con el desarrollo espiritual </p>
+            <p>No ofrecemos soluciones mágicas, sino un camino posible y real, basado en la práctica, la constancia y la participación consciente.</p>
+            <p>Si sentís que este puede ser tu momento, te invitamos a dar el primer paso y descubrir lo que este espacio puede aportar a tu vida. Hacerte miembro no implica costos de ingreso ni cuotas mensuales. La organización se sostiene gracias al aporte voluntario de sus miembros, que surge de la posibilidad y la consciencia de cada participante.</p>
+
+        </div>
+
+        <div class="actions">
+            <Button variant="primary" text="Hazte miembro" href="/PropositoSerUno/membresia" />
         </div>
 
     </div>
@@ -89,7 +100,7 @@ const team = [
 <style>
     .team {
         background-color: var(--white);
-        padding: 50px 20px;
+        padding: 50px 20px 70px;
         display: flex;
         justify-content: center;
         color: var(--text);
@@ -116,10 +127,10 @@ const team = [
         flex-direction: column;
         gap: 15px;
         text-align: left;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
-    p {
+    .first-paragraph {
         font-family: var(--open-sans-font);
         font-size: 26px;
         line-height: 1.6;
@@ -128,11 +139,21 @@ const team = [
         text-align: left;
     }
 
+    p {
+        font-family: var(--open-sans-font);
+        font-size: 22px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: var(--text-light);
+        text-indent: 20px; 
+        text-align: left;
+    }
+
     .team-list {
         display: flex;
         flex-direction: column;
         gap: 27px;
-        margin-top: 40px;
+        margin: 40px 0 30px;
     }
 
     .member-card {
@@ -183,6 +204,12 @@ const team = [
         font-weight: 300;
         color: var(--text);
         margin-bottom: 3px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     @media (max-width: 768px) {
