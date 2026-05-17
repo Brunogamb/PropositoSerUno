@@ -36,7 +36,7 @@ const baseStyles = "btn-base";
         font-family: var(--open-sans-font);
         font-size: 26px;
         transition: all 0.3s ease; 
-        min-width: 200px;
+        min-width: min(200px, 100%);
         text-decoration: none;
         border: 3px solid var(--white);
     }
@@ -73,6 +73,12 @@ const baseStyles = "btn-base";
 
         .btn-outline:hover {
             background-color: var(--muted);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .btn-base {
+            font-size: 22px;
         }
     }
 </style>
