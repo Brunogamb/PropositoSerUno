@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/sections/ScrollToTop.astro';
 
 const {
 	title = 'Propósito Ser Uno | Conquistando salud y bienestar cada día',
@@ -74,6 +75,7 @@ const jsonLd = {
 		<main>
 			<slot />
 		</main>
+		<ScrollToTop />
 		<Footer />
 	</body>
 </html>
