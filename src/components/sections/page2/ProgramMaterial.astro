@@ -17,7 +17,7 @@
         </ul>
         <p class="last-paragraph">Recibís instrucción, guía y un método claro con prácticas que acompañan tu proceso, facilitando la incorporación de hábitos que transforman tu vida.</p>
 
-        <span class="eyebrow">MODALIDAD FLEXIBLE</span>
+        <span class="eyebrow last-eyebrow">MODALIDAD FLEXIBLE</span>
         <h3>Aprendizaje Autónomo Guiado:</h3>
         <ul>
             <li>- No hay estructura fija ni seguimiento obligatorio.</li>
@@ -107,11 +107,28 @@
 
     @media (max-width: 768px) {
         .program-material { 
-            padding: 60px 20px; 
+            padding: 40px 16px; 
         }
 
-        .content p { 
-            text-indent: 30px; 
+        .content p, li, .content .intro-italic, .content .last-paragraph { 
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .eyebrow {
+            margin-bottom: 30px;
+        }
+
+        .last-eyebrow {
+            margin-bottom: 20px;
+        }
+
+        .content {
+            margin-bottom: 0px;
+        }
+
+        h3 {
+            font-size: 21px;
         }
     }
 </style>

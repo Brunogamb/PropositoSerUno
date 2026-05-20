@@ -1,7 +1,7 @@
 ---
 ---
 
-<section>
+<section class="program-steps">
     <div class="container">
         <div class="content">
             <h2>Los 6 Pasos del Programa</h2>
@@ -40,7 +40,7 @@
 </section>
 
 <style>
-    section {
+    .program-steps {
         color: var(--text);
         background: var(--bg-section);
         padding: 40px 20px;
@@ -117,5 +117,22 @@
         text-align: center;
         margin: 20px 0;
         font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        .program-steps { 
+            padding: 40px 16px; 
+        }
+
+        .content p { 
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 28px;
+            line-height: 1.6;
+            margin: 0 0 30px;
+        }
     }
 </style>

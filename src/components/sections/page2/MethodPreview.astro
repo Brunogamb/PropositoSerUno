@@ -1,10 +1,10 @@
 ---
 ---
 
-<section>
+<section class="method-preview">
     <div class="container">
+        <h2>Un método para acompañarte, paso a paso, en tu proceso de recuperación y bienestar.</h2>
         <div class="content">
-            <h2>Un método para acompañarte, paso a paso, en tu proceso de recuperación y bienestar.</h2>
             <p>El programa Conquistando Salud y Bienestar integra conocimientos de distintas disciplinas, junto con prácticas orientadas al bienestar y el desarrollo personal.</p>
             <p>Está diseñado para acompañar procesos de cambio, ayudándote a <strong>recuperar y fortalecer cada área de tu vida.</strong></p>
         </div>
@@ -12,7 +12,7 @@
 </section>
 
 <style>
-    section {
+    .method-preview {
         color: var(--text);
         background: var(--white);
         padding: 40px 20px;
@@ -56,5 +56,22 @@
     strong {
         font-weight: 600;
         color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+        .method-preview { 
+            padding: 40px 16px; 
+        }
+
+        .content p { 
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 28px;
+            line-height: 1.6;
+            margin: 0 0 30px;
+        }
     }
 </style>
