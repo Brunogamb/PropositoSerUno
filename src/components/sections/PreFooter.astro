@@ -92,13 +92,13 @@ import Button from '../ui/Button.astro';
 
     @media (max-width: 768px) {
         .prefooter {
-            padding: 52px 18px;
+            padding: 40px 16px;
         }
 
         .content h2 {
-            font-size: 22px;
+            font-size: 21px;
+            line-height: 1.6;
             text-align: center;
-            line-height: 1.4;
         }
 
         .actions {
@@ -111,32 +111,12 @@ import Button from '../ui/Button.astro';
         :global(.btn-base.small-btn) {
             width: 100%;
             min-width: 0;
-            padding-left: 18px;
-            padding-right: 18px;
-            font-size: 20px;
+            padding: 12px 14px;
+            font-size: 22px;
         }
 
         .content {
             margin-bottom: 30px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .prefooter {
-            padding: 40px 16px;
-        }
-
-        .content h2 {
-            font-size: 20px;
-            line-height: 1.4;
-        }
-
-        :global(.btn-base.small-btn) {
-            font-size: 22px;
-            padding-left: 14px;
-            padding-right: 14px;
-            padding-top: 12px;
-            padding-bottom: 12px;
         }
     }
 </style>
