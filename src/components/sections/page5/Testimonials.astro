@@ -70,7 +70,7 @@ const testimonials = [
                 <article class="story-card">
                     <div class="user-info">
                         <div class="user-data">
-                            <span class="name">{item.name}</span>
+                            <h3 class="name">{item.name}</h3>
                             <Image src={item.avatar} alt={item.name} class="avatar" loading="lazy" width={55} height={55} />
                         </div>
                         <span class="location">{item.location}</span>
@@ -181,17 +181,39 @@ const testimonials = [
     }
 
     @media (max-width: 768px) {
-        .main-quote {
-            font-size: 24px;
+        .testimonials {
+            padding: 40px 16px;
         }
 
-        .content p {
-            font-size: 17px;
-            text-indent: 25px;
+        .main-quote {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            gap: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
         }
 
         .final-invitation {
             font-size: 19px;
+        }
+
+        .story-card {
+            padding: 20px 0;
+        }
+
+        .name, .location {
+            font-size: 21px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
         }
     }
 </style>
