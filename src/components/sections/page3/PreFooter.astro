@@ -2,14 +2,14 @@
 import { Image } from 'astro:assets';
 import Logo from '../../../assets/Logo.webp';
 
-const { bgColor = 'var(--white)' } = Astro.props;
+const { bgColor = 'var(--white)', title = 'Comunidad en formación, hacia una organización civil sin fines de lucro' } = Astro.props;
 ---
 
 <section class="prefooter" style={{ backgroundColor: bgColor }}>
     <div class="container">
         <div class="content">
             <a href="/PropositoSerUno/"><Image src={Logo} alt="Logo de Propósito Ser Uno" class="logo" loading="lazy"/></a>
-            <h2>Comunidad en formación, hacia una organización civil sin fines de lucro</h2>
+            <h2>{title}</h2>
         </div>
     </div>
 </section>
