@@ -52,7 +52,7 @@ const testimonials = [
         </h2>
 
         <div class="content">
-        <p>
+        <p class="first-paragraph">
             En este espacio, algunos miembros han elegido compartir sus experiencias de forma anónima.
         </p>
 
@@ -134,11 +134,18 @@ const testimonials = [
         text-align: left;
     }
 
+    .first-paragraph {
+        text-indent: 0;
+    }
+
     .final-invitation {
-        margin-top: 30px;
+        font-family: var(--lora-font);
         font-style: italic;
+        margin-top: 20px;
         line-height: 1.5;
         text-align: left;
+        text-indent: 0;
+        font-size: 24px;
     }
 
     .stories-grid {
