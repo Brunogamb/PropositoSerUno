@@ -15,19 +15,39 @@ const {
 const siteBase = String(Astro.site ?? 'https://propositoseruno.com').replace(/\/$/, '');
 const canonical = `${siteBase}${Astro.url?.pathname ?? '/'}`;
 const ogImage = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? image : `/${image}`}`;
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "WebSite",
-	"url": canonical,
-	"name": title,
-	"description": description,
-	"publisher": {
-		"@type": "Organization",
-		"name": siteName,
+const language = locale.replace('_', '-');
+const jsonLd = [
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
 		"url": siteBase,
+		"name": siteName,
+		"description": description,
+		"publisher": {
+			"@type": "Organization",
+			"name": siteName,
+			"url": siteBase,
+		},
+		"inLanguage": language,
 	},
-	"inLanguage": "es-ES",
-};
+	{
+		"@context": "https://schema.org",
+		"@type": "WebPage",
+		"url": canonical,
+		"name": title,
+		"description": description,
+		"isPartOf": {
+			"@type": "WebSite",
+			"name": siteName,
+			"url": siteBase,
+		},
+		"inLanguage": language,
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": canonical,
+		},
+	},
+];
 ---
 
 <!doctype html>
@@ -44,18 +64,24 @@ const jsonLd = {
 		<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 		<link rel="canonical" href={canonical}>
 		<link rel="alternate" href={canonical} hreflang="es-AR">
+		<link rel="alternate" href={canonical} hreflang="es">
+		<link rel="alternate" href={canonical} hreflang="x-default">
 		<meta property="og:locale" content={locale}>
+		<meta property="og:locale:alternate" content="es_AR">
 		<meta property="og:type" content={type}>
 		<meta property="og:title" content={title}>
 		<meta property="og:description" content={description}>
 		<meta property="og:url" content={canonical}>
 		<meta property="og:site_name" content={siteName}>
 		<meta property="og:image" content={ogImage}>
+		<meta property="og:image:secure_url" content={ogImage}>
 		<meta property="og:image:alt" content={imageAlt}>
 		<meta property="og:image:type" content="image/png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta name="twitter:card" content="summary_large_image">
+		<meta name="application-name" content={siteName}>
+		<meta name="apple-mobile-web-app-title" content={siteName}>
 		<meta name="twitter:title" content={title}>
 		<meta name="twitter:description" content={description}>
 		<meta name="twitter:image" content={ogImage}>
