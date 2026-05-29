@@ -3,7 +3,7 @@
 
 <footer>
     <div class="footer-content">
-        <a href="#" class="disabled" aria-disabled="true" onclick="event.preventDefault()">Redes Sociales</a>
+        <button type="button" class="disabled" disabled>Redes Sociales</button>
         <a href="/PropositoSerUno/aviso-legal">Aviso Legal</a>
         <a href="mailto:administracion@propositoseruno.com">e-mails de PSU</a>
     </div>
@@ -39,26 +39,32 @@ footer {
     font-family: var(--open-sans-font);
 }
 
-.footer-content a {
+.footer-content a,
+.footer-content button {
     position: relative;
     font-size: 24px;
     height: fit-content;
     border-bottom: 2px solid transparent;
     transition: all 0.2s ease;
+    background: transparent;
+    color: inherit;
+    border: none;
+    font-family: var(--open-sans-font);
+    font-weight: 500;
 }
 
-.footer-content a.disabled {
+.footer-content .disabled {
     cursor: not-allowed;
     border-bottom-color: transparent;
 }
 
-.footer-content a.disabled:hover,
-.footer-content a.disabled:focus-visible {
-    color: rgba(var(--white-rgb), 0.7);
-    border-bottom-color: transparent;
-}
+    .footer-content .disabled:hover,
+    .footer-content .disabled:focus-visible {
+        color: rgba(var(--white-rgb), 0.7);
+        border-bottom-color: transparent;
+    }
 
-.footer-content a.disabled::after {
+    .footer-content .disabled::after {
     content: "Próximamente";
     position: absolute;
     left: 50%;
@@ -76,8 +82,8 @@ footer {
     z-index: 1;
 }
 
-.footer-content a.disabled:hover::after,
-.footer-content a.disabled:focus-visible::after {
+.footer-content .disabled:hover::after,
+.footer-content .disabled:focus-visible::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
