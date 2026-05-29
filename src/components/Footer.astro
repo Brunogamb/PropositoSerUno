@@ -3,9 +3,9 @@
 
 <footer>
     <div class="footer-content">
-        <a href="/PropositoSerUno/redes-sociales">Redes Sociales</a>
+        <a href="#" class="disabled" aria-disabled="true" onclick="event.preventDefault()">Redes Sociales</a>
         <a href="/PropositoSerUno/aviso-legal">Aviso Legal</a>
-        <a href="/PropositoSerUno/e-mails-psu">e-mails de PSU</a>
+        <a href="mailto:administracion@propositoseruno.com">e-mails de PSU</a>
     </div>
 
     <div class="footer-bottom">
@@ -40,10 +40,47 @@ footer {
 }
 
 .footer-content a {
+    position: relative;
     font-size: 24px;
     height: fit-content;
     border-bottom: 2px solid transparent;
     transition: all 0.2s ease;
+}
+
+.footer-content a.disabled {
+    cursor: not-allowed;
+    border-bottom-color: transparent;
+}
+
+.footer-content a.disabled:hover,
+.footer-content a.disabled:focus-visible {
+    color: rgba(var(--white-rgb), 0.7);
+    border-bottom-color: transparent;
+}
+
+.footer-content a.disabled::after {
+    content: "Próximamente";
+    position: absolute;
+    left: 50%;
+    bottom: -2.4rem;
+    transform: translateX(-50%) translateY(6px);
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    background: rgba(var(--black-rgb), 0.9);
+    color: var(--white);
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.footer-content a.disabled:hover::after,
+.footer-content a.disabled:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .footer-bottom {
@@ -79,6 +116,12 @@ footer {
         gap: 40px;
         text-align: center;
         padding: 40px 20px;
+    }
+
+    .footer-content a.disabled::after {
+        font-size: 20px;
+        padding: 5px 8px;
+        top: 30px;
     }
 
     .footer-bottom {
