@@ -59,7 +59,7 @@ const jsonLd = [
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content={description}>
 		<meta name="author" content={siteName}>
-		<meta name="theme-color" content="#260090">
+		<meta name="theme-color" content="#ff9854">
 		<meta name="color-scheme" content="light">
 		<meta name="supported-color-schemes" content="light">
 		<meta name="format-detection" content="telephone=no,email=no,address=no">
@@ -95,6 +95,9 @@ const jsonLd = [
 		<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 	</head>
 	<body>
+		<script>
+			document.documentElement.style.colorScheme = 'light';
+		</script>
 		<main>
 			<slot />
 		</main>
@@ -105,6 +108,8 @@ const jsonLd = [
 
 <style is:global>
 :root {
+	color-scheme: light;
+
     --brand-900: #260090;
     --brand-900-rgb: 41, 22, 111;
     --brand-800: #3a2a8f;
@@ -140,43 +145,45 @@ const jsonLd = [
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color-scheme: light !important;
 }
 
 html {
 	overflow-y: scroll;
-    color-scheme: light; 
-    background-color: var(--brand-orange);
+    color-scheme: light !important;
+    background-color: var(--brand-orange) !important;
 }
 
 body {
 	font-family: 'Lora Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	background-color: var(--brand-orange);
+	background-color: var(--brand-orange) !important;
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
     overflow-x: hidden;
-	color: var(--white);
-	color-scheme: light;
+	color: var(--white) !important;
+	color-scheme: light !important;
 }
 
 @media (prefers-color-scheme: dark) {
 	html,
 	body {
-		color-scheme: light;
-		background-color: var(--brand-orange);
+		color-scheme: light !important;
+		background-color: var(--brand-orange) !important;
+		color: var(--white) !important;
 	}
 }
 
 @font-face {
 	font-family: 'Lora Variable';
-	src: url('/fonts/Lora-VariableFont_wght.woff2') format('woff2');
+	src: url('/PropositoSerUno/fonts/Lora-VariableFont_wght.woff2') format('woff2');
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Open Sans Variable';
-	src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2');
+	src: url('/PropositoSerUno/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2');
 	font-style: normal;
 	font-display: swap;
 }
