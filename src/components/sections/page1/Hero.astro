@@ -10,6 +10,7 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
 
     <div class="video-container">
         <video 
+            id="hero-video" 
             class="hero-video"
             autoplay 
             muted 
@@ -20,6 +21,19 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
             <source src="/PropositoSerUno/HeroVideo.mp4" type="video/mp4" />
             Tu navegador no soporta el elemento video
         </video>
+
+        <button id="audio-toggle" class="audio-btn" aria-label="Activar sonido">
+            <svg id="icon-muted" class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                <line x1="22" y1="9" x2="16" y2="15"></line>
+                <line x1="16" y1="9" x2="22" y2="15"></line>
+            </svg>
+            <svg id="icon-playing" class="audio-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+        </button>
     </div>
 </section>
 
@@ -88,6 +102,48 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         margin-bottom: 200px; 
     }
 
+    .audio-btn {
+        position: absolute;
+        top: 20px;       
+        right: 20px; 
+        background: rgba(67, 67, 67, 0.4);
+        backdrop-filter: blur(8px); 
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: var(--white);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 20;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .audio-btn:active {
+        transform: scale(0.95);
+    }
+
+    .audio-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (hover: hover) {
+        .audio-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.08);
+        }
+    }
+
     @media (min-width: 1280px) {
         .hero {
             height: 882px;
@@ -142,3 +198,28 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         }
     }
 </style>
+
+<script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('hero-video');
+        const audioBtn = document.getElementById('audio-toggle');
+        const iconMuted = document.getElementById('icon-muted');
+        const iconPlaying = document.getElementById('icon-playing');
+
+        if (!video || !audioBtn) return;
+
+        audioBtn.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                iconMuted.classList.add('hidden');
+                iconPlaying.classList.remove('hidden');
+                audioBtn.setAttribute('aria-label', 'Silenciar video');
+            } else {
+                video.muted = true;
+                iconMuted.classList.remove('hidden');
+                iconPlaying.classList.add('hidden');
+                audioBtn.setAttribute('aria-label', 'Activar sonido');
+            }
+        });
+    });
+</script>
