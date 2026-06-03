@@ -96,12 +96,6 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
-    .hero::after {
-        content: "";
-        display: block;
-        margin-bottom: 200px; 
-    }
-
     .audio-btn {
         position: absolute;
         top: 20px;       
@@ -163,18 +157,9 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
     @media (max-width: 768px) {
         .video-container {
             position: absolute;
-            top: 450px;
+            top: 430px;
             width: 95%;
-            max-width: 600px;
-        }
-
-        .hero::before {
-            clip-path: inset(0 0 20vh 0);
-        }
-
-        .hero {
-            height: 105vh;
-            margin-bottom: -23vh;
+            max-width: 520px;
         }
 
         .hero-video {
@@ -182,12 +167,13 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         }
 
         .hero::before {
-            background-position: center -100px; 
+            background-position: center -120px; 
         }
 
         h1 {
             line-height: 1.4;
             margin-bottom: 35px;
+            font-size: 38px;
         }
 
         h2 {
