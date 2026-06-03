@@ -22,18 +22,30 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
             Tu navegador no soporta el elemento video
         </video>
 
-        <button id="audio-toggle" class="audio-btn" aria-label="Activar sonido">
-            <svg id="icon-muted" class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                <line x1="22" y1="9" x2="16" y2="15"></line>
-                <line x1="16" y1="9" x2="22" y2="15"></line>
-            </svg>
-            <svg id="icon-playing" class="audio-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-            </svg>
-        </button>
+        <div class="control-buttons">
+            <button id="play-toggle" class="control-btn play-btn" aria-label="Pausar video">
+                <svg id="icon-pause" class="control-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="6" y="5" width="4" height="14"></rect>
+                    <rect x="14" y="5" width="4" height="14"></rect>
+                </svg>
+                <svg id="icon-play" class="control-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </button>
+
+            <button id="audio-toggle" class="control-btn audio-btn" aria-label="Activar sonido">
+                <svg id="icon-muted" class="control-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <line x1="22" y1="9" x2="16" y2="15"></line>
+                    <line x1="16" y1="9" x2="22" y2="15"></line>
+                </svg>
+                <svg id="icon-playing" class="control-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+            </button>
+        </div>
     </div>
 </section>
 
@@ -96,12 +108,18 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
-    .audio-btn {
+    .control-buttons {
         position: absolute;
-        top: 20px;       
-        right: 20px; 
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 20;
+    }
+
+    .control-btn {
         background: rgba(67, 67, 67, 0.4);
-        backdrop-filter: blur(8px); 
+        backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border: 1px solid rgba(255, 255, 255, 0.4);
         color: var(--white);
@@ -113,15 +131,14 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
-        z-index: 20;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .audio-btn:active {
+    .control-btn:active {
         transform: scale(0.95);
     }
 
-    .audio-icon {
+    .control-icon {
         width: 20px;
         height: 20px;
         transition: transform 0.2s ease;
@@ -181,6 +198,17 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
             line-height: 1.5;
             text-wrap: balance;
         }
+
+        .control-buttons {
+            top: 15px;
+            right: 15px;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 42px;
+            height: 42px;
+        }
     }
 </style>
 
@@ -188,10 +216,25 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
     document.addEventListener('DOMContentLoaded', () => {
         const video = document.getElementById('hero-video');
         const audioBtn = document.getElementById('audio-toggle');
+        const playBtn = document.getElementById('play-toggle');
         const iconMuted = document.getElementById('icon-muted');
         const iconPlaying = document.getElementById('icon-playing');
+        const iconPause = document.getElementById('icon-pause');
+        const iconPlay = document.getElementById('icon-play');
 
-        if (!video || !audioBtn) return;
+        if (!video || !audioBtn || !playBtn) return;
+
+        const updatePlayButton = () => {
+            if (video.paused) {
+                iconPause.classList.add('hidden');
+                iconPlay.classList.remove('hidden');
+                playBtn.setAttribute('aria-label', 'Reproducir video');
+            } else {
+                iconPause.classList.remove('hidden');
+                iconPlay.classList.add('hidden');
+                playBtn.setAttribute('aria-label', 'Pausar video');
+            }
+        };
 
         audioBtn.addEventListener('click', () => {
             if (video.muted) {
@@ -206,5 +249,18 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
                 audioBtn.setAttribute('aria-label', 'Activar sonido');
             }
         });
+
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        video.addEventListener('play', updatePlayButton);
+        video.addEventListener('pause', updatePlayButton);
+
+        updatePlayButton();
     });
 </script>
