@@ -169,19 +169,24 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         .hero::before {
             background-position: center -40px; 
         }
+
+        .video-container {
+            width: 95%;
+        }
     }
 
     @media (max-width: 768px) {
         .hero {
-            padding: 74px 16px 0;
-            height: 100vh;
+            padding: 74px 16px 30px;
+            height: auto;
+            min-height: auto;
         }
 
         .video-container {
-            position: absolute;
-            top: 430px;
-            width: 95%;
+            position: relative;
+            top: auto;
             max-width: 520px;
+            margin-top: 180px;
         }
 
         .hero-video {
