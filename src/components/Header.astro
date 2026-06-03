@@ -269,6 +269,25 @@ header {
         flex: 1;
     }
 }
+
+@media (max-width: 768px) {
+    header {
+        background-color: var(--white) !important;
+        --header-bg: var(--white) !important;
+        --nav-color: var(--brand-900) !important;
+        color: var(--brand-900);
+    }
+
+    .hamburger span {
+        background: var(--brand-900) !important;
+    }
+
+    .mobile-menu a {
+        color: var(--brand-900) !important;
+        background: rgba(0,0,0,0.04) !important;
+        border-color: rgba(0,0,0,0.08) !important;
+    }
+}
 </style>
 
 <script type="module">
