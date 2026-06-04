@@ -45,7 +45,8 @@ const current = variants[variant];
 <header style={`background-color: ${current.bg}; --header-bg: ${current.bg}; --nav-color: ${current.text};`}>
     <div class="header-container">
         <a href="/PropositoSerUno/" class="header-logo" aria-label="Propósito Ser Uno - Inicio">
-            <Image src={current.logo} alt="Logo de Propósito Ser Uno" class="logo" loading="eager" />
+            <Image src={current.logo} alt="Logo de Propósito Ser Uno" class="logo logo-desktop" loading="eager" />
+            <Image src={logoMain} alt="Logo de Propósito Ser Uno" class="logo logo-mobile" loading="eager" />
         </a> 
 
         <nav class="services-nav desktop-menu">
@@ -112,6 +113,14 @@ header {
 .header-logo img {
     height: 100%;
     width: auto;
+}
+
+.logo-desktop {
+    display: inline-block;
+}
+
+.logo-mobile {
+    display: none;
 }
 
 .services-nav {
@@ -234,6 +243,14 @@ header {
     .mobile-menu ul {
         display: grid; 
         grid-template-columns: repeat(2, 1fr); 
+    }
+
+    .logo-desktop {
+        display: none;
+    }
+
+    .logo-mobile {
+        display: inline-block;
     }
 
     .mobile-menu li {
