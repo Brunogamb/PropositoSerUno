@@ -180,13 +180,14 @@ const siteBase = String(Astro.site ?? '').replace(/\/$/, '');
     @media (max-width: 768px) {
         .hero {
             padding: 74px 16px 40px;
-            height: auto;
+            height: calc(270px + 160px + 53.44vw + 40px);
             min-height: auto;
         }
 
         .video-container {
-            position: relative;
-            top: auto;
+            position: absolute;
+            width: 95%;
+            top: 270px;
             max-width: 520px;
             margin-top: 160px;
         }
