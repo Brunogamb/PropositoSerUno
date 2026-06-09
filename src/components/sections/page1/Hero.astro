@@ -1,5 +1,6 @@
 ---
 import heroImage from '/src/assets/Hero/HeroBackground.webp';
+const siteBase = String(Astro.site ?? '').replace(/\/$/, '');
 ---
 
 <section class="hero">
@@ -19,8 +20,8 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
             preload="metadata"
             controlslist="nodownload"
         >
-            <source src="/PropositoSerUno/HeroVideo.webm" type="video/webm" />
-            <source src="/PropositoSerUno/HeroVideo.mp4" type="video/mp4" />
+            <source src={siteBase + '/HeroVideo.webm'} type="video/webm" />
+            <source src={siteBase + '/HeroVideo.mp4'} type="video/mp4" />
             Tu navegador no soporta el elemento video
         </video>
 

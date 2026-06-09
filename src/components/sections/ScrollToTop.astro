@@ -1,3 +1,7 @@
+---
+const siteBase = String(Astro.site ?? '').replace(/\/$/, '');
+---
+
 <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon-up">
         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -6,7 +10,7 @@
 </button>
 
 <a href="https://wa.me/5493512891029" class="whatsapp-button" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
-    <img src="/PropositoSerUno/icons/whatsapp.svg" alt="WhatsApp" class="ws-icon" loading="lazy" width="24" height="24" decoding="async" />
+    <img src={siteBase + '/icons/whatsapp.svg'} alt="WhatsApp" class="ws-icon" loading="lazy" width="24" height="24" decoding="async" />
 </a>
 
 <style>
