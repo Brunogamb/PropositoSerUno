@@ -98,7 +98,6 @@ const siteBase = String(Astro.site ?? '').replace(/\/$/, '');
         top: 370px;
         width: 100%;
         max-width: 780px;
-        aspect-ratio: 16 / 9;
         z-index: 10;
     }
 
@@ -190,11 +189,10 @@ const siteBase = String(Astro.site ?? '').replace(/\/$/, '');
             top: 270px;
             max-width: 520px;
             margin-top: 160px;
-            border-radius: 12px;
         }
 
         .hero-video {
-            
+            border-radius: 12px;
         }
 
         .hero::before {
