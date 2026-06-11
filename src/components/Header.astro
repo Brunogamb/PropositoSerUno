@@ -98,16 +98,23 @@ header {
     justify-content: space-between;
 }
 
-.desktop-menu {
-    position: absolute;
-    left: 45%;
-    transform: translateX(-45%);
-}
-
 .header-logo {
     position: relative;
     height: 32px;
     z-index: 10000;
+}
+
+.desktop-menu {
+    position: relative; 
+    flex: 1;          
+    display: flex;
+    justify-content: center;
+}
+
+.header-container > div:last-of-type {
+    flex: 0 0 300px; 
+    display: flex;
+    justify-content: flex-end;
 }
 
 .header-logo img {
@@ -186,7 +193,7 @@ header {
     }
 }
 
-@media (max-width: 1100px) and (min-width: 769px) {
+@media (max-width: 1160px) and (min-width: 769px) {
     .services-nav a {
         font-size: clamp(14px, 1.9vw, 18px);
         letter-spacing: -0.05ch;
@@ -201,7 +208,7 @@ header {
     }
 
     .desktop-menu {
-        left: calc(50% + 40px); 
+        left: 20px; 
     }
 }
 
@@ -225,6 +232,10 @@ header {
     .desktop-menu {
         display: none;
     }
+
+    .header-container > div:last-of-type {
+    flex: 0 0 0px; 
+}
 
     .hamburger {
         display: flex;
