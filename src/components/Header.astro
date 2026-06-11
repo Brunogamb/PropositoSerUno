@@ -215,6 +215,9 @@ header {
 @media (max-width: 768px) {
     header {
         height: 65px;
+        background-color: var(--white) !important;
+        --header-bg: var(--white) !important;
+        --nav-color: var(--brand-900) !important;
     }
 
     .header-logo {
@@ -234,8 +237,8 @@ header {
     }
 
     .header-container > div:last-of-type {
-    flex: 0 0 0px; 
-}
+        flex: none; 
+    }
 
     .hamburger {
         display: flex;
@@ -251,10 +254,10 @@ header {
     .hamburger span {
         width: 28px;
         height: 3px;
-        background: var(--nav-color);
         border-radius: var(--radius-xs);
         transition: all 0.3s linear;
         transform-origin: 4px;
+        background: var(--brand-900);
     }
 
     .hamburger.active span:nth-child(1) {
@@ -296,12 +299,12 @@ header {
     .mobile-menu a {
         justify-content: center;
         padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.1); 
-        border: 1px solid var(--brand-700);
+        border: 1px solid rgba(0,0,0,0.08);
         border-radius: 8px;
         transition: background 0.2s ease;
         font-size: 18px;
-        color: var(--nav-color);
+        color: var(--brand-900);
+        background: rgba(0,0,0,0.04);
     }
 
     .mobile-menu a:active {
@@ -314,25 +317,6 @@ header {
         font-size: 1.1rem;
         word-break: break-word;
         flex: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        background-color: var(--white) !important;
-        --header-bg: var(--white) !important;
-        --nav-color: var(--brand-900) !important;
-        color: var(--brand-900);
-    }
-
-    .hamburger span {
-        background: var(--brand-900) !important;
-    }
-
-    .mobile-menu a {
-        color: var(--brand-900) !important;
-        background: rgba(0,0,0,0.04) !important;
-        border-color: rgba(0,0,0,0.08) !important;
     }
 }
 </style>
