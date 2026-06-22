@@ -427,14 +427,16 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
         });
 
         const toggleFullScreen = async () => {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            const isNativelyFull = document.fullscreenElement || document.webkitFullscreenElement;
+
+            if (!isNativelyFull) {
                 try {
                     if (videoWrapper.requestFullscreen) {
                         await videoWrapper.requestFullscreen();
                     } else if (videoWrapper.webkitRequestFullscreen) {
                         await videoWrapper.webkitRequestFullscreen();
-                    } else if (videoWrapper.msRequestFullscreen) {
-                        await videoWrapper.msRequestFullscreen();
+                    } else if (video.webkitEnterFullscreen) {
+                        video.webkitEnterFullscreen();
                     }
                 } catch (error) {
                     console.error("Error al ingresar a pantalla completa:", error);
@@ -445,8 +447,6 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
                         await document.exitFullscreen();
                     } else if (document.webkitExitFullscreen) {
                         await document.webkitExitFullscreen();
-                    } else if (document.msExitFullscreen) {
-                        await document.msExitFullscreen();
                     }
                 } catch (error) {
                     console.error("Error al salir de pantalla completa:", error);
@@ -458,7 +458,6 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
 
         const onFullscreenChange = () => {
             const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement;
-            
             if (isFullScreen) {
                 iconFSEnter.classList.add('hidden');
                 iconFSExit.classList.remove('hidden');
@@ -470,6 +469,16 @@ import heroImage from '/src/assets/Hero/HeroBackground.webp';
 
         document.addEventListener('fullscreenchange', onFullscreenChange);
         document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+        video.addEventListener('webkitbeginfullscreen', () => {
+            iconFSEnter.classList.add('hidden');
+            iconFSExit.classList.remove('hidden');
+        });
+
+        video.addEventListener('webkitendfullscreen', () => {
+            iconFSEnter.classList.remove('hidden');
+            iconFSExit.classList.add('hidden');
+        });
 
         video.addEventListener('timeupdate', () => {
             if (video.duration) {
