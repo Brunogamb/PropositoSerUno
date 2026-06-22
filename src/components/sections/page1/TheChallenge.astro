@@ -9,20 +9,19 @@ import Button from '../../ui/Button.astro';
         <div class="content">
 
         <p>
-            Sabemos que el verdadero desafío en todo proceso de evolución y desarrollo no es solo comenzar, sino sostenerlo en el tiempo.
+            Sabemos que el verdadero desafío en todo proceso de evolución y desarrollo no es solo comenzar, sino <strong>sostenerlo en el tiempo.</strong>
         </p>
         <p>
             Con frecuencia, comenzamos con entusiasmo y logramos avanzar. Sin embargo, con el tiempo solemos abandonar el proceso y volver a hábitos, pensamientos y emociones que afectan nuestra salud y bienestar.
         </p>
             <h3>
-                <strong>En este punto, Propósito Ser Uno ofrece dos grandes ventajas:</strong>
+                <strong>En Propósito Ser Uno, este desafío se acompaña a través de dos apoyos esenciales:</strong>
             </h3>
-        <p>
-            - Un método simple y efectivo para acompañarte, paso a paso, en tu proceso de recuperación y bienestar.
-        </p>
-        <p>
-            - Y, lo más importante, una comunidad activa e inspiradora, con grupos de acompañamiento diario que hacen que el proceso sea compartido, estimulante y sostenible en el tiempo.
-        </p>
+
+        <ul class="bullet-list">
+            <li>Un método simple y progresivo que guía el proceso paso a paso.</li>
+            <li>Y, especialmente, una comunidad activa e inspiradora, con espacios de acompañamiento diario, que permiten sostener el proceso de manera compartida, vivencial y constante en el tiempo.</li>
+        </ul>
 
         </div>
         <div class="actions">
@@ -63,7 +62,7 @@ import Button from '../../ui/Button.astro';
         margin-bottom: 34px;
     }
 
-    .content p, h3 {
+    .content p, h3, .bullet-list li {
         font-family: var(--open-sans-font);
         font-size: 21px;
         line-height: 1.6;
@@ -71,6 +70,22 @@ import Button from '../../ui/Button.astro';
         color: var(--text);
         text-indent: 20px; 
         text-align: left;
+    }
+
+    .content .bullet-list {
+        margin: 0 0 0 18px;
+        padding: 0;
+        list-style: disc;
+    }
+
+    .content .bullet-list li {
+        margin-bottom: 10px;
+        text-indent: 0;
+    }
+
+    .content .bullet-list li::marker {
+        color: var(--brand-700);
+        font-size: 20px;
     }
 
     h3 {
