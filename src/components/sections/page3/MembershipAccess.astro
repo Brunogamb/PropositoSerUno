@@ -22,7 +22,9 @@
             <h2>Una comunidad sostenida por sus propios miembros</h2>
             <p>La comunidad crece con la participación activa y el compromiso de sus miembros. Cada presencia, cada gesto de colaboración y cada experiencia compartida ayudan a construir una comunidad basada en el encuentro humano, el aprendizaje y la solidaridad.</p>
         </div>
-        <h3><strong>Si esta propuesta despertó tu interés, te invitamos a dar el primer paso y comunicarte con nosotros.</strong></h3>
+        <p class="call-to-action">
+            <strong>Si esta propuesta despertó tu interés, te invitamos a dar el primer paso y comunicarte con nosotros.</strong>
+        </p>
 
         <div class="contact-methods">
             <a href="https://wa.me/5493512891029" class="whatsapp-link" rel="noopener noreferrer" target="_blank">
@@ -74,7 +76,7 @@
         gap: 12px;
     }
 
-    .content p, h3, li {
+    .content p, h3, li, .call-to-action {
         font-family: var(--open-sans-font);
         font-size: 21px;
         line-height: 1.6;
@@ -89,6 +91,10 @@
         font-family: var(--lora-font);
         font-size: 30px;
         margin-top: 30px;
+        text-indent: 0;
+    }
+
+    .call-to-action {
         text-indent: 0;
     }
 
@@ -181,7 +187,7 @@
             padding: 40px 16px; 
         }
 
-        .content p { 
+        .content p, .call-to-action { 
             font-size: 18px;
             line-height: 1.6;
         }
@@ -202,6 +208,7 @@
 
         h2 {
             margin-bottom: 10px;
+            font-size: 24px;
         }
 
         li {
