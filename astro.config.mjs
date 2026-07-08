@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://proposito-ser-uno.vercel.app/',
+  site: 'https://propositoseruno.com/',
   base: '/',
   vite: {
     build: {
