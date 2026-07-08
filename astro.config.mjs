@@ -1,10 +1,8 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://brunogamb.github.io/PropositoSerUno',
-  base: '/PropositoSerUno/',
+  site: 'https://proposito-ser-uno.vercel.app/',
+  base: '/',
   vite: {
     build: {
       sourcemap: false,
