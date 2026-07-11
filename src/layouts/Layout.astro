@@ -2,6 +2,7 @@
 import Footer from '../components/Footer.astro';
 import ScrollToTop from '../components/sections/ScrollToTop.astro';
 import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from "@vercel/speed-insights/astro"
 
 	const {
 	title = 'Propósito Ser Uno | Conquistando salud y bienestar cada día',
@@ -95,6 +96,7 @@ const jsonLd = [
 		<link rel="preload" as="font" href="/fonts/OpenSans-VariableFont_wdth,wght.woff2" type="font/woff2" crossorigin>
 		<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 		<Analytics />
+		<SpeedInsights />
 	</head>
 	<body>
 		<main>
