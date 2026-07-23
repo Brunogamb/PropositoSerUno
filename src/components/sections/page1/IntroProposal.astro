@@ -6,8 +6,8 @@ import Button from '../../ui/Button.astro';
     <div class="container">
         <h2>Tu salud y bienestar pueden mejorar cuando comenzás a participar activamente en ellos.</h2>
         <article>
-            <h3>Un espacio pensado para acompañarte en tu proceso de recuperación de la salud y en la construcción de un bienestar duradero</h3>
-            <p>Si actualmente estás transitando un proceso de recuperación de tu salud física, mental o emocional, este espacio fue creado para brindarte <strong>conocimientos, herramientas prácticas y una comunidad de acompañamiento</strong> que te ayuden a fortalecer ese camino. Te invitamos a participar activamente en la recuperación de tu salud y a construir estados sostenidos de bienestar.</p>
+            <p class="first-paragraph">Si actualmente estás transitando un proceso de recuperación de tu salud física, mental o emocional, este espacio fue creado para brindarte <strong>conocimientos, herramientas prácticas y una comunidad de acompañamiento</strong> que te ayuden a fortalecer ese camino.</p>
+            <p>Te invitamos a participar activamente en la recuperación de tu salud y a construir estados sostenidos de bienestar. <strong>Formar parte de Propósito Ser Uno es simple</strong>: solo debés activar tu membresía. Activarla no implica costos de admisión ni cuotas mensuales obligatorias. La comunidad se sostiene gracias a los aportes voluntarios de sus miembros.</p>
         </article>
         <article>
             <h3>Qué es Propósito Ser Uno</h3>
@@ -15,7 +15,7 @@ import Button from '../../ui/Button.astro';
         </article>
         <article>
             <h3>Cómo te acompañamos</h3>
-            <p>Lo hacemos a través de un <strong>programa para la evolución mental y el desarrollo espiritual</strong> y de una <strong>comunidad activa de aprendizaje y acompañamiento</strong>. La integración de estos dos pilares te ayuda a sostener tu proceso de recuperación y bienestar mediante la incorporación de conocimientos, el desarrollo de nuevas prácticas y el acompañamiento mutuo.</p>
+            <p>Lo hacemos a través de un <strong>programa para la evolución mental y el desarrollo espiritual</strong> y de una <strong>comunidad activa de aprendizaje y acompañamiento</strong>. La integración de estos dos pilares te ayuda a sostener tu proceso de recuperación y bienestar mediante la incorporación de nuevos conocimientos, el desarrollo de prácticas y hábitos saludables y, sobre todo, el acompañamiento cotidiano de una comunidad que se fortalece gracias a la participación activa de sus miembros.</p>
             <p>A través del programa y de la comunidad, <strong>compartimos conocimientos, herramientas, prácticas y espacios de acompañamiento</strong> destinados a complementar activamente cualquier tratamiento o proceso de salud que estés realizando (por ejemplo: enfermedades crónicas, estrés, cáncer, ansiedad, depresión, obesidad, adicciones, entre otros).</p>
         </article>
         <article>
@@ -25,13 +25,13 @@ import Button from '../../ui/Button.astro';
         <article>
             <h3>Principios que nos guían</h3>
             <p>Consideramos que la <strong>evolución mental y el desarrollo espiritual</strong> forman parte del patrimonio común de la humanidad. En este sentido, entendemos que los conocimientos y prácticas vinculados a estas dimensiones del desarrollo humano, difundidos a través de nuestro programa <strong>Conquistando Salud y Bienestar</strong>, no pertenecen al ámbito de la lógica comercial.</p>
-            <p>En coherencia con este principio, surge <strong>Propósito Ser Uno</strong> como una comunidad sin fines de lucro, dedicada a compartir estos conocimientos y prácticas, y comprometida con el servicio al desarrollo humano.</p>
+            <p>En coherencia con este principio, nace <strong>Propósito Ser Uno</strong> como una comunidad sin fines de lucro, dedicada a compartir estos conocimientos y prácticas, y comprometida con el servicio al desarrollo humano.</p>
+            <p>Formar parte de <strong>Propósito Ser Uno</strong> no implica costos de admisión ni cuotas mensuales. La comunidad se sostiene gracias a los aportes voluntarios de sus miembros, realizados de acuerdo con las posibilidades y la conciencia de cada persona.</p>
         </article>
         <article>
-            <h3>Cómo acceder</h3> 
-            <p>Formar parte de Propósito Ser Uno <strong>es simple y no implica costos de admisión ni cuotas mensuales obligatorias</strong>; solo debés activar tu membresía.</p>
-            <p>La comunidad se sostiene gracias a los <strong>aportes voluntarios de sus miembros</strong>, realizados de acuerdo con las posibilidades y la conciencia de cada persona.</p> 
-            <p>Podés comenzar hoy mismo a participar de la comunidad, acceder a los conocimientos, herramientas y espacios de acompañamiento que compartimos, con total libertad y sin compromiso de permanencia.</p>
+            <h3>Participá con total libertad</h3> 
+            <p>Podés comenzar hoy mismo a participar de la comunidad, acceder a los conocimientos, herramientas y espacios de acompañamiento que compartimos, <strong>con total libertad y sin compromiso de permanencia</strong>. Si en algún momento sentís que este espacio no es para vos, podrás dar de baja tu membresía sin costo alguno.</p>
+            <p>Si al participar sentís que este espacio aporta valor a tu vida, podrás contribuir a su sostenimiento con tu aporte voluntario, <strong>acompañando el crecimiento y la continuidad</strong> de Propósito Ser Uno.</p> 
         </article> 
 
         <div class="actions">
@@ -101,6 +101,10 @@ import Button from '../../ui/Button.astro';
     strong {
         font-weight: 600;
         color: var(--text);
+    }
+
+    .container .first-paragraph {
+        text-indent: 0;
     }
 
     @media (max-width: 768px) {
