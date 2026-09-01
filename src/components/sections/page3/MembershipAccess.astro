@@ -1,4 +1,5 @@
 ---
+import Button from '../../ui/Button.astro';
 ---
 
 <section class="membership-access">
@@ -22,18 +23,8 @@
             <h2>Una comunidad sostenida por sus propios miembros</h2>
             <p>La comunidad crece con la participación activa y el compromiso de sus miembros. Cada presencia, cada gesto de colaboración y cada experiencia compartida ayudan a construir una comunidad basada en el encuentro humano, el aprendizaje y la solidaridad.</p>
         </div>
-        <p class="call-to-action">
-            <strong>Si esta propuesta despertó tu interés, te invitamos a dar el primer paso y comunicarte con nosotros para activar tu membresía.</strong>
-        </p>
-
-        <div class="contact-methods">
-            <a href="https://wa.me/5493512891029" class="whatsapp-link" rel="noopener noreferrer" target="_blank">
-                <img src={'/icons/whatsapp.svg'} alt="WhatsApp" class="ws-icon" loading="lazy" width="24" height="24" decoding="async" />
-                <span class="phone-number">54 9 351 289-1029</span>
-            </a>
-            <a href="mailto:administracion@propositoseruno.com" class="email-link">
-                administracion@propositoseruno.com
-            </a>
+        <div class="actions">
+            <Button variant="primary" text="Hazte miembro" href="/membresia-form" />
         </div>
     </div>
 </section>
@@ -41,7 +32,7 @@
 <style>
     .membership-access {
         background-color: var(--bg-section);
-        padding: 60px 20px 30px 20px;
+        padding: 60px 20px 40px 20px;
         color: var(--text);
         display: flex;
         justify-content: center;
@@ -67,7 +58,7 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     ul {
@@ -91,10 +82,6 @@
         font-family: var(--lora-font);
         font-size: 30px;
         margin-top: 30px;
-        text-indent: 0;
-    }
-
-    .call-to-action {
         text-indent: 0;
     }
 
@@ -126,45 +113,14 @@
         color: var(--text);
     }
 
-    .contact-methods {
-        display: flex;
-        flex-direction: column;
-        gap: 26px;
-        margin-top: 28px;
-    }
-
-    .whatsapp-link {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        text-decoration: none;
-        color: var(--brand-700);
-        font-size: 41px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-    }
-
     a {
         max-width: fit-content;
     }
 
-    .ws-icon {
-        width: 50px;
-        height: 50px;
-    }
-
-    .email-link {
-        font-family: var(--open-sans-font);
-        font-size: 37px;
-        color: var(--brand-700);
-        text-decoration: underline;
-        transition: all 0.2s ease;
-    }
-
-    @media (hover: hover) {
-        .whatsapp-link:hover, .email-link:hover {
-            color: var(--brand-900);
-        }
+    .actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     @media (max-width: 1024px) {
@@ -174,11 +130,6 @@
 
         .content p, h3, li {
             font-size: 19px;
-        }
-
-        .ws-icon {
-            width: 44px;
-            height: 44px;
         }
     }
 
@@ -221,26 +172,6 @@
             width: 18px;
             height: 18px;
             top: 3px;
-        }
-
-        .contact-methods {
-            gap: 20px;
-            align-items: flex-start; 
-        }
-
-        .whatsapp-link {
-            font-size: 26px;
-            gap: 12px;
-        }
-
-        .ws-icon {
-            width: 32px; 
-            height: 32px;
-        }
-
-        .email-link {
-            font-size: 22px; 
-            word-break: break-all;
         }
     }
 </style>
