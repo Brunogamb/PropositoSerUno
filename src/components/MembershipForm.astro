@@ -142,68 +142,64 @@ const { className = '' } = Astro.props;
         </div>
 
         <div class="form-section">
-        <h3 class="section-title stat-title">¿Cómo conociste Propósito Ser Uno?</h3>
-        <p class="section-description stat-description">La siguiente pregunta es a modo estadístico y no es obligatoria.</p>
+            <h3 class="section-title stat-title">¿Cómo conociste Propósito Ser Uno?</h3>
+            <p class="section-description stat-description">La siguiente pregunta es a modo estadístico y no es obligatoria.</p>
 
-        <div class="form-group checkbox-group">
-            <label class="checkbox-item checkbox-label">
-            <input type="checkbox" name="comoConoce" value="Internet" class="form-checkbox stat-checkbox" />
-            <span>Internet</span>
-            </label>
+            <div class="form-group checkbox-group">
+                <label class="checkbox-item checkbox-label">
+                <input type="checkbox" name="comoConoce" value="Internet" class="form-checkbox stat-checkbox" />
+                <span>Internet</span>
+                </label>
 
-            <label class="checkbox-item checkbox-label">
-            <input type="checkbox" name="comoConoce" value="Redes sociales" class="form-checkbox stat-checkbox" />
-            <span>Redes sociales</span>
-            </label>
+                <label class="checkbox-item checkbox-label">
+                <input type="checkbox" name="comoConoce" value="Redes sociales" class="form-checkbox stat-checkbox" />
+                <span>Redes sociales</span>
+                </label>
 
-            <label class="checkbox-item checkbox-label">
-            <input type="checkbox" name="comoConoce" value="Me lo recomendó un conocido" class="form-checkbox stat-checkbox" />
-            <span>Me lo recomendó un conocido</span>
-            </label>
+                <label class="checkbox-item checkbox-label">
+                <input type="checkbox" name="comoConoce" value="Me lo recomendó un conocido" class="form-checkbox stat-checkbox" />
+                <span>Me lo recomendó un conocido</span>
+                </label>
 
-            <label class="checkbox-item checkbox-label">
-            <input type="checkbox" name="comoConoce" value="Otro" class="form-checkbox stat-checkbox" />
-            <span>Otro</span>
-            </label>
-        </div>
+                <label class="checkbox-item checkbox-label">
+                <input type="checkbox" name="comoConoce" value="Otro" class="form-checkbox stat-checkbox" />
+                <span>Otro</span>
+                </label>
+            </div>
         </div>
 
         <div class="form-section last-section">
-        <h3 class="section-title">Aceptación</h3>
-        <p class="section-description">Las siguientes declaraciones son obligatorias para completar la solicitud de membresía:</p>
+            <h3 class="section-title">Aceptación</h3>
+            <p class="section-description">Las siguientes declaraciones son obligatorias para completar la solicitud de membresía:</p>
 
-        <div class="form-group checkbox-group">
-            <div class="checkbox-item">
-            <input
-                type="checkbox"
-                id="terminos"
-                name="aceptaTerminos"
-                class="form-checkbox"
-                required
-            />
-            <label for="terminos" class="checkbox-label">
-                Declaro haber leído y acepto los Términos y Condiciones de Membresía y las Condiciones de Uso de Propósito Ser Uno.
-            </label>
-            </div>
+            <div class="form-group checkbox-group">
+                <label class="checkbox-item checkbox-label">
+                <input
+                    type="checkbox"
+                    id="terminos"
+                    name="aceptaTerminos"
+                    class="form-checkbox"
+                    required
+                />
+                <span>Declaro haber leído y acepto los Términos y Condiciones de Membresía y las Condiciones de Uso de Propósito Ser Uno.</span>
+                </label>
 
-            <div class="checkbox-item">
-            <input
-                type="checkbox"
-                id="privacidad"
-                name="aceptaPrivacidad"
-                class="form-checkbox"
-                required
-            />
-            <label for="privacidad" class="checkbox-label">
-                Declaro haber leído la Política de Privacidad y acepto el tratamiento de mis datos personales de acuerdo con lo establecido en ella.
-            </label>
+                <label class="checkbox-item checkbox-label">
+                <input
+                    type="checkbox"
+                    id="privacidad"
+                    name="aceptaPrivacidad"
+                    class="form-checkbox"
+                    required
+                />
+                <span>Declaro haber leído la Política de Privacidad y acepto el tratamiento de mis datos personales de acuerdo con lo establecido en ella.</span>
+                </label>
             </div>
         </div>
-        </div>
 
-        <div class="form-actions">
-        <button type="submit" class="btn-submit">Enviar Solicitud</button>
-        </div>
+            <div class="form-actions">
+            <button type="submit" class="btn-submit">Enviar Solicitud</button>
+            </div>
 
         <div id="form-message" class="form-message"></div>
     </form>
@@ -225,7 +221,6 @@ const { className = '' } = Astro.props;
     .form-section {
         display: flex;
         flex-direction: column;
-        gap: 1.25rem;
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--muted);
     }
@@ -247,6 +242,7 @@ const { className = '' } = Astro.props;
         color: var(--text-light);
         line-height: 1.5;
         font-style: italic;
+        margin: 0.6rem 0 1.5rem;
     }
 
     .form-grid {
@@ -300,9 +296,12 @@ const { className = '' } = Astro.props;
     }
 
     .form-radio {
-        margin-top: 0.25rem;
+        width: 16px;
+        height: 16px;
+        margin-top: 0.2rem;
         cursor: pointer;
         accent-color: var(--brand-orange);
+        flex-shrink: 0;
     }
 
     .radio-label {
@@ -319,7 +318,7 @@ const { className = '' } = Astro.props;
         padding: 1rem;
         background-color: var(--bg-section-orange);
         border-radius: 8px;
-        margin-top: 0.5rem;
+        margin-top: 1.5rem;
     }
 
     .checkbox-group {
@@ -333,9 +332,12 @@ const { className = '' } = Astro.props;
     }
 
     .form-checkbox {
-        margin-top: 0.25rem;
+        width: 18px;
+        height: 18px;
+        margin-top: 0.15rem;
         cursor: pointer;
         accent-color: var(--brand-orange);
+        flex-shrink: 0;
     }
 
     .checkbox-label {
@@ -355,7 +357,7 @@ const { className = '' } = Astro.props;
         justify-content: center;
         align-items: center;
         padding: 0.75rem 2rem;
-        background-color: var(--brand-orange);
+        background-color: var(--brand-orange-dark);
         color: var(--white);
         border: none;
         border-radius: 9999px;
@@ -366,14 +368,24 @@ const { className = '' } = Astro.props;
         transition: all 0.3s ease;
     }
 
-    .btn-submit:hover {
+    .btn-submit:hover:not(:disabled) {
         background-color: var(--brand-orange-hover);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(255, 152, 84, 0.3);
     }
 
-    .btn-submit:active {
+    .btn-submit:active:not(:disabled) {
         transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+        opacity: 1;
+        cursor: not-allowed;
+        background-color: var(--brand-orange);
+    }
+
+    .btn-submit:not(:disabled) {
+        box-shadow: 0 2px 8px rgba(255, 152, 84, 0.2);
     }
 
     .form-message {
@@ -420,7 +432,11 @@ const { className = '' } = Astro.props;
         }
 
         .section-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
         }
 
         .form-label {
@@ -430,61 +446,106 @@ const { className = '' } = Astro.props;
         .form-input {
         font-size: 16px; 
         }
+
+        .radio-label {
+            font-size: 1rem;
+        }
+
+        .radio-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .whatsapp-note {
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-group {
+            gap: 1.2rem;
+        }
+
+        .form-radio, .form-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-top: 0.2rem;
+        }
+
+        .form-radio {
+            width: 18px;
+            height: 18px;
+            margin-top: 0.2rem;
+        }
     }
 </style>
 
 <script>
     const form = document.getElementById('membership-form') as HTMLFormElement;
     const messageDiv = document.getElementById('form-message') as HTMLDivElement;
+    const submitBtn = form?.querySelector('.btn-submit') as HTMLButtonElement;
+    const terminosCheckbox = document.getElementById('terminos') as HTMLInputElement;
+    const privacidadCheckbox = document.getElementById('privacidad') as HTMLInputElement;
 
-    if (form) {
-        form.addEventListener('submit', async (e: Event) => {
-        e.preventDefault();
-
-        messageDiv.innerHTML = '';
-        messageDiv.className = 'form-message';
-
-        const formData = new FormData(form);
-        
-        const data = {
-            apellido: formData.get('apellido'),
-            nombre: formData.get('nombre'),
-            fechaNacimiento: formData.get('fechaNacimiento'),
-            numeroCelular: formData.get('numeroCelular'),
-            correoElectronico: formData.get('correoElectronico'),
-            ciudad: formData.get('ciudad'),
-            provinciaEstado: formData.get('provinciaEstado'),
-            pais: formData.get('pais'),
-            comoConoce: formData.getAll('comoConoce').join(', '),
-            whatsappAuto: formData.get('whatsappAuto') === 'true',
-            aceptaTerminos: formData.get('aceptaTerminos') === 'on',
-            aceptaPrivacidad: formData.get('aceptaPrivacidad') === 'on',
-        };
-
-        try {
-            const response = await fetch('/api/membership', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-            messageDiv.className = 'form-message success';
-            messageDiv.innerHTML = `<p>${result.message}</p>`;
-            form.reset();
-            } else {
-            messageDiv.className = 'form-message error';
-            messageDiv.innerHTML = `<p>${result.error || 'Error al enviar el formulario'}</p>`;
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            messageDiv.className = 'form-message error';
-            messageDiv.innerHTML = '<p>Error al enviar el formulario. Intenta de nuevo.</p>';
+    const updateSubmitButtonState = () => {
+        if (submitBtn) {
+            const ambosAceptados = terminosCheckbox?.checked && privacidadCheckbox?.checked;
+            submitBtn.disabled = !ambosAceptados;
         }
+    };
+
+    if (form && submitBtn) {
+        submitBtn.disabled = true;
+
+        terminosCheckbox?.addEventListener('change', updateSubmitButtonState);
+        privacidadCheckbox?.addEventListener('change', updateSubmitButtonState);
+
+        form.addEventListener('submit', async (e: Event) => {
+            e.preventDefault();
+
+            messageDiv.innerHTML = '';
+            messageDiv.className = 'form-message';
+
+            const formData = new FormData(form);
+            
+            const data = {
+                apellido: formData.get('apellido'),
+                nombre: formData.get('nombre'),
+                fechaNacimiento: formData.get('fechaNacimiento'),
+                numeroCelular: formData.get('numeroCelular'),
+                correoElectronico: formData.get('correoElectronico'),
+                ciudad: formData.get('ciudad'),
+                provinciaEstado: formData.get('provinciaEstado'),
+                pais: formData.get('pais'),
+                comoConoce: formData.getAll('comoConoce').join(', '),
+                whatsappAuto: formData.get('whatsappAuto') === 'true',
+                aceptaTerminos: formData.get('aceptaTerminos') === 'on',
+                aceptaPrivacidad: formData.get('aceptaPrivacidad') === 'on',
+            };
+
+            try {
+                const response = await fetch('/api/membership', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.className = 'form-message success';
+                    messageDiv.innerHTML = `<p>${result.message}</p>`;
+                    form.reset();
+                    updateSubmitButtonState();
+                } else {
+                    messageDiv.className = 'form-message error';
+                    messageDiv.innerHTML = `<p>${result.error || 'Error al enviar el formulario'}</p>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.className = 'form-message error';
+                messageDiv.innerHTML = '<p>Error al enviar el formulario. Intenta de nuevo.</p>';
+            }
         });
     }
 </script>
