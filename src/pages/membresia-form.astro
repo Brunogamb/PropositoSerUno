@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MembershipForm from '../components/MembershipForm.astro';
+---
+
+<Layout 
+    title="Formulario de Membresía | Propósito Ser Uno"
+    description="Completa tu solicitud de membresía en Propósito Ser Uno. Únete a nuestra comunidad de salud y bienestar."
+>
+    <Header />
+    <main>
+        <section class="membership-section">
+            <div class="container">
+                <div class="section-content">
+                    <h1 class="page-title">Formulario de Membresía</h1>
+                    <p class="page-subtitle">
+                        Completa tu solicitud para formar parte de Propósito Ser Uno. 
+                        Nos alegra que desees ser parte de nuestra comunidad.
+                    </p>
+                </div>
+
+                <div class="form-container">
+                    <MembershipForm />
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .membership-section {
+        padding: 3rem 1.5rem;
+        background: var(--bg-section);
+        min-height: calc(100vh - 200px);
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .section-content {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .page-title {
+        font-size: 46px;
+        font-weight: 700;
+        color: var(--brand-900);
+        font-family: var(--lora-font);
+        margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+        font-size: 20px;
+        color: var(--text-light);
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-container {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .membership-section {
+            padding: 2rem 1rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .form-container {
+            padding: 1.5rem;
+        }
+    }
+</style>
