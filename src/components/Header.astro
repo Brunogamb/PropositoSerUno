@@ -59,7 +59,8 @@ const current = variants[variant];
             </ul>
         </nav>
 
-        <div>
+        <div class="header-actions">
+            <a href="/membresia-form" class="membership-link">Hazte miembro</a>
             <button class="hamburger" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-menu">
                 <span></span>
                 <span></span>
@@ -74,6 +75,7 @@ const current = variants[variant];
                 <li><a href="/membresia">Membresía</a></li>
                 <li><a href="/testimonios">Testimonios</a></li>
                 <li><a href="/fundadores">Fundadores</a></li>
+                <li><a href="/membresia-form">Hazte miembro</a></li>
             </ul>
         </nav>
     </div>
@@ -111,10 +113,11 @@ header {
     justify-content: center;
 }
 
-.header-container > div:last-of-type {
-    flex: 0 0 300px; 
+.header-actions {
+    flex: 0 0 208px; 
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
 }
 
 .header-logo img {
@@ -159,6 +162,21 @@ header {
     letter-spacing: -0.1ch;
 }
 
+.membership-link {
+    color: var(--nav-color);
+    font-family: var(--open-sans-font);
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    letter-spacing: -0.1ch;
+    margin: 10px 0 4px;   
+}
+
 .hamburger {
     display: none;
     margin: auto;
@@ -177,7 +195,8 @@ header {
 }
 
 @media (hover: hover) {
-    .services-nav a:hover {
+    .services-nav a:hover,
+    .membership-link:hover {
         color: var(--brand-700);
     }
 }
@@ -194,7 +213,7 @@ header {
 }
 
 @media (max-width: 1160px) and (min-width: 769px) {
-    .services-nav a {
+    .services-nav a, .membership-link {
         font-size: clamp(14px, 1.9vw, 18px);
         letter-spacing: -0.05ch;
     }
@@ -209,6 +228,12 @@ header {
 
     .header-logo {
         height: 28px;
+    }
+}
+
+@media (max-width: 880px) {
+    .header-logo {
+        height: 24px;
     }
 }
 
@@ -236,8 +261,12 @@ header {
         display: none;
     }
 
-    .header-container > div:last-of-type {
+    .header-actions {
         flex: none; 
+    }
+
+    .membership-link {
+        display: none;
     }
 
     .hamburger {
