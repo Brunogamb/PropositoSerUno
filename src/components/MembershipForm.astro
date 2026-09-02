@@ -181,7 +181,7 @@ const { className = '' } = Astro.props;
                     class="form-checkbox"
                     required
                 />
-                <span>Declaro haber leído y acepto los Términos y Condiciones de Membresía y las Condiciones de Uso de Propósito Ser Uno.</span>
+                <span>Declaro haber leído y acepto los <a class="legal-link" href="/aviso-legal#terminos-condiciones">Términos y Condiciones de Membresía</a> y las <a class="legal-link" href="/aviso-legal#terminos-condiciones">Condiciones de Uso</a> de Propósito Ser Uno.</span>
                 </label>
 
                 <label class="checkbox-item checkbox-label">
@@ -192,7 +192,7 @@ const { className = '' } = Astro.props;
                     class="form-checkbox"
                     required
                 />
-                <span>Declaro haber leído la Política de Privacidad y acepto el tratamiento de mis datos personales de acuerdo con lo establecido en ella.</span>
+                <span>Declaro haber leído la <a class="legal-link" href="/aviso-legal#politica-privacidad">Política de Privacidad</a> y acepto el tratamiento de mis datos personales de acuerdo con lo establecido en ella.</span>
                 </label>
             </div>
         </div>
@@ -347,6 +347,12 @@ const { className = '' } = Astro.props;
         line-height: 1.4;
     }
 
+    .legal-link {
+        color: var(--brand-orange-darker);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
     .form-actions {
         display: flex;
         justify-content: center;
@@ -428,6 +434,10 @@ const { className = '' } = Astro.props;
         .btn-submit:hover:not(:disabled) {
             background-color: var(--brand-orange-hover);
             box-shadow: 0 4px 12px rgba(255, 152, 84, 0.3);
+        }
+
+        .legal-link:hover {
+            color: var(--brand-orange-hover);
         }
     }
 
