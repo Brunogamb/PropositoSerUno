@@ -41,23 +41,34 @@ export const POST: APIRoute = async ({ request }) => {
         const { data: resendData, error } = await resend.emails.send({
         from: 'Propósito Ser Uno <administracion@propositoseruno.com>',
         to: ['administracion@propositoseruno.com'],
-        subject: `Nueva Solicitud de Membresía: ${data.nombre} ${data.apellido}`,
+        replyTo: data.correoElectronico,
+        subject: `Nueva Solicitud de Membresía: ${data.apellido}, ${data.nombre}`,
         html: `
             <h2>Nueva solicitud de membresía</h2>
             <hr />
+            
             <h3>Datos personales</h3>
             <ul>
-            <li><strong>Nombre completo:</strong> ${data.nombre} ${data.apellido}</li>
+            <li><strong>Apellido/s:</strong> ${data.apellido}</li>
+            <li><strong>Nombre/s:</strong> ${data.nombre}</li>
             <li><strong>Fecha de nacimiento:</strong> ${data.fechaNacimiento}</li>
-            <li><strong>Email:</strong> ${data.correoElectronico}</li>
-            <li><strong>Celular:</strong> ${data.numeroCelular}</li>
-            <li><strong>Ubicación:</strong> ${data.ciudad}, ${data.provinciaEstado}, ${data.pais}</li>
+            <li><strong>Número de celular:</strong> ${data.numeroCelular}</li>
+            <li><strong>Correo electrónico:</strong> ${data.correoElectronico}</li>
+            <li><strong>Ciudad:</strong> ${data.ciudad}</li>
+            <li><strong>Provincia / Estado:</strong> ${data.provinciaEstado}</li>
+            <li><strong>País:</strong> ${data.pais}</li>
             </ul>
 
-            <h3>Preferencias y Estado</h3>
+            <h3>Incorporación al grupo de WhatsApp</h3>
+            <p><strong>Autoriza incorporación automática:</strong> ${data.whatsappAuto ? 'Sí' : 'No'}</p>
+
+            <h3>¿Cómo conociste Propósito Ser Uno?</h3>
+            <p>${data.comoConoce || 'No especificado'}</p>
+
+            <h3>Aceptación</h3>
             <ul>
-            <li><strong>Incorporación automática a WhatsApp:</strong> ${data.whatsappAuto ? 'Sí' : 'No'}</li>
-            <li><strong>¿Cómo conoció el programa?:</strong> ${data.comoConoce || 'No especificado'}</li>
+            <li><strong>Términos y Condiciones:</strong> ${data.aceptaTerminos ? 'Aceptado' : 'No'}</li>
+            <li><strong>Política de Privacidad:</strong> ${data.aceptaPrivacidad ? 'Aceptado' : 'No'}</li>
             </ul>
         `,
         });
