@@ -65,11 +65,6 @@ export const POST: APIRoute = async ({ request }) => {
             <h3>¿Cómo conociste Propósito Ser Uno?</h3>
             <p>${data.comoConoce || 'No especificado'}</p>
 
-            <h3>Aceptación</h3>
-            <ul>
-            <li><strong>Términos y Condiciones:</strong> ${data.aceptaTerminos ? 'Aceptado' : 'No'}</li>
-            <li><strong>Política de Privacidad:</strong> ${data.aceptaPrivacidad ? 'Aceptado' : 'No'}</li>
-            </ul>
         `,
         });
 
