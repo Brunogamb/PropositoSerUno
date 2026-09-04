@@ -519,6 +519,10 @@ const { className = '' } = Astro.props;
             messageDiv.innerHTML = '';
             messageDiv.className = 'form-message';
 
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+
             const formData = new FormData(form);
             
             const data = {
@@ -555,11 +559,15 @@ const { className = '' } = Astro.props;
                 } else {
                     messageDiv.className = 'form-message error';
                     messageDiv.innerHTML = `<p>${result.error || 'Error al enviar el formulario'}</p>`;
+                    updateSubmitButtonState();
                 }
             } catch (error) {
                 console.error('Error:', error);
                 messageDiv.className = 'form-message error';
                 messageDiv.innerHTML = '<p>Error al enviar el formulario. Intenta de nuevo.</p>';
+                updateSubmitButtonState();
+            } finally {
+                submitBtn.textContent = originalBtnText;
             }
         });
     }
