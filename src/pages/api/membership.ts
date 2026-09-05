@@ -38,6 +38,10 @@ export const POST: APIRoute = async ({ request }) => {
         );
         }
 
+        const fechaFormateada = data.fechaNacimiento
+        ? data.fechaNacimiento.split('-').reverse().join('/')
+        : 'No especificada';
+
         const { data: resendData, error } = await resend.emails.send({
         from: 'Propósito Ser Uno <administracion@propositoseruno.com>',
         to: ['administracion@propositoseruno.com'],
@@ -51,7 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
             <ul>
             <li><strong>Apellido/s:</strong> ${data.apellido}</li>
             <li><strong>Nombre/s:</strong> ${data.nombre}</li>
-            <li><strong>Fecha de nacimiento:</strong> ${data.fechaNacimiento}</li>
+            <li><strong>Fecha de nacimiento:</strong> ${fechaFormateada}</li>
             <li><strong>Número de celular:</strong> ${data.numeroCelular}</li>
             <li><strong>Correo electrónico:</strong> ${data.correoElectronico}</li>
             <li><strong>Ciudad:</strong> ${data.ciudad}</li>
