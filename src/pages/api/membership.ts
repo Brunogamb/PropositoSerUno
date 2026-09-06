@@ -53,6 +53,20 @@ export const POST: APIRoute = async ({ request }) => {
         const siteUrl = 'https://propositoseruno.com';
         const logoUrl = `${siteUrl}/logo-email.webp`;
 
+        const pdfParams = new URLSearchParams({
+            nombre: data.nombre,
+            apellido: data.apellido,
+            fecha: fechaFormateada,
+            celular: data.numeroCelular,
+            email: data.correoElectronico,
+            ciudad: data.ciudad || '',
+            provincia: data.provinciaEstado || '',
+            pais: data.pais || '',
+            comoConoce: data.comoConoce || '',
+            whatsapp: data.whatsappAuto ? 'Sí' : 'No',
+        });
+        const pdfDownloadUrl = `${siteUrl}/api/pdf?${pdfParams.toString()}`;
+
         const { error } = await resend.emails.send({
             from: 'Propósito Ser Uno <administracion@propositoseruno.com>',
             to: ['administracion@propositoseruno.com'],
@@ -74,7 +88,20 @@ export const POST: APIRoute = async ({ request }) => {
                         <tr>
                             <td style="padding: 32px;">
                                 <p style="margin: 0 0 8px; color: #784bf2; font-size: 13px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">Nueva solicitud</p>
-                                <h1 style="margin: 0 0 28px; color: #260090; font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: normal; line-height: 1.25;">Solicitud de membresía</h1>
+                                
+                                <!-- TITULO Y BOTÓN DE DESCARGA EN LA MISMA LÍNEA -->
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 28px;">
+                                    <tr>
+                                        <td valign="middle" align="left">
+                                            <h1 style="margin: 0; color: #260090; font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: normal; line-height: 1.25;">Solicitud de membresía</h1>
+                                        </td>
+                                        <td valign="middle" align="right" style="white-space: nowrap; padding-left: 12px;">
+                                            <a href="${pdfDownloadUrl}" target="_blank" style="display: inline-block; padding: 8px 14px; background-color: #784bf2; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 4px;">
+                                                📄 Descargar PDF
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
 
                                 <h2 style="margin: 0 0 14px; color: #260090; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-weight: normal;">Datos personales</h2>
                                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse: collapse; font-size: 15px; line-height: 1.5;">
@@ -108,7 +135,7 @@ export const POST: APIRoute = async ({ request }) => {
         if (error) {
         return new Response(
             JSON.stringify({ error: 'Hubo un inconveniente al enviar la solicitud.' }),
-            { status: 500, headers: { 'Content-Type': 'application/json' } }
+            { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
         }
 
