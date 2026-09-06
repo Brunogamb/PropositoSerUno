@@ -59,12 +59,17 @@ export const POST: APIRoute = async ({ request }) => {
             to: ['administracion@propositoseruno.com'],
             replyTo: data.correoElectronico,
             subject: `Nueva Solicitud de Membresía: ${data.apellido}, ${data.nombre}`,
+            attachments: [{
+                filename: 'logo-email.webp',
+                path: logoUrl,
+                contentId: 'logo-email',
+            }],
             html: `
                 <div style="margin: 0; padding: 32px 16px; background-color: #f7f4ef; color: #260090; font-family: Arial, Helvetica, sans-serif;">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e8e1d9; border-radius: 8px; overflow: hidden;">
                         <tr>
                             <td style="padding: 28px 32px; background-color: #ff9854; text-align: center;">
-                                <img src="${logoUrl}" alt="Propósito Ser Uno" width="280" style="display: block; width: 280px; max-width: 100%; height: auto; margin: 0 auto; border: 0;">
+                                <img src="cid:logo-email" alt="Propósito Ser Uno" width="280" style="display: block; width: 280px; max-width: 100%; height: auto; margin: 0 auto; border: 0;">
                             </td>
                         </tr>
                         <tr>
