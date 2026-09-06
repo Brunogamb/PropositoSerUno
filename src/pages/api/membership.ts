@@ -52,7 +52,6 @@ export const POST: APIRoute = async ({ request }) => {
             : 'No especificada';
         const siteUrl = 'https://propositoseruno.com';
         const logoUrl = `${siteUrl}/logo-email.webp`;
-        const nombreCompleto = `${escapeHtml(data.nombre)} ${escapeHtml(data.apellido)}`;
 
         const { error } = await resend.emails.send({
             from: 'Propósito Ser Uno <administracion@propositoseruno.com>',
@@ -79,7 +78,8 @@ export const POST: APIRoute = async ({ request }) => {
 
                                 <h2 style="margin: 0 0 14px; color: #260090; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-weight: normal;">Datos personales</h2>
                                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse: collapse; font-size: 15px; line-height: 1.5;">
-                                    <tr><td style="padding: 9px 0; color: #6d6875; width: 42%; border-bottom: 1px solid #eee8e2;">Nombre completo</td><td style="padding: 9px 0; color: #260090; font-weight: bold; border-bottom: 1px solid #eee8e2;">${nombreCompleto}</td></tr>
+                                    <tr><td style="padding: 9px 0; color: #6d6875; width: 42%; border-bottom: 1px solid #eee8e2;">Apellido/s</td><td style="padding: 9px 0; color: #260090; font-weight: bold; border-bottom: 1px solid #eee8e2;">${escapeHtml(data.apellido)}</td></tr>
+                                    <tr><td style="padding: 9px 0; color: #6d6875; border-bottom: 1px solid #eee8e2;">Nombre/s</td><td style="padding: 9px 0; color: #260090; font-weight: bold; border-bottom: 1px solid #eee8e2;">${escapeHtml(data.nombre)}</td></tr>
                                     <tr><td style="padding: 9px 0; color: #6d6875; border-bottom: 1px solid #eee8e2;">Fecha de nacimiento</td><td style="padding: 9px 0; color: #260090; border-bottom: 1px solid #eee8e2;">${escapeHtml(fechaFormateada)}</td></tr>
                                     <tr><td style="padding: 9px 0; color: #6d6875; border-bottom: 1px solid #eee8e2;">Número de celular</td><td style="padding: 9px 0; color: #260090; border-bottom: 1px solid #eee8e2;">${escapeHtml(data.numeroCelular)}</td></tr>
                                     <tr><td style="padding: 9px 0; color: #6d6875; border-bottom: 1px solid #eee8e2;">Correo electrónico</td><td style="padding: 9px 0; color: #260090; border-bottom: 1px solid #eee8e2;">${escapeHtml(data.correoElectronico)}</td></tr>
