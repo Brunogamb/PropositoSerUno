@@ -3,9 +3,22 @@
 
 <footer>
     <div class="footer-content">
-        <button type="button" class="disabled" disabled>Redes Sociales</button>
-        <a href="/aviso-legal">Aviso Legal</a>
-        <a href="mailto:administracion@propositoseruno.com">e-mails de PSU</a>
+        <div class="column">
+            <h2>Redes Sociales</h2>
+            <h3>Próximamente</h3>
+        </div>
+        <div class="column">
+            <a href="/aviso-legal">
+                <h2>Aviso Legal</h2>
+                <h3>Términos y Condiciones</h3>
+                <h3>Política de Privacidad</h3>
+            </a>
+        </div>
+        <div class="column">
+            <h2>Contacto</h2>
+            <h3>administracion@propositoseruno.com</h3>
+            <h3>+54 9 3512 89-1029</h3>
+        </div>
     </div>
 
     <div class="footer-bottom">
@@ -34,61 +47,32 @@ footer {
     gap: 150px;
     max-width: 1140px;
     width: 100%;
-    padding: 46px 0 130px;
+    padding: 46px 0 90px;
     font-weight: 500;
     font-family: var(--open-sans-font);
 }
 
-.footer-content a,
-.footer-content button {
-    position: relative;
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
     font-size: 24px;
-    height: fit-content;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
-    background: transparent;
-    color: inherit;
     font-family: var(--open-sans-font);
-    font-weight: 500;
+    font-weight: 600;
 }
 
-.footer-content button {
-    border: none;
+h3 {
+    font-size: 17px;
+    margin-top: 8px;
+    font-family: var(--open-sans-font);
+    font-weight: 400;
 }
 
-.footer-content .disabled {
-    cursor: not-allowed;
-    border-bottom-color: transparent;
-}
-
-    .footer-content .disabled:hover,
-    .footer-content .disabled:focus-visible {
-        color: rgba(var(--white-rgb), 0.7);
-        border-bottom-color: transparent;
-    }
-
-    .footer-content .disabled::after {
-    content: "Próximamente";
-    position: absolute;
-    left: 50%;
-    bottom: -2.4rem;
-    transform: translateX(-50%) translateY(6px);
-    opacity: 0;
-    white-space: nowrap;
-    pointer-events: none;
-    color: var(--white);
-    font-size: 0.85rem;
-    padding: 6px 10px;
-    border-radius: 999px;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    z-index: 1;
-}
-
-.footer-content .disabled:hover::after,
-.footer-content .disabled:focus-visible::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+a {
+    width: fit-content;
+    transition: all 0.2s ease;
 }
 
 .footer-bottom {
@@ -111,6 +95,8 @@ footer {
     footer a:hover {
         color: var(--brand-orange);
         border-bottom-color: var(--brand-orange);
+        text-decoration: underline 2px var(--brand-orange);
+        text-underline-offset: 4px;
     }
 
     .dev a:hover {
@@ -118,7 +104,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .footer-content {
         flex-direction: column;
         gap: 40px;
@@ -126,16 +112,14 @@ footer {
         padding: 40px 20px;
     }
 
-    .footer-content a.disabled::after {
-        font-size: 20px;
-        padding: 5px 8px;
-        top: 30px;
-    }
-
     .footer-bottom {
         flex-direction: column;
         text-align: center;
         gap: 10px;
+    }
+
+    .column {
+        align-items: center;
     }
 }
 </style>
