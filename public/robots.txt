@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brunogamb.github.io/PropositoSerUno/sitemap.xml
+Sitemap: https://propositoseruno.com/sitemap-index.xml
