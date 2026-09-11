@@ -19,36 +19,36 @@ const canonical = `${siteBase}${Astro.url?.pathname ?? '/'}`;
 const ogImage = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? image : `/${image}`}`;
 const language = locale.replace('_', '-');
 const jsonLd = [
-	{
-		"@context": "https://schema.org",
-		"@type": "WebSite",
-		"url": siteBase,
-		"name": siteName,
-		"description": description,
-		"publisher": {
-			"@type": "Organization",
-			"name": siteName,
-			"url": siteBase,
-		},
-		"inLanguage": language,
-	},
-	{
-		"@context": "https://schema.org",
-		"@type": "WebPage",
-		"url": canonical,
-		"name": title,
-		"description": description,
-		"isPartOf": {
-			"@type": "WebSite",
-			"name": siteName,
-			"url": siteBase,
-		},
-		"inLanguage": language,
-		"mainEntityOfPage": {
-			"@type": "WebPage",
-			"@id": canonical,
-		},
-	},
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": siteBase,
+        "name": siteName,
+        "description": description,
+        "publisher": {
+            "@type": "Organization",
+            "name": siteName,
+            "url": siteBase
+        },
+        "inLanguage": language
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "url": canonical,
+        "name": title,
+        "description": description,
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": siteName,
+            "url": siteBase
+        },
+        "inLanguage": language,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+        }
+    }
 ];
 ---
 
