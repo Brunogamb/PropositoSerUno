@@ -90,11 +90,13 @@ const jsonLd = [
 		<meta name="twitter:description" content={description}>
 		<meta name="twitter:image" content={ogImage}>
 		<meta name="twitter:image:alt" content={imageAlt}>
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
 		<link rel="preload" as="font" href="/fonts/Lora-VariableFont_wght.woff2" type="font/woff2" crossorigin>
 		<link rel="preload" as="font" href="/fonts/OpenSans-VariableFont_wdth,wght.woff2" type="font/woff2" crossorigin>
-		<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 		<script defer src="https://cloud.umami.is/script.js" data-website-id="1c538450-43c4-4a91-bc77-aa4f6409fd6b"></script>
 		<Analytics />
 		<SpeedInsights />
