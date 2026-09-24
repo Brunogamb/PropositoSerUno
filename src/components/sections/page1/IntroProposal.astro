@@ -1,15 +1,17 @@
 ---
 import Button from '../../ui/Button.astro';
+import { Image } from 'astro:assets';
+
+import LogoPSU from '../../../assets/Logo_PSU.webp';
 ---
 
 <section>
     <div class="container">
-        <h2>Tu salud y bienestar pueden mejorar cuando comenzás a participar activamente en ellos.</h2>
-        <article>
+        <Image src={LogoPSU} alt="Logo de Propósito Ser Uno" loading="lazy" class="logo"/>
+        <h2>¡Te invitamos a recuperar la alegría de vivir!</h2>
+        <article class="first-article">
             <h3>Qué es Propósito Ser Uno</h3>
             <p><strong>Propósito Ser Uno es una iniciativa independiente sin fines de lucro</strong>, de carácter educativo y de acompañamiento, orientada a <strong>complementar procesos de recuperación de la salud y favorecer estados sostenidos de bienestar a través de un programa de evolución mental y desarrollo espiritual</strong>.</p>
-            <p>Si actualmente estás transitando un proceso de recuperación de tu salud física, mental o emocional, este espacio fue creado para brindarte conocimientos, herramientas prácticas y espacios de acompañamiento diario en comunidad que te ayuden a complementar y fortalecer el proceso que estás llevando adelante, ya sea por una enfermedad crónica, estrés, cáncer, trastornos de ansiedad , TOC, fobias, depresión, obesidad, adicciones u otras condiciones que afecten tu salud y bienestar.</p>
-            <p>Vale aclarar que Propósito Ser Uno y su programa Conquistando Salud y Bienestar <strong>no sustituyen tratamientos médicos, psicológicos o psiquiátricos</strong>. Su propuesta es educativa y de acompañamiento, orientada a <strong>complementar los procesos de recuperación de la salud y favorecer estados sostenidos de bienestar</strong>.</p>
         </article>
         <article class="faq-inline">
             <details class="faq-item">
@@ -36,6 +38,7 @@ import Button from '../../ui/Button.astro';
             <h3>Qué ofrecemos</h3>
             <p>Ofrecemos un <strong>programa para la evolución mental y el desarrollo espiritual</strong> y una <strong>comunidad activa de aprendizaje y acompañamiento diario</strong>, creados para complementar procesos de recuperación de la salud y favorecer estados sostenidos de bienestar.</p>
             <p>La integración de estos dos pilares, programa y comunidad, te permite incorporar nuevos conocimientos y desarrollar prácticas y hábitos saludables. Al mismo tiempo, contás con el acompañamiento de una comunidad que te motiva y sostiene durante el proceso.</p>
+            <h4>Tu salud y bienestar pueden mejorar cuando comenzás a participar activamente en ellos.</h4>
         </article>
         <article>
             <h3>Por qué tu participación activa es importante</h3>
@@ -73,14 +76,35 @@ import Button from '../../ui/Button.astro';
         justify-content: center;
     }
 
+    .logo {
+        width: 200px;
+        height: auto;
+        display: block;
+        margin: 20px auto 20px;
+    }
+
+    .first-article {
+        margin-bottom: 15px;
+    }
+
     h2 {
         font-family: var(--lora-font);
         font-size: 36px;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 1.6;
         text-align: center;
-        margin: 16px 0 70px 0;
+        margin: 16px 0 50px 0;
         text-wrap: balance;
+    }
+
+    h4 {
+        font-family: var(--lora-font);
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.6;
+        text-align: center;
+        margin-top: 20px;
+        font-style: italic;
     }
 
     article {
@@ -238,6 +262,10 @@ import Button from '../../ui/Button.astro';
         article p {
             font-size: 18px;
             line-height: 1.6;
+        }
+
+        .logo {
+            width: 150px;
         }
     }
 </style>
