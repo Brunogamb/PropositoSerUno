@@ -7,16 +7,25 @@
 
         <div class="content">
         <p class="intro-italic">
-            El programa reúne conocimientos y herramientas que habitualmente no forman parte de la educación formal, orientados a acompañarte en un proceso de transformación y ayudarte a generar cambios reales en tu salud, bienestar y calidad de vida.
+            El programa reúne conocimientos y herramientas que habitualmente no forman parte de la educación formal.
         </p>
-        <ul>
-            <li><strong>- Material básico de estudio (Taller Logros)</strong>, compuesto por ocho módulos con contenidos teóricos y prácticos que permiten comprender y aplicar un método original, desarrollado por el Dr. Roberto Udrisar a partir de más de 20 años de estudio e integración de distintas disciplinas.</li>
-            <li><strong>- Material Complementario</strong>, diseñado para facilitar la implementación del método en la vida cotidiana. Incluye una Guía de Inicio, una Guía Práctica, herramientas para el desarrollo personal y espiritual, ejercicios de aplicación y recursos destinados a transformar el conocimiento en experiencia.</li>
-            <li><strong>- Material de Profundización</strong>, que amplía y desarrolla temas esenciales del programa para quienes desean comprenderlos con mayor profundidad.</li>
-            <li><strong>- Aportes</strong>, de profesionales especializados en biodecodificación y coaching, que enriquecen y complementan los contenidos del programa.</li>
-            <li><strong>- Siete meditaciones guiadas</strong>, cada una con un propósito específico y disponibles en versión masculina y femenina, para acompañar cada etapa del proceso desde el primer día.</li>
-        </ul>
-        <p class="last-paragraph">Recibís instrucción, guía y un método claro, acompañado de prácticas que favorecen la incorporación de hábitos saludables y sostienen tu proceso de transformación.</p>
+        <article class="faq-inline">
+            <details class="faq-item">
+                <summary>
+                    <span class="icon">+</span>
+                    <span class="question-text">¿Es Propósito Ser Uno para mí?</span>
+                </summary>
+                <div class="answer">
+                    <ul class="program-material-list">
+                        <li><strong>- Material básico de estudio (Taller Logros)</strong>, compuesto por ocho módulos con contenidos teóricos y prácticos que permiten comprender y aplicar un método original, desarrollado por el Dr. Roberto Udrisar a partir de más de 20 años de estudio e integración de distintas disciplinas.</li>
+                        <li><strong>- Material Complementario</strong>, diseñado para facilitar la implementación del método en la vida cotidiana. Incluye una Guía de Inicio, una Guía Práctica, herramientas para el desarrollo personal y espiritual, ejercicios de aplicación y recursos destinados a transformar el conocimiento en experiencia.</li>
+                        <li><strong>- Material de Profundización</strong>, que amplía y desarrolla temas esenciales del programa para quienes desean comprenderlos con mayor profundidad.</li>
+                        <li><strong>- Aportes</strong>, de profesionales especializados en biodecodificación y coaching, que enriquecen y complementan los contenidos del programa.</li>
+                        <li><strong>- Meditaciones guiadas</strong>, cada una con un propósito específico y disponibles en versión masculina y femenina, para acompañar cada etapa del proceso desde el primer día.</li>
+                    </ul>
+                </div>
+            </details>
+        </article>
 
         <span class="eyebrow last-eyebrow">MODALIDAD FLEXIBLE</span>
         <h3>Aprendizaje Autónomo Guiado:</h3>
@@ -85,6 +94,10 @@
         gap: 10px;
     }
 
+    .program-material-list {
+        margin-bottom: 20px;
+    }
+
     h3 {
         font-family: var(--open-sans-font);
         font-size: 22px;
@@ -110,6 +123,65 @@
         font-style: italic;
         margin: 20px 0 40px;
         text-indent: 0;
+    }
+
+    .faq-inline {
+        margin-bottom: 46px;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid var(--muted);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .faq-item summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-family: var(--open-sans-font);
+        font-size: 21px;
+        font-weight: 400;
+        color: var(--text);
+        padding: 10px 0;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .icon {
+        font-size: 34px;
+        font-weight: 300;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        color: var(--brand-700);
+    }
+
+    .faq-item[open] .icon {
+        transform: rotate(45deg);
+        color: var(--brand-orange-dark);
+    }
+
+    .question-text {
+        flex: 1;
+    }
+
+    .answer {
+        padding: 10px 0 10px 40px;
+        overflow: hidden;
+        display: none;
+        font-family: var(--open-sans-font);
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: 300;
+        color: var(--text);
+    }
+
+    .faq-item[open] .answer {
+        display: block;
+        animation: slideDown 0.3s ease forwards;
     }
 
     @media (max-width: 768px) {
