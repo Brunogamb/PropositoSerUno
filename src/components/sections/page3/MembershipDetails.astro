@@ -1,24 +1,39 @@
 ---
+import Button from '../../ui/Button.astro';
+import { Image } from 'astro:assets';
+
+import LogoPSU from '../../../assets/Logo_PSU.webp';
 ---
 
-<section class="values">
+<section class="details">
     <div class="container">
+        <Image src={LogoPSU} alt="Logo de Propósito Ser Uno" loading="lazy" class="logo"/>
         <h2 class="main-quote">
-        Un patrimonio de la humanidad para avanzar hacia una vida mejor
+        Donde cada experiencia encuentra compañía
         </h2>
 
         <div class="content">
         <p class="first-paragraph">
-            Propósito Ser Uno nace de la convicción de que los conocimientos y las prácticas orientados a la evolución mental y al desarrollo espiritual son un legado que pertenece a toda la humanidad. Por esta razón, nos organizamos como una <strong>entidad sin fines de lucro</strong>, con un espíritu de servicio al desarrollo humano.
+            Únete a <strong>Propósito Ser Uno</strong> haciéndote miembro. <strong>Hacerte miembro</strong> no implica costos de admisión ni cuotas mensuales obligatorias. La comunidad se sostiene gracias a los aportes voluntarios de sus miembros.
         </p>
+        <p>
+            Podés acceder a los conocimientos, herramientas y espacios de acompañamiento que compartimos, con total libertad y sin compromiso de permanencia.
+        </p>
+        <p>
+            Si en algún momento sentís que este espacio no es para vos, podés dar de baja tu membresía sin costo alguno. Y si al participar sentís que este espacio aporta valor a tu vida, podés <strong>contribuir voluntariamente para acompañar el crecimiento y la continuidad de Propósito Ser Uno</strong>.
+        </p>
+        </div>
+        <div class="actions">
+            <Button variant="primary" text="Hazte miembro" href="/membresia-form" />
+            <Button variant="secondary" text="Contactar por WhatsApp" href="https://wa.me/5493512891029" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer"/>
         </div>
     </div>
 </section>
 
 <style>
-    .values {
+    .details {
         background-color: var(--white);
-        padding: 45px 20px;
+        padding: 45px 20px 0;
         display: flex;
         justify-content: center;
         color: var(--text);
@@ -32,7 +47,7 @@
 
     .main-quote {
         font-family: var(--lora-font);
-        font-size: 35px;
+        font-size: 30px;
         line-height: 1.4;
         font-weight: 400;
         margin-bottom: 30px;
@@ -78,6 +93,21 @@
         font-style: italic;
     }
 
+    .logo {
+        width: 200px;
+        height: auto;
+        display: block;
+        margin: 20px auto 20px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 40px;
+        gap: 40px;
+    }
+
     @media (max-width: 768px) {
         .main-quote {
             font-size: 28px;
@@ -93,7 +123,7 @@
             margin-top: 30px;
         }
 
-        .values { 
+        .details { 
             padding: 40px 16px; 
         }
 

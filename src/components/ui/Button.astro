@@ -4,9 +4,20 @@ interface Props {
     href: string;
     variant?: 'primary' | 'secondary' | 'outline';
     className?: string;
+    target?: string;
+    rel?: string;
+    'aria-label'?: string;
 }
 
-const { text, href, variant = 'primary', className = '' } = Astro.props;
+const {
+    text,
+    href,
+    variant = 'primary',
+    className = '',
+    target,
+    rel,
+    'aria-label': ariaLabel
+} = Astro.props;
 
 const variantStyles = {
     primary: 'btn-primary',
@@ -17,7 +28,13 @@ const variantStyles = {
 const baseStyles = "btn-base";
 ---
 
-<a href={href} class={`${baseStyles} ${variantStyles[variant]} ${className}`}>
+<a
+    href={href}
+    target={target}
+    rel={rel}
+    aria-label={ariaLabel}
+    class={`${baseStyles} ${variantStyles[variant]} ${className}`}
+>
     {text}
 </a>
 
