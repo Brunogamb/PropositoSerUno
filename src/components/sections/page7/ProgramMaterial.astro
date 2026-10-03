@@ -1,4 +1,5 @@
 ---
+import ProgramDirectory from './ProgramDirectory.astro';
 ---
 
 <section class="key-concept">
@@ -15,7 +16,13 @@
                 <li>- Avanzás a tu ritmo, con motivación y compromiso.</li>
                 <li>- Podés consultar tus dudas con el director o compartirlas en los grupos de la comunidad.</li>
             </ul>
+            
             <p class="italic">El aprendizaje autónomo es una forma poderosa de incorporar el proceso, porque genera transformación real desde la experiencia.</p>
+            
+            <div class="directory-integration-wrapper">
+                <ProgramDirectory />
+            </div>
+
             <p>Esta versión digital del material del programa se comparte de forma gratuita con los miembros de Propósito Ser Uno.</p>
             <h2>Pedí la versión para imprimir</h2>
             <p>La versión para imprimir está disponible a un valor de $27.000 ARS. Para adquirirla, ponete en contacto con la Administración al: </p>
@@ -66,6 +73,12 @@
         text-align: left;
     }
 
+    .directory-integration-wrapper {
+        text-indent: 0;
+        margin: 25px 0;
+        width: 100%;
+    }
+
     h2 {
         font-size: 34px;
         margin-top: 20px;
@@ -102,6 +115,23 @@
         font-style: italic;
     }
 
+    .btn-primary {
+        padding: 10px 20px;
+        background-color: var(--brand-700);
+        color: var(--white);
+        border-radius: 8px;
+        margin-top: 10px;
+        width: fit-content;
+        font-size: 18px;
+        transition: all 0.2s ease;
+    }
+
+    @media (hover: hover) {
+        .btn-primary:hover {
+            background-color: var(--brand-800);
+        }
+    }
+
     @media (max-width: 768px) {
         .key-concept { 
             padding: 40px 16px; 
@@ -122,6 +152,10 @@
 
         h3 {
             font-size: 21px;
+        }
+
+        .directory-integration-wrapper {
+            margin: 15px 0;
         }
     }
 </style>
