@@ -1,0 +1,86 @@
+---
+import heroImage from '/src/assets/Hero/HeroBackground.webp';
+---
+
+<section class="hero">
+    <div class="text">
+        <h1>¡Hola!</h1>
+        <h2 class="p1">Disfrutá tu material de estudio.</h2>
+        <h2 class="p2">¡Gracias!</h2>
+    </div>
+
+</section>
+
+<style define:vars={{ heroBg: `url(${heroImage.src})` }}>
+    .hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 600px;  
+        padding: 100px 20px 0 20px;
+        color: var(--white);
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: var(--heroBg);
+        background-repeat: no-repeat;
+        background-size: 100% 882px;
+        background-position: center top; 
+        z-index: 0;
+    }
+
+    .text {
+        position: relative;
+        z-index: 2;
+    }
+
+    h1 {
+        font-weight: 600;
+        font-size: 85px; 
+        line-height: 1.5;
+    }
+    
+    h2 {
+        font-weight: 600;
+        font-size: 50px;
+    }
+
+    .p1 {
+        margin: 10px 0 20px;
+    }
+
+    .p2 {
+        transform: skewX(-6deg);
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 74px 16px 40px;
+            height: calc(270px + 160px + 53.44vw + 40px);
+            min-height: auto;
+            
+        }
+
+        .hero::before {
+            background-size: 120% 882px;
+            background-position: center -120px; 
+        }
+
+        h1 {
+            line-height: 1.4;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 22px;
+            line-height: 1.5;
+            text-wrap: balance;
+        }
+    }
+</style>
