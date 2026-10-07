@@ -2,28 +2,41 @@
 import { Image } from 'astro:assets';
 import Logo from '../../assets/Logo.webp';
 import Button from '../ui/Button.astro';
+
+interface Props {
+    title?: string;
+    bgColor?: string;
+    showButtons?: boolean;
+}
+
+const {
+    title = 'Un espacio con el potencial de mejorar tu salud y tu calidad de vida.',
+    bgColor = 'var(--bg-section)',
+    showButtons = false
+} = Astro.props;
 ---
 
-<section class="prefooter">
+<section class="prefooter" style={{ backgroundColor: bgColor }}>
     <div class="container">
         <div class="content">
             <a href="/"><Image src={Logo} alt="Logo de Propósito Ser Uno" class="logo" loading="lazy"/></a>
-            <h2>Comunidad en formación, hacia una organización civil sin fines de lucro</h2>
+            <h2>{title}</h2>
         </div>
 
-        <div class="actions">
-            <Button variant="primary" text="Membresía" href="/membresia" className="small-btn" />
-            <Button variant="outline" text="Explorar Programa" href="/programa" className="small-btn" />
-            <Button variant="primary" text="Fundadores" href="/fundadores" className="small-btn" />
-            <Button variant="secondary" text="Ver Comunidad" href="/comunidad" className="small-btn" />
-        </div>
+        {showButtons && (
+            <div class="actions">
+                <Button variant="primary" text="Membresía" href="/membresia" className="small-btn" />
+                <Button variant="outline" text="Explorar Programa" href="/programa" className="small-btn" />
+                <Button variant="primary" text="Fundadores" href="/fundadores" className="small-btn" />
+                <Button variant="secondary" text="Ver Comunidad" href="/comunidad" className="small-btn" />
+            </div>
+        )}
     </div>
 </section>
 
 <style>
     .prefooter {
-        background-color: var(--bg-section);
-        padding: 100px 20px 24px 20px;
+        padding: 70px 20px 40px 20px;
         color: var(--text);
         display: flex;
         justify-content: center;
@@ -38,12 +51,12 @@ import Button from '../ui/Button.astro';
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
 
     .content h2 {
         font-family: var(--open-sans-font);
-        font-size: 30px;
+        font-size: 28px;
         line-height: 1.6;
         font-weight: 400;
         color: var(--text-light);

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Legal from '../components/sections/AvisoLegal.astro';
-import PreFooter from '../components/sections/page3/PreFooter.astro';
+import PreFooter from '../components/sections/PreFooter.astro';
 ---
 
 <Layout
@@ -12,5 +12,8 @@ import PreFooter from '../components/sections/page3/PreFooter.astro';
 	imageAlt="Aviso Legal de Propósito Ser Uno - términos, condiciones y políticas de privacidad.">
     <Header variant='white'/>
     <Legal />
-    <PreFooter bgColor="var(--bg-section)"/>
+    <PreFooter
+        bgColor="var(--bg-section)"
+        title="Evolucionar mental y espiritualmente es una necesidad individual y colectiva para vivir en un mundo mejor."
+    />
 </Layout>
