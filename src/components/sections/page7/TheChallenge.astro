@@ -1,31 +1,73 @@
 ---
-import Button from '../../ui/Button.astro';
+import { Image } from 'astro:assets';
+import yaninachami from '../../../assets/Team/yaninachami.webp';
+import silviasoria from '../../../assets/Team/silviasoria.webp';
+import amaliaherrlein from '../../../assets/Team/amaliaherrlein.webp';
 ---
 
 <section class="the-challenge">
     <div class="container">
-        <span class="eyebrow">EL GRAN DESAFÍO</span>
-
         <div class="content">
-
+        <h2>Terapias y Terapeutas</h2>
         <p>
-            Sabemos que el verdadero desafío en todo proceso de evolución y desarrollo no es solo comenzar, sino <strong>sostenerlo en el tiempo.</strong>
+            Los siguientes profesionales pueden ayudarte a complementar tu proceso de recuperación y a mejorar tu calidad de vida
         </p>
-        <p>
-            Con frecuencia, comenzamos con entusiasmo y logramos avanzar. Sin embargo, con el tiempo solemos abandonar el proceso y volver a hábitos, pensamientos y emociones que afectan nuestra salud y bienestar.
-        </p>
-            <h3>
-                <strong>Para ayudarte a sostener el proceso en el tiempo, contamos con dos pilares fundamentales:</strong>
-            </h3>
 
-        <ul class="bullet-list">
-            <li>Un programa de aprendizaje y práctica continua, que te permite incorporar progresivamente nuevos conocimientos, desarrollar hábitos saludables y avanzar paso a paso en tu evolución mental y desarrollo espiritual.</li>
-            <li>Una comunidad activa de acompañamiento diario, donde compartir experiencias, recibir apoyo e inspiración y sostener, junto a otras personas, los cambios necesarios para construir una vida con mayor salud y bienestar.</li>
-        </ul>
-
+        <div class="team-list">
+            <article class="member-card">
+                <div class="image-wrapper">
+                    <Image src={amaliaherrlein} alt="Analía Herrlein" class="member-photo" loading="lazy" width={220} />
+                </div>
+                <div class="member-info">
+                    <h3>Analía Herrlein</h3>
+                    <ul>
+                        <li>Master Coach. Especialista en Reconexión Emocional y liderazgo consciente.</li>
+                        <li>Facilitadora de procesos de cambio en personas y organizaciones.</li>
+                        <li>Miembro del consejo asesor de PSU.</li>
+                        <li><a href="https://analiaherrlein.com" target="_blank" rel="noopener noreferrer">analiaherrlein.com</a></li>
+                        <li><a href="tel:+5493436337333">+54 9 3436 33-7333</a></li>
+                    </ul>
+                </div>
+            </article>
+            <article class="member-card">
+                <div class="image-wrapper">
+                    <Image src={silviasoria} alt="Silvia Soria" class="member-photo" loading="lazy" width={220} />
+                </div>
+                <div class="member-info">
+                    <h3>Silvia Soria</h3>
+                    <ul>
+                        <li>Descodificadora Biológica Transgeneracional y Terapeuta de terapias de integración.- Operador de Bio Well.</li>
+                        <li>Facilitadora de Biodanza.</li>
+                        <li>Miembro del consejo asesor de PSU.</li>
+                        <li><a href="https://instagram.com/descodificacion.silviasoria" target="_blank" rel="noopener noreferrer">instagram.com/descodificacion.silviasoria</a></li>
+                        <li><a href="tel:+5493424777792">+54 9 3424 77-7792</a></li>
+                    </ul>
+                </div>
+            </article>
+            <article class="member-card">
+                <div class="image-wrapper">
+                    <Image src={yaninachami} alt="Yanina Chami" class="member-photo" loading="lazy" width={220} />
+                </div>
+                <div class="member-info">
+                    <h3>Yanina Chami</h3>
+                    <ul>
+                        <li>Terapeuta Holístico Integral</li>
+                        <li>Maestría en Canalización Angelical.</li>
+                        <li>Formación en Merkaba.</li>
+                        <li>Miembro del consejo asesor de PSU.</li>
+                        <li><a href="tel:+5492236172671">+54 9 2236 17-2671</a></li>
+                    </ul>
+                </div>
+            </article>
         </div>
-        <div class="actions">
-            <Button variant="secondary" text="Ver Comunidad" href="/comunidad" />
+
+        <p>
+            Los profesionales que aparecen en la lista trabajan de manera independiente. Propósito Ser Uno simplemente brinda este espacio para facilitar el contacto con ellos.
+        </p>
+        <p>
+            La consulta, contratación y tratamiento se realizan directamente con cada profesional. PSU no interviene en la relación profesional-paciente ni participa de los tratamientos, honorarios o acuerdos que puedan establecerse entre las partes.
+        </p>
+
         </div>
     </div>
 </section>
@@ -33,7 +75,7 @@ import Button from '../../ui/Button.astro';
 <style>
     .the-challenge {
         background-color: var(--white);
-        padding: 66px 20px 56px 20px;
+        padding: 66px 20px 54px 20px;
         color: var(--text);
         display: flex;
         justify-content: center;
@@ -44,25 +86,13 @@ import Button from '../../ui/Button.astro';
         width: 100%;
     }
 
-    .eyebrow {
-        display: block;
-        font-family: var(--open-sans-font);
-        color: var(--brand-700);
-        font-weight: 600;
-        font-size: 18px;
-        letter-spacing: 1px;
-        margin-bottom: 6px;
-        text-transform: uppercase;
-    }
-
     .content {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 34px;
     }
 
-    .content p, h3, .bullet-list li {
+    .content p, h3 {
         font-family: var(--open-sans-font);
         font-size: 21px;
         line-height: 1.6;
@@ -72,20 +102,11 @@ import Button from '../../ui/Button.astro';
         text-align: left;
     }
 
-    .content .bullet-list {
-        margin: 0 0 0 18px;
-        padding: 0;
-        list-style: disc;
-    }
-
-    .content .bullet-list li {
-        margin-bottom: 10px;
-        text-indent: 0;
-    }
-
-    .content .bullet-list li::marker {
+    h2 {
+        font-family: var(--lora-font);
         color: var(--brand-700);
-        font-size: 20px;
+        font-size: 32px;
+        font-weight: 400;
     }
 
     h3 {
@@ -93,15 +114,53 @@ import Button from '../../ui/Button.astro';
         text-indent: 0;
     }
 
-    .content strong {
-        font-weight: 600;
-        color: var(--text);
+    .team-list {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        margin: 30px 0;
     }
 
-    .actions {
+    .member-card {
         display: flex;
-        justify-content: center;
-        width: 100%;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .image-wrapper {
+        width: 220px;
+    }
+
+    .member-photo {
+        height: auto;
+        display: block;
+    }
+
+    .member-info h3 {
+        font-family: var(--lora-font);
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 0 2px;
+        line-height: 1.2;
+    }
+
+    .member-info ul {
+        list-style: none;
+    }
+
+    .member-info li {
+        font-family: var(--open-sans-font);
+        font-size: 18px;
+        line-height: 1.3;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 3px;
+    }
+
+    .member-info a {
+        color: var(--brand-700);
+        text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -109,17 +168,45 @@ import Button from '../../ui/Button.astro';
             padding: 40px 16px; 
         }
 
-        .content p, .bullet-list li { 
+        .content p { 
             font-size: 18px;
             line-height: 1.6;
         }
 
-        .eyebrow {
-            margin-bottom: 15px;
+        .member-card {
+            gap: 16px;
         }
 
-        h3 {
+        .image-wrapper {
+            width: 160px;
+            flex-basis: 160px;
+        }
+
+        .member-info h3 {
             font-size: 21px;
+        }
+
+        .member-info li {
+            font-size: 17px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .member-card {
+            gap: 12px;
+        }
+
+        .image-wrapper {
+            width: 110px;
+            flex-basis: 110px;
+        }
+
+        .member-info h3 {
+            font-size: 19px;
+        }
+
+        .member-info li {
+            font-size: 15px;
         }
     }
 </style>
