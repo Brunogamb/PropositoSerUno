@@ -44,7 +44,7 @@ import heroImage from '/src/assets/Hero/HeroBackground2.webp';
         font-size: 85px; 
         line-height: 1.5;
     }
-    
+
     h2 {
         font-weight: 600;
         font-size: 50px;
@@ -60,27 +60,22 @@ import heroImage from '/src/assets/Hero/HeroBackground2.webp';
 
     @media (max-width: 768px) {
         .hero {
-            padding: 74px 16px 40px;
-            height: calc(270px + 160px + 53.44vw + 40px);
-            min-height: auto;
-            
+            height: 350px;  
+            padding: 50px 20px 0 20px;
         }
 
         .hero::before {
-            background-size: 120% 882px;
+            background-size: 120% 350px;
             background-position: center bottom;
         }
 
         h1 {
-            line-height: 1.4;
-            margin-bottom: 30px;
-            font-size: 36px;
+            font-size: 47px;
+            margin-bottom: 20px;
         }
 
         h2 {
-            font-size: 22px;
-            line-height: 1.5;
-            text-wrap: balance;
+            font-size: 24px;
         }
     }
 </style>
