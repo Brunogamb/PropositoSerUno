@@ -56,11 +56,12 @@ const current = variants[variant];
                 <li><a href="/membresia">Membresía</a></li>
                 <li><a href="/testimonios">Testimonios</a></li>
                 <li><a href="/fundadores">Fundadores</a></li>
+                <li><a href="/membresia-form">Hazte miembro</a></li>
             </ul>
         </nav>
 
         <div class="header-actions">
-            <a href="/membresia-form" class="membership-link">Hazte miembro</a>
+            <a href="/membresia-form" class="login-link">Ingresar</a>
             <button class="hamburger" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-menu">
                 <span></span>
                 <span></span>
@@ -98,6 +99,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: clamp(12px, 2vw, 28px);
 }
 
 .header-logo {
@@ -108,13 +110,13 @@ header {
 
 .desktop-menu {
     position: relative; 
-    flex: 1;          
+    flex: 0 1 auto;
     display: flex;
     justify-content: center;
 }
 
 .header-actions {
-    flex: 0 0 208px; 
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -155,6 +157,7 @@ header {
     font-size: 18px;
     display: flex;
     justify-content: center;
+    text-align: center;
     gap: 8px;
     letter-spacing: 0.5px;
     text-decoration: none;
@@ -162,7 +165,7 @@ header {
     letter-spacing: -0.1ch;
 }
 
-.membership-link {
+.login-link {
     color: var(--nav-color);
     font-family: var(--open-sans-font);
     font-weight: 600;
@@ -196,7 +199,7 @@ header {
 
 @media (hover: hover) {
     .services-nav a:hover,
-    .membership-link:hover {
+    .login-link:hover {
         color: var(--brand-700);
     }
 }
@@ -213,7 +216,7 @@ header {
 }
 
 @media (max-width: 1160px) and (min-width: 769px) {
-    .services-nav a, .membership-link {
+    .services-nav a, .login-link {
         font-size: clamp(14px, 1.9vw, 18px);
         letter-spacing: -0.05ch;
     }
@@ -249,6 +252,11 @@ header {
         height: 28px;
     }
 
+    .header-container {
+        justify-content: space-between;
+        gap: 0;
+    }
+
     .text {
         display: none;
     }
@@ -265,7 +273,7 @@ header {
         flex: none; 
     }
 
-    .membership-link {
+    .login-link {
         display: none;
     }
 
