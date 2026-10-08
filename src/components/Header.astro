@@ -163,6 +163,7 @@ header {
     text-decoration: none;
     transition: all 0.2s ease;
     letter-spacing: -0.1ch;
+    text-wrap: nowrap;
 }
 
 .login-link {
@@ -178,6 +179,9 @@ header {
     transition: all 0.2s ease;
     letter-spacing: -0.1ch;
     margin: 10px 0 4px;   
+    border: 2px solid var(--nav-color);
+    border-radius: 999px;
+    padding: 6px 30px;
 }
 
 .hamburger {
@@ -222,7 +226,7 @@ header {
     }
 
     .services-nav ul {
-        gap: clamp(10px, 1.8vw, 16px);
+        gap: 12px;
     }
 
     .header-container {
@@ -232,15 +236,13 @@ header {
     .header-logo {
         height: 28px;
     }
-}
 
-@media (max-width: 880px) {
-    .header-logo {
-        height: 24px;
+    .login-link {
+        padding: 6px 10px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     header {
         height: 65px;
         background-color: var(--white) !important;
