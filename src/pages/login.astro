@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+    title="Ingresar | Propósito Ser Uno"
+    description="Ingresá a tu cuenta de Propósito Ser Uno."
+>
+    <Header />
+    <main>
+        <section class="login-section">
+            <div class="container">
+                <div class="section-content">
+                    <h1 class="page-title">Ingresar</h1>
+                    <p class="section-description">Accedé a tu cuenta de Propósito Ser Uno.</p>
+                </div>
+
+                <div class="form-container">
+                    <form class="login-form" method="post">
+                        <div class="form-group">
+                            <label for="correoElectronico" class="form-label">Correo electrónico</label>
+                            <input
+                                type="email"
+                                id="correoElectronico"
+                                name="correoElectronico"
+                                class="form-input"
+                                autocomplete="email"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="claveUnica" class="form-label">Clave única</label>
+                            <input
+                                type="password"
+                                id="claveUnica"
+                                name="claveUnica"
+                                class="form-input"
+                                autocomplete="current-password"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .login-section {
+        padding: 3rem 1.5rem;
+        background: var(--bg-section);
+        min-height: calc(100vh - 200px);
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .section-content {
+        text-align: center;
+        margin: 1rem 0 3rem;
+    }
+
+    .page-title {
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--text);
+        font-family: var(--lora-font);
+        margin-bottom: 0.5rem;
+    }
+
+    .section-description {
+        color: var(--text-light);
+        font-family: var(--open-sans-font);
+    }
+
+    .form-container {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: var(--white);
+        border-radius: 12px;
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-label {
+        color: var(--text);
+        font-family: var(--open-sans-font);
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .form-input {
+        padding: 0.75rem;
+        border: 2px solid var(--muted);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: var(--open-sans-font);
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--brand-orange);
+        box-shadow: 0 0 0 3px rgba(255, 152, 84, 0.1);
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    .btn-submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 34px 12px;
+        background-color: var(--brand-orange-dark);
+        color: var(--white);
+        border: none;
+        border-radius: 9999px;
+        font-family: var(--open-sans-font);
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    @media (hover: hover) {
+        .btn-submit:hover {
+            background-color: var(--brand-orange-hover);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .login-section {
+            padding: 2rem 1rem;
+        }
+
+        .section-content {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .form-container {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
