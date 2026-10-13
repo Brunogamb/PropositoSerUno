@@ -12,10 +12,6 @@ import MembershipForm from '../components/MembershipForm.astro';
     <main>
         <section class="membership-section">
             <div class="container">
-                <div class="section-content">
-                    <h1 class="page-title">Recuperá la alegría de vivir con Propósito Ser Uno</h1>
-                </div>
-
                 <div class="form-container">
                     <MembershipForm />
                 </div>
@@ -36,37 +32,15 @@ import MembershipForm from '../components/MembershipForm.astro';
         margin: 0 auto;
     }
 
-    .section-content {
-        text-align: center;
-        margin: 1rem 0 3rem 0;
-    }
-
-    .page-title {
-        font-size: 30px;
-        font-weight: 500;
-        color: var(--text);
-        font-family: var(--lora-font);
-        margin-bottom: 0.5rem;
-    }
-
     .form-container {
         background: var(--white);
         border-radius: 20px 20px 12px 12px;
         overflow: hidden;
-        /* padding: 0 1.5rem 1.5rem; */
     }
 
     @media (max-width: 768px) {
         .membership-section {
             padding: 2rem 1rem;
-        }
-
-        .section-content {
-            margin-bottom: 2rem;
-        }
-
-        .page-title {
-            font-size: 1.8rem;
         }
 
         .form-container {
