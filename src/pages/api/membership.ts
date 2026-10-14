@@ -15,6 +15,7 @@ const escapeHtml = (value: string) =>
     })[character] ?? character);
 
 interface MembershipPayload {
+    website?: string;
     nombre: string;
     apellido: string;
     fechaNacimiento: string;
@@ -32,6 +33,13 @@ interface MembershipPayload {
 export const POST: APIRoute = async ({ request }) => {
     try {
         const data: MembershipPayload = await request.json();
+
+        if (data.website) {
+            return new Response(
+                JSON.stringify({ message: '¡Solicitud enviada con éxito! Nos pondremos en contacto a la brevedad.' }),
+                { status: 200, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
 
         if (
         !data.nombre ||
