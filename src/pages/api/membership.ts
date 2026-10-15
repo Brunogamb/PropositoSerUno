@@ -15,7 +15,8 @@ const escapeHtml = (value: string) =>
     })[character] ?? character);
 
 interface MembershipPayload {
-    website?: string;
+    turnstileToken?: string;
+    website?: string;       
     nombre: string;
     apellido: string;
     fechaNacimiento: string;
@@ -41,18 +42,43 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
+        if (!data.turnstileToken) {
+            return new Response(
+                JSON.stringify({ error: 'Validación de seguridad requerida.' }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                secret: import.meta.env.TURNSTILE_SECRET_KEY,
+                response: data.turnstileToken,
+            }),
+        });
+
+        const verifyOutcome = await verifyRes.json();
+
+        if (!verifyOutcome.success) {
+            return new Response(
+                JSON.stringify({ error: 'Error en la verificación de seguridad anti-bot.' }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
         if (
-        !data.nombre ||
-        !data.apellido ||
-        !data.correoElectronico ||
-        !data.numeroCelular ||
-        !data.aceptaTerminos ||
-        !data.aceptaPrivacidad
+            !data.nombre ||
+            !data.apellido ||
+            !data.correoElectronico ||
+            !data.numeroCelular ||
+            !data.aceptaTerminos ||
+            !data.aceptaPrivacidad
         ) {
-        return new Response(
-            JSON.stringify({ error: 'Faltan campos obligatorios o no aceptó las condiciones.' }),
-            { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
+            return new Response(
+                JSON.stringify({ error: 'Faltan campos obligatorios o no aceptó las condiciones.' }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
         }
 
         const fechaFormateada = data.fechaNacimiento
@@ -97,7 +123,6 @@ export const POST: APIRoute = async ({ request }) => {
                             <td style="padding: 32px;">
                                 <p style="margin: 0 0 8px; color: #784bf2; font-size: 13px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">Nueva solicitud</p>
                                 
-                                <!-- TITULO Y BOTÓN DE DESCARGA EN LA MISMA LÍNEA -->
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 28px;">
                                     <tr>
                                         <td valign="middle" align="left">
@@ -141,20 +166,20 @@ export const POST: APIRoute = async ({ request }) => {
         });
 
         if (error) {
-        return new Response(
-            JSON.stringify({ error: 'Hubo un inconveniente al enviar la solicitud.' }),
-            { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
+            return new Response(
+                JSON.stringify({ error: 'Hubo un inconveniente al enviar la solicitud.' }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
         }
 
         return new Response(
-        JSON.stringify({ message: '¡Solicitud enviada con éxito! Nos pondremos en contacto a la brevedad.' }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
+            JSON.stringify({ message: '¡Solicitud enviada con éxito! Nos pondremos en contacto a la brevedad.' }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
         );
     } catch (err) {
         return new Response(
-        JSON.stringify({ error: 'Error interno en el servidor.' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+            JSON.stringify({ error: 'Error interno en el servidor.' }),
+            { status: 500, headers: { 'Content-Type': 'application/json' } }
         );
     }
 };

@@ -7,7 +7,11 @@ export interface Props {
 }
 
 const { className = '' } = Astro.props;
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <div class="membership-form-header">
     <Image src={Logo} alt="Logo de Propósito Ser Uno" />
@@ -210,9 +214,13 @@ const { className = '' } = Astro.props;
             </div>
         </div>
 
-            <div class="form-actions">
+        <div class="turnstile-container">
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+        </div>
+
+        <div class="form-actions">
             <button type="submit" class="btn-submit">Enviar Solicitud</button>
-            </div>
+        </div>
 
         <div id="form-message" class="form-message"></div>
     </form>
@@ -579,6 +587,8 @@ const { className = '' } = Astro.props;
             const formData = new FormData(form);
             
             const data = {
+                turnstileToken: formData.get('cf-turnstile-response'),
+
                 website: formData.get('website'),
                 apellido: formData.get('apellido'),
                 nombre: formData.get('nombre'),
@@ -609,10 +619,20 @@ const { className = '' } = Astro.props;
                     messageDiv.className = 'form-message success';
                     messageDiv.innerHTML = `<p>${result.message}</p>`;
                     form.reset();
+
+                    if ((window as any).turnstile) {
+                        (window as any).turnstile.reset();
+                    }
+
                     updateSubmitButtonState();
                 } else {
                     messageDiv.className = 'form-message error';
                     messageDiv.innerHTML = `<p>${result.error || 'Error al enviar el formulario'}</p>`;
+
+                    if ((window as any).turnstile) {
+                        (window as any).turnstile.reset();
+                    }
+                    
                     updateSubmitButtonState();
                 }
             } catch (error) {
