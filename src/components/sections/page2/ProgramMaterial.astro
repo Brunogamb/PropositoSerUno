@@ -17,15 +17,49 @@
                 </summary>
                 <div class="answer">
                     <ul class="program-material-list">
-                        <li><strong>- Material básico de estudio (Taller Logros)</strong>, compuesto por ocho módulos con contenidos teóricos y prácticos que permiten comprender y aplicar un método original, desarrollado por el Dr. Roberto Udrisar a partir de más de 20 años de estudio e integración de distintas disciplinas.</li>
-                        <li><strong>- Material Complementario</strong>, diseñado para facilitar la implementación del método en la vida cotidiana. Incluye una Guía de Inicio, una Guía Práctica, herramientas para el desarrollo personal y espiritual, ejercicios de aplicación y recursos destinados a transformar el conocimiento en experiencia.</li>
-                        <li><strong>- Material de Profundización</strong>, que amplía y desarrolla temas esenciales del programa para quienes desean comprenderlos con mayor profundidad.</li>
-                        <li><strong>- Aportes</strong>, de profesionales especializados en biodecodificación y coaching, que enriquecen y complementan los contenidos del programa.</li>
-                        <li><strong>- Meditaciones guiadas</strong>, cada una con un propósito específico y disponibles en versión masculina y femenina, para acompañar cada etapa del proceso desde el primer día.</li>
+                        <li><strong>Material básico de estudio (Taller Logros)</strong>, compuesto por ocho módulos con contenidos teóricos y prácticos que permiten comprender y aplicar un método original, desarrollado por el Dr. Roberto Udrisar a partir de más de 20 años de estudio e integración de distintas disciplinas.</li>
+                        <li><strong>Material Complementario</strong>, diseñado para facilitar la implementación del método en la vida cotidiana. Incluye una Guía de Inicio, una Guía Práctica, herramientas para el desarrollo personal y espiritual, ejercicios de aplicación y recursos destinados a transformar el conocimiento en experiencia.</li>
+                        <li><strong>Material de Profundización</strong>, que amplía y desarrolla temas esenciales del programa para quienes desean comprenderlos con mayor profundidad.</li>
+                        <li><strong>Aportes</strong>, de profesionales especializados en biodecodificación y coaching, que enriquecen y complementan los contenidos del programa.</li>
+                        <li><strong>Meditaciones guiadas</strong>, cada una con un propósito específico y disponibles en versión masculina y femenina, para acompañar cada etapa del proceso desde el primer día.</li>
                     </ul>
                 </div>
             </details>
         </article>
+
+        <span class="eyebrow">SOBRE LO QUE APRENDERÁS</span>
+        <p><em>Un recorrido a través de un método teórico-práctico hacia un mundo de nuevas posibilidades de recuperación y bienestar esperando ser descubiertas.</em></p>
+
+        <details class="faq-item about">
+            <summary>
+                <span class="icon">+</span>
+                <span class="question-text">Ver temario completo</span>
+            </summary>
+            <div class="answer">
+                <h2>Temario del Material Teórico - Práctico del Programa</h2>
+                <ul class="program-material-list">
+                    <li>La composición humana. Consciencia. Mente: consciente, inconsciente, ego.</li>
+                    <li>Dualidad. La sombra, la proyección, el efecto espejo. La formación del ego. La programación del inconsciente y su proyección en la salud y en la realidad personal. La influencia del inconsciente en la biología. ¿Qué es la enfermedad?</li>
+                    <li>Las cuatro fases del desarrollo mental del adolescente y del adulto.</li>
+                    <li>Siglo XXI, la era de la consciencia. Zona de confort, zona de aprendizaje y zona de cambio. La necesidad de aumentar la energía para cambiar. Cómo generar energía de alta calidad. Origen y desarrollo del ego.</li>
+                    <li>La mente y el Ser. La dilución del ego. Principios de unidad: los juicios, la culpa, el perdón, la desidentificación con la mente, el momento presente. El ego y la mente evolucionada: diferencias. Dominancia cerebral. Armonizar el Ser con el hacer para una vida plena. Creación de la realidad personal de forma consciente. Cambio de paradigma. La realidad personal se crea conociendo el mecanismo.</li>
+                    <li>Programas inconscientes. Interpretación de los sucesos del entorno. Pensamientos y emociones. Cambiando los programas inconscientes cambia la realidad personal.</li>
+                    <li>Reprogramación del inconsciente en base a la emoción y repetición. La meditación como método de reprogramación del inconsciente, evolución mental, desarrollo del ser y enfoque hacia un resultado. De la filosofía a la práctica. Hacer desde el Ser.</li>
+                    <li>7 Meditaciones guiadas, cada una con un objetivo específico.
+                        <ul class="meditations">
+                            <li class="subtitle">Todas en voz femenina y masculina:</li>
+                            <li class="item">“Atención plena”.</li>
+                            <li class="item">“Alíneo mis centros de energía”.</li>
+                            <li class="item">“Disuelvo las emociones para dormir bien”.</li>
+                            <li class="item">“Crear Bienestar”.</li>
+                            <li class="item">“Activo la glándula pineal para conseguir un resultado”.</li>
+                            <li class="item">“Consciencia creadora de la realidad personal”.</li>
+                            <li class="item">“Experimento mi futuro hoy”.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </details>
 
         <span class="eyebrow last-eyebrow">MODALIDAD FLEXIBLE</span>
         <h3>Aprendizaje Autónomo Guiado:</h3>
@@ -125,6 +159,10 @@
         text-indent: 0;
     }
 
+    .about {
+        margin-bottom: 40px;
+    }
+
     .faq-inline {
         margin-bottom: 46px;
     }
@@ -184,6 +222,36 @@
         animation: slideDown 0.3s ease forwards;
     }
 
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .answer ul.meditations li::marker {
+        color: var(--brand-700);
+    }
+
+    .program-material-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .program-material-list > li {
+        position: relative;
+        padding-left: 22px;
+    }
+
+    .program-material-list > li::before {
+        content: "–";
+        position: absolute;
+        left: 0;
+        color: var(--brand-700);
+        font-weight: 600;
+    }
+
     @media (max-width: 768px) {
         .program-material { 
             padding: 40px 16px; 
@@ -222,6 +290,10 @@
 
         .faq { 
             padding: 40px 16px; 
+        }
+
+        h2 {
+            font-size: 21px;
         }
     }
 </style>
