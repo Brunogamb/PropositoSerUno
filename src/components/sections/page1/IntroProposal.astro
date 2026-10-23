@@ -55,6 +55,7 @@ import LogoPSU from '../../../assets/Logo_PSU.webp';
         <div class="actions">
             <Button variant="primary" text="Hazte miembro" href="/membresia" />
         </div>
+        <p class="info">Hacerte miembro <strong>no implica costos de ingreso ni cuotas mensuales</strong>. La comunidad se sostiene gracias a los aportes voluntarios de sus miembros.</p>
     </div>
 </section>
 
@@ -223,13 +224,26 @@ import LogoPSU from '../../../assets/Logo_PSU.webp';
         color: var(--text);
     }
 
-    article p {
+    article p, .info {
         font-family: var(--open-sans-font);
         font-size: 21px;
         font-weight: 400;
         line-height: 1.6;
         text-indent: 20px; 
         color: var(--text);
+    }
+
+    .info {
+        text-align: center;
+        margin: auto;
+        margin-top: 20px;
+        color: var(--brand-900);
+        max-width: 600px;
+    }
+
+    .info strong {
+        font-weight: 600;
+        color: var(--brand-900);
     }
 
     .actions {
