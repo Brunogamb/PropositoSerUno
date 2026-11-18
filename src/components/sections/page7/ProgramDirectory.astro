@@ -1,59 +1,98 @@
 ---
-    const modules = [
-    {
-        id: 1,
-        title: "Módulo 1: Introducción y Fundamentos",
-        files: [
-        { name: "Guía de Inicio (PDF)", type: "pdf", url: "/material-de-estudio" },
-        { name: "Audio Introductorio (MP3)", type: "audio", url: "/material-de-estudio" }
-        ]
-    },
-    {
-        id: 2,
-        title: "Módulo 2: Desarrollo de Habilidades",
-        files: [
-        { name: "Guía de Inicio (PDF)", type: "pdf", url: "/material-de-estudio" },
-        { name: "Audio Introductorio (MP3)", type: "audio", url: "/material-de-estudio" }
-        ]
-    },
-    {
-        id: 3,
-        title: "Módulo 3: Aplicación Práctica",
-        files: [
-        { name: "Guía de Inicio (PDF)", type: "pdf", url: "/material-de-estudio" },
-        { name: "Audio Introductorio (MP3)", type: "audio", url: "/material-de-estudio" }
-        ]
-    },
-    ];
+import { getFolderTree, type DriveItem } from '../../../lib/googleDrive';
+
+let modules: DriveItem[] = [];
+let errorMsg = '';
+
+try {
+    modules = await getFolderTree();
+} catch (err) {
+    console.error('Error cargando carpetas de Google Drive:', err);
+    errorMsg = 'No se pudo cargar el material en este momento.';
+}
 ---
 
 <div class="directory-accordion">
+    {errorMsg && <p class="error-banner">{errorMsg}</p>}
+
     {modules.map((mod) => (
         <details class="module-card">
-        <summary class="module-header">
-            <svg class="folder-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h5l2 2h8A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
-                <path d="M3 9h18" />
-            </svg>
-            <strong>{mod.title}</strong>
-        </summary>
-        <div class="module-files">
-            <ul>
-            {mod.files.map((file) => (
-                <li class="file-item">
-                <span class="file-name">{file.name}</span>
-                {file.type === 'pdf' && (
-                    <a href={file.url} target="_blank" rel="noopener noreferrer" class="btn-view">Ver PDF</a>
+            <summary class="module-header">
+                <svg class="folder-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h5l2 2h8A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
+                    <path d="M3 9h18" />
+                </svg>
+                <strong>{mod.name}</strong>
+            </summary>
+
+            <div class="module-files">
+                {mod.children && mod.children.length > 0 ? (
+                    <ul class="files-ul">
+                        {mod.children.map((file) => (
+                            file.isFolder ? (
+                                <li class="subfolder-block">
+                                    <details class="subfolder-card">
+                                        <summary class="subfolder-header">
+                                            <span>📂 {file.name}</span>
+                                        </summary>
+                                        <ul class="files-ul nested">
+                                            {file.children?.map((subFile) => (
+                                                <li class="file-item">
+                                                    <span class="file-name">{subFile.name}</span>
+                                                    <button
+                                                        type="button"
+                                                        class="btn-view js-open-file"
+                                                        data-file-id={subFile.id}
+                                                        data-file-name={subFile.name}
+                                                        data-file-mime={subFile.mimeType}
+                                                    >
+                                                        {subFile.mimeType.includes('pdf') ? 'Ver PDF' :
+                                                         subFile.mimeType.startsWith('audio/') ? 'Escuchar' :
+                                                         subFile.mimeType.startsWith('video/') ? 'Ver Video' : 'Abrir'}
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </details>
+                                </li>
+                            ) : (
+                                <li class="file-item">
+                                    <span class="file-name">{file.name}</span>
+                                    <button
+                                        type="button"
+                                        class="btn-view js-open-file"
+                                        data-file-id={file.id}
+                                        data-file-name={file.name}
+                                        data-file-mime={file.mimeType}
+                                    >
+                                        {file.mimeType.includes('pdf') ? 'Ver PDF' :
+                                         file.mimeType.startsWith('audio/') ? 'Escuchar' :
+                                         file.mimeType.startsWith('video/') ? 'Ver Video' : 'Abrir'}
+                                    </button>
+                                </li>
+                            )
+                        ))}
+                    </ul>
+                ) : (
+                    <p class="empty-msg">Sin archivos disponibles en este módulo.</p>
                 )}
-                {file.type === 'audio' && (
-                    <audio controls src={file.url} class="audio-player"></audio>
-                )}
-                </li>
-            ))}
-            </ul>
-        </div>
+            </div>
         </details>
     ))}
+</div>
+
+<!-- Modal Visor Integrado -->
+<div id="psu-viewer-modal" class="viewer-modal" hidden>
+    <div class="viewer-backdrop" id="psu-viewer-backdrop"></div>
+    <div class="viewer-box">
+        <div class="viewer-top">
+            <h3 id="psu-viewer-title">Cargando...</h3>
+            <button type="button" id="psu-viewer-close" class="viewer-close" aria-label="Cerrar">✕</button>
+        </div>
+        <div id="psu-viewer-content" class="viewer-content">
+            <p class="loading-text">Cargando archivo...</p>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -62,6 +101,14 @@
         flex-direction: column;
         gap: 12px;
         width: 100%;
+    }
+
+    .error-banner {
+        padding: 12px 16px;
+        background: #fee2e2;
+        color: #991b1b;
+        border-radius: 8px;
+        font-size: 15px;
     }
 
     .module-card {
@@ -86,6 +133,11 @@
         gap: 10px;
         user-select: none;
         text-indent: 0 !important;
+        list-style: none;
+    }
+
+    .module-header::-webkit-details-marker {
+        display: none;
     }
 
     .folder-icon {
@@ -101,25 +153,226 @@
         border-top: 1px solid #f1f5f9;
     }
 
+    .files-ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .files-ul.nested {
+        padding-left: 16px;
+        margin-top: 8px;
+        border-left: 2px solid #e2e8f0;
+    }
+
+    .subfolder-block {
+        padding: 6px 0;
+    }
+
+    .subfolder-header {
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        color: #334155;
+        user-select: none;
+    }
+
     .file-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 12px;
         padding: 8px 0;
         font-size: 16px !important;
         text-indent: 0 !important;
+        border-bottom: 1px solid #f8fafc;
+    }
+
+    .file-item:last-child {
+        border-bottom: none;
+    }
+
+    .file-name {
+        word-break: break-word;
     }
 
     .btn-view {
-        padding: 4px 12px;
+        padding: 6px 14px;
         background-color: var(--brand-700, #4f46e5);
         color: #ffffff;
+        border: none;
         border-radius: 4px;
-        text-decoration: none;
         font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: opacity 0.2s ease;
     }
 
-    .audio-player {
-        height: 36px;
+    .btn-view:hover {
+        opacity: 0.9;
+    }
+
+    .empty-msg {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+    }
+
+    /* Estilos del Visor Modal */
+    .viewer-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+    }
+
+    .viewer-modal[hidden] {
+        display: none;
+    }
+
+    .viewer-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.75);
+    }
+
+    .viewer-box {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 960px;
+        max-height: 90vh;
+        background: #ffffff;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+    }
+
+    .viewer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 20px;
+        background: var(--brand-900, #1e293b);
+        color: #ffffff;
+    }
+
+    .viewer-top h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .viewer-close {
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .viewer-content {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 260px;
+        overflow-y: auto;
+    }
+
+    .loading-text {
+        color: #475569;
+        font-size: 15px;
     }
 </style>
+
+<script is:inline>
+    const modal = document.getElementById('psu-viewer-modal');
+    const backdrop = document.getElementById('psu-viewer-backdrop');
+    const closeBtn = document.getElementById('psu-viewer-close');
+    const titleEl = document.getElementById('psu-viewer-title');
+    const contentEl = document.getElementById('psu-viewer-content');
+
+    let activeUrl = null;
+
+    function closeModal() {
+        modal.hidden = true;
+        contentEl.innerHTML = '';
+        if (activeUrl) {
+            URL.revokeObjectURL(activeUrl);
+            activeUrl = null;
+        }
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+
+    document.querySelectorAll('.js-open-file').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const fileId = btn.dataset.fileId;
+            const fileName = btn.dataset.fileName;
+            const mimeType = btn.dataset.fileMime;
+
+            titleEl.textContent = fileName;
+            contentEl.innerHTML = '<p class="loading-text">Preparando material...</p>';
+            modal.hidden = false;
+
+            try {
+                const tokenRes = await fetch('/api/drive-token');
+                if (!tokenRes.ok) throw new Error('Error al obtener token');
+                const { token } = await tokenRes.json();
+
+                const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                if (!fileRes.ok) throw new Error('Error descargando archivo desde Drive');
+
+                const blob = await fileRes.blob();
+                activeUrl = URL.createObjectURL(blob);
+
+                if (mimeType.includes('pdf')) {
+                    contentEl.innerHTML = `
+                        <iframe
+                            src="${activeUrl}"
+                            style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
+                            title="${fileName}"
+                        ></iframe>
+                    `;
+                } else if (mimeType.startsWith('audio/')) {
+                    contentEl.innerHTML = `
+                        <div style="width: 100%; max-width: 520px; text-align: center; padding: 24px 0;">
+                            <p style="margin-bottom: 16px; font-weight: 600; color: #1e293b;">${fileName}</p>
+                            <audio controls autoplay src="${activeUrl}" style="width: 100%;"></audio>
+                        </div>
+                    `;
+                } else if (mimeType.startsWith('video/')) {
+                    contentEl.innerHTML = `
+                        <video controls autoplay src="${activeUrl}" style="width: 100%; max-height: 72vh; border-radius: 6px; background: #000;"></video>
+                    `;
+                } else {
+                    contentEl.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
+                            <a href="${activeUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error(error);
+                contentEl.innerHTML = '<p class="error-banner">No se pudo cargar el archivo. Intentá nuevamente.</p>';
+            }
+        });
+    });
+</script>
