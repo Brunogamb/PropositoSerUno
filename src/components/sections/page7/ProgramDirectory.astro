@@ -306,6 +306,52 @@ try {
 
     let activeUrl = null;
 
+    let cachedDriveToken = null;
+    let tokenExpiresAt = 0;
+    let inFlightTokenPromise = null;
+
+    async function getValidDriveToken() {
+        const now = Date.now();
+        if (cachedDriveToken && now < tokenExpiresAt) {
+            return cachedDriveToken;
+        }
+
+        if (inFlightTokenPromise) {
+            return inFlightTokenPromise;
+        }
+
+        inFlightTokenPromise = (async () => {
+            try {
+                const tokenRes = await fetch('/api/drive-token', { credentials: 'same-origin' });
+
+                if (tokenRes.status === 401) {
+                    window.location.href = '/login';
+                    throw new Error('Sesión expirada');
+                }
+                if (!tokenRes.ok) {
+                    throw new Error('Error al autorizar acceso');
+                }
+
+                const { token } = await tokenRes.json();
+                cachedDriveToken = token;
+                tokenExpiresAt = Date.now() + 45 * 60 * 1000;
+                return token;
+            } finally {
+                inFlightTokenPromise = null;
+            }
+        })();
+
+        return inFlightTokenPromise;
+    }
+
+    document.querySelectorAll('details').forEach((detailsEl) => {
+        detailsEl.addEventListener('toggle', () => {
+            if (detailsEl.open && (!cachedDriveToken || Date.now() >= tokenExpiresAt)) {
+                getValidDriveToken().catch(() => {});
+            }
+        });
+    });
+
     function closeModal() {
         const media = contentEl.querySelector('video, audio');
         if (media) {
@@ -323,6 +369,9 @@ try {
 
     closeBtn?.addEventListener('click', closeModal);
     backdrop?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
 
     document.querySelectorAll('.js-open-file').forEach((btn) => {
         btn.addEventListener('click', async () => {
@@ -335,15 +384,7 @@ try {
             modal.hidden = false;
 
             try {
-                const tokenRes = await fetch('/api/drive-token', { credentials: 'same-origin' });
-
-                if (tokenRes.status === 401) {
-                    window.location.href = '/ingresar';
-                    return;
-                }
-                if (!tokenRes.ok) throw new Error('Error al autorizar acceso');
-
-                const { token } = await tokenRes.json();
+                const token = await getValidDriveToken();
                 const streamUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&access_token=${encodeURIComponent(token)}`;
 
                 if (mimeType.startsWith('video/')) {
@@ -357,6 +398,14 @@ try {
                             <audio controls autoplay preload="metadata" src="${streamUrl}" style="width: 100%;"></audio>
                         </div>
                     `;
+                } else if (mimeType.includes('pdf')) {
+                    contentEl.innerHTML = `
+                        <iframe
+                            src="${streamUrl}#view=FitH"
+                            style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
+                            title="${fileName}"
+                        ></iframe>
+                    `;
                 } else {
                     const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
                         headers: { Authorization: `Bearer ${token}` }
@@ -366,25 +415,17 @@ try {
                     const blob = await fileRes.blob();
                     activeUrl = URL.createObjectURL(blob);
 
-                    if (mimeType.includes('pdf')) {
-                        contentEl.innerHTML = `
-                            <iframe
-                                src="${activeUrl}"
-                                style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
-                                title="${fileName}"
-                            ></iframe>
-                        `;
-                    } else {
-                        contentEl.innerHTML = `
-                            <div style="text-align: center; padding: 20px;">
-                                <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
-                                <a href="${activeUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
-                            </div>
-                        `;
-                    }
+                    contentEl.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
+                            <a href="${activeUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
+                        </div>
+                    `;
                 }
             } catch (error) {
                 console.error(error);
+                cachedDriveToken = null;
+                tokenExpiresAt = 0;
                 contentEl.innerHTML = '<p class="error-banner">No se pudo cargar el archivo. Intentá nuevamente.</p>';
             }
         });
