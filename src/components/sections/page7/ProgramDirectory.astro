@@ -307,6 +307,12 @@ try {
     let activeUrl = null;
 
     function closeModal() {
+        const media = contentEl.querySelector('video, audio');
+        if (media) {
+            media.pause();
+            media.removeAttribute('src');
+            media.load();
+        }
         modal.hidden = true;
         contentEl.innerHTML = '';
         if (activeUrl) {
@@ -325,49 +331,57 @@ try {
             const mimeType = btn.dataset.fileMime;
 
             titleEl.textContent = fileName;
-            contentEl.innerHTML = '<p class="loading-text">Preparando material...</p>';
+            contentEl.innerHTML = '<p class="loading-text">Cargando material...</p>';
             modal.hidden = false;
 
             try {
-                const tokenRes = await fetch('/api/drive-token');
-                if (!tokenRes.ok) throw new Error('Error al obtener token');
+                const tokenRes = await fetch('/api/drive-token', { credentials: 'same-origin' });
+
+                if (tokenRes.status === 401) {
+                    window.location.href = '/ingresar';
+                    return;
+                }
+                if (!tokenRes.ok) throw new Error('Error al autorizar acceso');
+
                 const { token } = await tokenRes.json();
+                const streamUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&access_token=${encodeURIComponent(token)}`;
 
-                const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-
-                if (!fileRes.ok) throw new Error('Error descargando archivo desde Drive');
-
-                const blob = await fileRes.blob();
-                activeUrl = URL.createObjectURL(blob);
-
-                if (mimeType.includes('pdf')) {
+                if (mimeType.startsWith('video/')) {
                     contentEl.innerHTML = `
-                        <iframe
-                            src="${activeUrl}"
-                            style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
-                            title="${fileName}"
-                        ></iframe>
+                        <video controls autoplay playsinline preload="metadata" src="${streamUrl}" style="width: 100%; max-height: 72vh; border-radius: 6px; background: #000;"></video>
                     `;
                 } else if (mimeType.startsWith('audio/')) {
                     contentEl.innerHTML = `
                         <div style="width: 100%; max-width: 520px; text-align: center; padding: 24px 0;">
                             <p style="margin-bottom: 16px; font-weight: 600; color: #1e293b;">${fileName}</p>
-                            <audio controls autoplay src="${activeUrl}" style="width: 100%;"></audio>
+                            <audio controls autoplay preload="metadata" src="${streamUrl}" style="width: 100%;"></audio>
                         </div>
-                    `;
-                } else if (mimeType.startsWith('video/')) {
-                    contentEl.innerHTML = `
-                        <video controls autoplay src="${activeUrl}" style="width: 100%; max-height: 72vh; border-radius: 6px; background: #000;"></video>
                     `;
                 } else {
-                    contentEl.innerHTML = `
-                        <div style="text-align: center; padding: 20px;">
-                            <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
-                            <a href="${activeUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
-                        </div>
-                    `;
+                    const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    if (!fileRes.ok) throw new Error('Error descargando documento');
+
+                    const blob = await fileRes.blob();
+                    activeUrl = URL.createObjectURL(blob);
+
+                    if (mimeType.includes('pdf')) {
+                        contentEl.innerHTML = `
+                            <iframe
+                                src="${activeUrl}"
+                                style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
+                                title="${fileName}"
+                            ></iframe>
+                        `;
+                    } else {
+                        contentEl.innerHTML = `
+                            <div style="text-align: center; padding: 20px;">
+                                <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
+                                <a href="${activeUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
+                            </div>
+                        `;
+                    }
                 }
             } catch (error) {
                 console.error(error);

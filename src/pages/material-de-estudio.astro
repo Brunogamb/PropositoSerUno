@@ -1,11 +1,59 @@
 ---
+import { getSupabaseClient } from '../lib/supabase';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import Hero from '../components/sections/page7/Hero.astro'
+import Hero from '../components/sections/page7/Hero.astro';
 import IntroLogo from '../components/sections/page7/IntroLogo.astro';
 import ProgramMaterial from '../components/sections/page7/ProgramMaterial.astro';
 import TheChallenge from '../components/sections/page7/TheChallenge.astro';
 import PreFooter from '../components/sections/PreFooter.astro';
+
+export const prerender = false;
+
+const accessToken = Astro.cookies.get('sb-access-token')?.value;
+const refreshToken = Astro.cookies.get('sb-refresh-token')?.value;
+
+if (!accessToken && !refreshToken) {
+	return Astro.redirect('/login');
+}
+
+const supabase = getSupabaseClient();
+let user = null;
+
+if (accessToken) {
+	const { data } = await supabase.auth.getUser(accessToken);
+	user = data.user;
+}
+
+if (!user && refreshToken) {
+	const { data: refreshed } = await supabase.auth.refreshSession({ refresh_token: refreshToken });
+	if (refreshed.session && refreshed.user) {
+		user = refreshed.user;
+		const isProd = import.meta.env.PROD;
+		Astro.cookies.set('sb-access-token', refreshed.session.access_token, {
+			path: '/',
+			httpOnly: true,
+			secure: isProd,
+			sameSite: 'lax',
+			maxAge: 60 * 60,
+		});
+		Astro.cookies.set('sb-refresh-token', refreshed.session.refresh_token, {
+			path: '/',
+			httpOnly: true,
+			secure: isProd,
+			sameSite: 'lax',
+			maxAge: 60 * 60 * 24 * 7,
+		});
+	}
+}
+
+if (!user) {
+	Astro.cookies.delete('sb-access-token', { path: '/' });
+	Astro.cookies.delete('sb-refresh-token', { path: '/' });
+	return Astro.redirect('/login');
+}
+
+Astro.response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
 ---
 
 <Layout
@@ -14,7 +62,7 @@ import PreFooter from '../components/sections/PreFooter.astro';
 	image="/favicon.png"
 	imageAlt="Propósito Ser Uno - Conquistando salud y bienestar cada día"
 >
-	<Header />
+	<Header isLoggedIn={true} />
 	<Hero />
 	<IntroLogo />
 	<ProgramMaterial />

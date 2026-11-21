@@ -1,6 +1,18 @@
 ---
+import { getSupabaseClient } from '../lib/supabase';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+
+export const prerender = false;
+
+const accessToken = Astro.cookies.get('sb-access-token')?.value;
+if (accessToken) {
+    const supabase = getSupabaseClient();
+    const { data } = await supabase.auth.getUser(accessToken);
+    if (data.user) {
+        return Astro.redirect('/material-de-estudio');
+    }
+}
 ---
 
 <Layout
@@ -17,7 +29,7 @@ import Header from '../components/Header.astro';
                 </div>
 
                 <div class="form-container">
-                    <form class="login-form" method="post">
+                    <form id="loginForm" class="login-form" method="post">
                         <div class="form-group">
                             <label for="correoElectronico" class="form-label">Correo electrónico</label>
                             <input
@@ -42,8 +54,10 @@ import Header from '../components/Header.astro';
                             />
                         </div>
 
+                        <p id="loginError" class="login-error" hidden></p>
+
                         <div class="form-actions">
-                            <button type="submit" class="btn-submit">Ingresar</button>
+                            <button type="submit" id="btnSubmit" class="btn-submit">Ingresar</button>
                         </div>
                     </form>
                 </div>
@@ -147,6 +161,23 @@ import Header from '../components/Header.astro';
         transition: background-color 0.3s ease;
     }
 
+    .login-error {
+        color: #b91c1c;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-family: var(--open-sans-font);
+        font-size: 0.95rem;
+        text-align: center;
+        margin: 0;
+    }
+
+    .btn-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
     @media (hover: hover) {
         .btn-submit:hover {
             background-color: var(--brand-orange-hover);
@@ -171,3 +202,44 @@ import Header from '../components/Header.astro';
         }
     }
 </style>
+
+<script is:inline>
+    const form = document.getElementById('loginForm');
+    const errorEl = document.getElementById('loginError');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorEl.hidden = true;
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Ingresando...';
+
+        const email = document.getElementById('correoElectronico').value.trim();
+        const password = document.getElementById('claveUnica').value;
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                errorEl.textContent = result.error || 'Correo o clave incorrectos.';
+                errorEl.hidden = false;
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = 'Ingresar';
+                return;
+            }
+
+            window.location.href = '/material-de-estudio';
+        } catch (err) {
+            errorEl.textContent = 'No se pudo conectar con el servidor. Intentá nuevamente.';
+            errorEl.hidden = false;
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = 'Ingresar';
+        }
+    });
+</script>
