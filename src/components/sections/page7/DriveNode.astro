@@ -1,0 +1,43 @@
+---
+import type { DriveItem } from '../../../lib/googleDrive';
+
+interface Props {
+    item: DriveItem;
+}
+
+const { item } = Astro.props;
+---
+
+{item.isFolder ? (
+    <li class="subfolder-block">
+        <details class="subfolder-card">
+            <summary class="subfolder-header">
+                <span>📂 {item.name}</span>
+            </summary>
+            {item.children && item.children.length > 0 ? (
+                <ul class="files-ul nested">
+                    {item.children.map((child) => (
+                        <Astro.self item={child} />
+                    ))}
+                </ul>
+            ) : (
+                <p class="empty-msg nested-empty">Carpeta vacía.</p>
+            )}
+        </details>
+    </li>
+) : (
+    <li class="file-item">
+        <span class="file-name">{item.name}</span>
+        <button
+            type="button"
+            class="btn-view js-open-file"
+            data-file-id={item.id}
+            data-file-name={item.name}
+            data-file-mime={item.mimeType}
+        >
+            {item.mimeType.includes('pdf') ? 'Ver PDF' :
+             item.mimeType.startsWith('audio/') ? 'Escuchar' :
+             item.mimeType.startsWith('video/') ? 'Ver Video' : 'Abrir'}
+        </button>
+    </li>
+)}
