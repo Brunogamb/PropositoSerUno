@@ -7,6 +7,10 @@ interface Props {
 
 const { item } = Astro.props;
 
+const cleanName = item.name
+    .replace(/Klari\uFFFD/gi, 'Klarić')
+    .replace(/\uFFFD/g, '');
+
 const isPdf = !item.isFolder && item.mimeType.includes('pdf');
 const isAudio = !item.isFolder && item.mimeType.startsWith('audio/');
 const isVideo = !item.isFolder && (item.mimeType.startsWith('video/') || item.name.toLowerCase().endsWith('.avi'));
@@ -17,14 +21,14 @@ const actionLabel = isPdf ? 'Leer' : isAudio ? 'Escuchar' : isVideo ? 'Ver' : 'A
 ---
 
 {item.isFolder ? (
-    <li class="folder-group js-searchable-folder" data-name={item.name.toLowerCase()}>
+    <li class="folder-group js-searchable-folder" data-name={cleanName.toLowerCase()}>
         <details class="folder-details" open>
             <summary class="folder-summary">
                 <span class="folder-label">
                     <svg class="sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    <span>{item.name}</span>
+                    <span>{cleanName}</span>
                 </span>
                 <span class="folder-arrow" aria-hidden="true">▾</span>
             </summary>
@@ -40,16 +44,17 @@ const actionLabel = isPdf ? 'Leer' : isAudio ? 'Escuchar' : isVideo ? 'Ver' : 'A
         </details>
     </li>
 ) : (
-    <li class="file-row js-searchable-item" data-name={item.name.toLowerCase()}>
+    <li class="file-row js-searchable-item" data-name={cleanName.toLowerCase()}>
         <button
             type="button"
             class="file-row-btn js-open-file"
             data-file-id={item.id}
-            data-file-name={item.name}
+            data-file-name={cleanName}
             data-file-mime={item.mimeType}
+            data-raw-name={item.name}
         >
             <span class={`file-badge ${fileTypeClass}`}>{fileTypeLabel}</span>
-            <span class="file-title">{item.name}</span>
+            <span class="file-title">{cleanName}</span>
             <span class="file-action">{actionLabel}</span>
         </button>
     </li>

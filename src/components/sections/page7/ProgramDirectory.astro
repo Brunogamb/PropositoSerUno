@@ -698,23 +698,39 @@ function countFiles(item: DriveItem): number {
             modal.hidden = false;
             document.body.style.overflow = 'hidden';
 
-            const isVideo = mimeType.startsWith('video/') || fileName.toLowerCase().endsWith('.avi');
+            const rawName = btn.dataset.rawName || fileName;
+            const isVideo = mimeType.startsWith('video/') || rawName.toLowerCase().endsWith('.avi');
 
             if (isVideo) {
                 contentEl.classList.remove('is-pdf-desktop');
                 contentEl.classList.add('is-centered');
-                const isAvi = mimeType.includes('avi') || fileName.toLowerCase().endsWith('.avi');
+                const isAvi = mimeType.includes('avi') || rawName.toLowerCase().endsWith('.avi');
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
                 if (isAvi) {
-                    contentEl.innerHTML = `
-                        <iframe
-                            src="https://drive.google.com/file/d/${fileId}/preview"
-                            style="width: 100%; height: 78dvh; border: none; border-radius: 6px; background: #000;"
-                            allow="autoplay; fullscreen"
-                            allowfullscreen
-                            title="${fileName}"
-                        ></iframe>
-                    `;
+                    if (isIOS) {
+                        contentEl.innerHTML = `
+                            <div style="text-align: center; padding: 24px 16px; max-width: 420px; background: #fff; border-radius: 12px;">
+                                <p style="margin-bottom: 16px; color: #1e293b; line-height: 1.5; font-size: 15px;">
+                                    Este video está en formato antiguo (<strong>.avi</strong>). Para verlo en iPhone sin problemas de cookies, abrilo directamente en el visor de Drive:
+                                </p>
+                                <a href="https://drive.google.com/file/d/${fileId}/view" target="_blank" rel="noopener" class="btn-action-modal">
+                                    Abrir video en Drive
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        contentEl.innerHTML = `
+                            <iframe
+                                src="https://drive.google.com/file/d/${fileId}/preview"
+                                style="width: 100%; height: 78dvh; border: none; border-radius: 6px; background: #000;"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen
+                                title="${fileName}"
+                            ></iframe>
+                        `;
+                    }
                 } else {
                     contentEl.innerHTML = `
                         <video
