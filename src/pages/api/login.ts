@@ -15,14 +15,25 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         }
 
         const supabase = getSupabaseClient();
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const cleanEmail = String(email || '').trim().toLowerCase();
 
-        if (error || !data.session) {
-        return new Response(JSON.stringify({ error: 'Credenciales inválidas.' }), {
-            status: 401,
-            headers: { 'Content-Type': 'application/json' },
-        });
-        }
+const { data, error } = await supabase.auth.signInWithPassword({
+    email: cleanEmail,
+    password: String(password || ''),
+});
+
+// 2. Agregá el console.error adentro de este bloque (antes del return)
+if (error || !data.session) {
+    console.error('Supabase login error:', {
+        message: error?.message,
+        status: error?.status,
+    });
+
+    return new Response(
+        JSON.stringify({ error: 'Credenciales inválidas.' }),
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
+    );
+}
 
         const isProd = import.meta.env.PROD;
 
