@@ -106,7 +106,6 @@ function countFiles(item: DriveItem): number {
         box-sizing: border-box;
     }
 
-    /* Buscador + Selector unificados en PC y Mobile */
     .portal-toolbar {
         display: grid;
         grid-template-columns: 1fr 300px;
@@ -170,7 +169,6 @@ function countFiles(item: DriveItem): number {
         border-color: var(--brand-orange, #ea580c);
     }
 
-    /* Directorios limpios */
     .modules-content {
         display: flex;
         flex-direction: column;
@@ -263,7 +261,6 @@ function countFiles(item: DriveItem): number {
         transform: rotate(180deg);
     }
 
-    /* Fila táctil limpia */
     .file-row {
         border-bottom: 1px solid #f1f5f9;
     }
@@ -346,7 +343,6 @@ function countFiles(item: DriveItem): number {
         font-size: 15px;
     }
 
-    /* Modal Visor */
     .viewer-modal {
         position: fixed;
         inset: 0;
@@ -364,16 +360,17 @@ function countFiles(item: DriveItem): number {
     .viewer-backdrop {
         position: absolute;
         inset: 0;
-        background: rgba(15, 23, 42, 0.8);
+        background: rgba(15, 23, 42, 0.85);
     }
 
     .viewer-box {
         position: relative;
         z-index: 1;
         width: 100%;
-        max-width: 1100px;
+        max-width: 1120px;
+        height: 92dvh;
         max-height: 92dvh;
-        background: #ffffff;
+        background: #f1f5f9;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
@@ -413,14 +410,24 @@ function countFiles(item: DriveItem): number {
     }
 
     .viewer-content {
-        padding: 16px;
+        padding: 14px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         min-height: 260px;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         flex: 1 1 auto;
+    }
+
+    .viewer-content.is-centered {
+        justify-content: center;
+    }
+
+    .viewer-content.is-pdf-desktop {
+        padding: 0;
+        overflow: hidden;
     }
 
     .btn-action-modal {
@@ -434,7 +441,7 @@ function countFiles(item: DriveItem): number {
         font-weight: 600;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         .portal-toolbar {
             grid-template-columns: 1fr;
         }
@@ -467,7 +474,7 @@ function countFiles(item: DriveItem): number {
         }
 
         .viewer-content {
-            padding: 12px;
+            padding: 10px;
         }
     }
 </style>
@@ -541,6 +548,17 @@ function countFiles(item: DriveItem): number {
     let tokenExpiresAt = 0;
     let inFlightTokenPromise = null;
     const fileUrlCache = new Map();
+    let pdfjsPromise = null;
+
+    function getPdfJs() {
+        if (!pdfjsPromise) {
+            pdfjsPromise = import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs').then((lib) => {
+                lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+                return lib;
+            });
+        }
+        return pdfjsPromise;
+    }
 
     async function getValidDriveToken() {
         const now = Date.now();
@@ -572,8 +590,13 @@ function countFiles(item: DriveItem): number {
 
     function closeModal() {
         const media = contentEl.querySelector('video, audio');
-        if (media) media.pause();
+        if (media) {
+            media.pause();
+            media.removeAttribute('src');
+            media.load();
+        }
         modal.hidden = true;
+        contentEl.classList.remove('is-centered', 'is-pdf-desktop');
         contentEl.innerHTML = '';
         document.body.style.overflow = '';
     }
@@ -584,45 +607,80 @@ function countFiles(item: DriveItem): number {
         if (e.key === 'Escape' && !modal.hidden) closeModal();
     });
 
-    function isIOSDevice() {
-        return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    function isMobileOrTablet() {
+        return window.innerWidth <= 768 ||
+               /iPad|iPhone|iPod|Android/.test(navigator.userAgent) ||
                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     }
 
-    function renderFileInModal(objectUrl, fileName, mimeType) {
+    async function renderPdfPagesMobile(objectUrl) {
+        contentEl.classList.remove('is-centered', 'is-pdf-desktop');
+        contentEl.innerHTML = '<p class="loading-text" style="margin: 24px 0;">Cargando páginas del PDF...</p>';
+
+        const pdfjsLib = await getPdfJs();
+        const pdf = await pdfjsLib.getDocument(objectUrl).promise;
+
+        const pagesWrapper = document.createElement('div');
+        pagesWrapper.style.cssText = 'width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px;';
+        contentEl.innerHTML = '';
+        contentEl.appendChild(pagesWrapper);
+
+        const availableWidth = Math.min(pagesWrapper.clientWidth || window.innerWidth - 20, 920);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            if (modal.hidden) break;
+            const page = await pdf.getPage(pageNum);
+            const baseViewport = page.getViewport({ scale: 1 });
+            const cssScale = availableWidth / baseViewport.width;
+            const viewport = page.getViewport({ scale: cssScale * dpr });
+
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.floor(viewport.width);
+            canvas.height = Math.floor(viewport.height);
+            canvas.style.width = `${Math.floor(baseViewport.width * cssScale)}px`;
+            canvas.style.height = 'auto';
+            canvas.style.background = '#ffffff';
+            canvas.style.borderRadius = '6px';
+            canvas.style.boxShadow = '0 2px 8px rgba(15, 23, 42, 0.12)';
+
+            pagesWrapper.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                await page.render({ canvasContext: ctx, viewport }).promise;
+            }
+        }
+    }
+
+    async function renderFileInModal(objectUrl, fileName, mimeType) {
+        contentEl.classList.remove('is-centered', 'is-pdf-desktop');
+
         if (mimeType.includes('pdf')) {
-            const isMobile = window.innerWidth <= 720;
-            contentEl.innerHTML = `
-                ${isMobile ? `<a href="${objectUrl}" target="_blank" rel="noopener" class="btn-action-modal" style="margin-bottom: 12px;">Abrir PDF en visor completo</a>` : ''}
-                <iframe
-                    src="${objectUrl}#view=FitH"
-                    style="width: 100%; height: 78dvh; border: none; border-radius: 6px;"
-                    title="${fileName}"
-                ></iframe>
-            `;
+            if (isMobileOrTablet()) {
+                await renderPdfPagesMobile(objectUrl);
+            } else {
+                // En PC usa el visor nativo con toda la barra de herramientas (zoom, páginas, rotación, búsqueda, descarga)
+                contentEl.classList.add('is-pdf-desktop');
+                contentEl.innerHTML = `
+                    <iframe
+                        src="${objectUrl}#toolbar=1&navpanes=0&view=FitH"
+                        style="width: 100%; height: 100%; border: none;"
+                        title="${fileName}"
+                    ></iframe>
+                `;
+            }
         } else if (mimeType.startsWith('audio/')) {
+            contentEl.classList.add('is-centered');
             contentEl.innerHTML = `
-                <div style="width: 100%; max-width: 520px; text-align: center; padding: 24px 0;">
+                <div style="width: 100%; max-width: 520px; text-align: center; padding: 24px 12px; background: #fff; border-radius: 12px;">
                     <p style="margin-bottom: 16px; font-weight: 600; color: #1e293b;">${fileName}</p>
                     <audio controls autoplay playsinline src="${objectUrl}" style="width: 100%;"></audio>
                 </div>
             `;
-        } else if (mimeType.startsWith('video/')) {
-            contentEl.innerHTML = `
-                <video controls autoplay playsinline src="${objectUrl}" style="width: 100%; max-height: 80dvh; border-radius: 6px; background: #000;"></video>
-            `;
-            const videoEl = contentEl.querySelector('video');
-            videoEl?.addEventListener('error', () => {
-                contentEl.innerHTML = `
-                    <div style="text-align: center; padding: 20px;">
-                        <p style="margin-bottom: 14px; color: #1e293b;">No se pudo reproducir este video directamente en el navegador.</p>
-                        <a href="${objectUrl}" download="${fileName}" class="btn-action-modal">Descargar video</a>
-                    </div>
-                `;
-            });
         } else {
+            contentEl.classList.add('is-centered');
             contentEl.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
+                <div style="text-align: center; padding: 24px; background: #fff; border-radius: 12px;">
                     <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
                     <a href="${objectUrl}" download="${fileName}" class="btn-action-modal">Descargar archivo</a>
                 </div>
@@ -640,37 +698,45 @@ function countFiles(item: DriveItem): number {
             modal.hidden = false;
             document.body.style.overflow = 'hidden';
 
-            if (mimeType.includes('avi') || fileName.toLowerCase().endsWith('.avi')) {
-                if (isIOSDevice()) {
-                    contentEl.innerHTML = `
-                        <div style="text-align: center; padding: 24px 16px; max-width: 420px;">
-                            <p style="margin-bottom: 16px; color: #1e293b; line-height: 1.5;">
-                                En iPhone/iPad, este video debe abrirse en una pestaña externa para evitar el bloqueo de cookies de Safari.
-                            </p>
-                            <a href="https://drive.google.com/file/d/${fileId}/view" target="_blank" rel="noopener" class="btn-action-modal">
-                                Ver video en pantalla completa
-                            </a>
-                        </div>
-                    `;
-                } else {
+            const isVideo = mimeType.startsWith('video/') || fileName.toLowerCase().endsWith('.avi');
+
+            if (isVideo) {
+                contentEl.classList.remove('is-pdf-desktop');
+                contentEl.classList.add('is-centered');
+                const isAvi = mimeType.includes('avi') || fileName.toLowerCase().endsWith('.avi');
+
+                if (isAvi) {
                     contentEl.innerHTML = `
                         <iframe
                             src="https://drive.google.com/file/d/${fileId}/preview"
-                            style="width: 100%; height: 76vh; border: none; border-radius: 6px; background: #000;"
+                            style="width: 100%; height: 78dvh; border: none; border-radius: 6px; background: #000;"
                             allow="autoplay; fullscreen"
                             allowfullscreen
                             title="${fileName}"
                         ></iframe>
+                    `;
+                } else {
+                    contentEl.innerHTML = `
+                        <video
+                            controls
+                            autoplay
+                            playsinline
+                            preload="metadata"
+                            src="/api/stream/${fileId}"
+                            style="width: 100%; max-height: 80dvh; border-radius: 6px; background: #000;"
+                        ></video>
                     `;
                 }
                 return;
             }
 
             if (fileUrlCache.has(fileId)) {
-                renderFileInModal(fileUrlCache.get(fileId), fileName, mimeType);
+                await renderFileInModal(fileUrlCache.get(fileId), fileName, mimeType);
                 return;
             }
 
+            contentEl.classList.remove('is-pdf-desktop');
+            contentEl.classList.add('is-centered');
             contentEl.innerHTML = '<p class="loading-text">Cargando material...</p>';
 
             try {
@@ -685,11 +751,13 @@ function countFiles(item: DriveItem): number {
                 const objectUrl = URL.createObjectURL(blob);
                 fileUrlCache.set(fileId, objectUrl);
 
-                renderFileInModal(objectUrl, fileName, mimeType);
+                await renderFileInModal(objectUrl, fileName, mimeType);
             } catch (error) {
                 console.error(error);
                 cachedDriveToken = null;
                 tokenExpiresAt = 0;
+                contentEl.classList.remove('is-pdf-desktop');
+                contentEl.classList.add('is-centered');
                 contentEl.innerHTML = '<p class="error-banner">No se pudo cargar el archivo. Intentá nuevamente.</p>';
             }
         });
