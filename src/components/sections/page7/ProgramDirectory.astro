@@ -11,36 +11,72 @@ try {
     console.error('Error cargando carpetas de Google Drive:', err);
     errorMsg = 'No se pudo cargar el material en este momento.';
 }
+
+function countFiles(item: DriveItem): number {
+    if (!item.isFolder) return 1;
+    if (!item.children) return 0;
+    return item.children.reduce((acc, child) => acc + countFiles(child), 0);
+}
 ---
 
-<div class="directory-accordion">
+<div class="portal-workspace">
     {errorMsg && <p class="error-banner">{errorMsg}</p>}
 
-    {modules.map((mod) => (
-        <details class="module-card">
-            <summary class="module-header">
-                <svg class="folder-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h5l2 2h8A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
-                    <path d="M3 9h18" />
+    {!errorMsg && modules.length > 0 && (
+        <div class="portal-toolbar">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <strong>{mod.name}</strong>
-            </summary>
-
-            <div class="module-files">
-                {mod.children && mod.children.length > 0 ? (
-                    <ul class="files-ul">
-                        {mod.children.map((child) => (
-                            <DriveNode item={child} />
-                        ))}
-                    </ul>
-                ) : (
-                    <p class="empty-msg">Sin archivos disponibles en este módulo.</p>
-                )}
+                <input
+                    type="search"
+                    id="psu-material-search"
+                    placeholder="Buscar archivo, audio o video..."
+                    autocomplete="off"
+                />
             </div>
-        </details>
-    ))}
+
+            <div class="module-select-wrap">
+                <select id="psu-module-select" aria-label="Filtrar por módulo">
+                    <option value="all">Todos los módulos ({modules.length})</option>
+                    {modules.map((mod, idx) => (
+                        <option value={`mod-${idx}`}>{mod.name} ({countFiles(mod)})</option>
+                    ))}
+                </select>
+            </div>
+        </div>
+    )}
+
+    <div class="modules-content">
+        <p id="psu-no-results" class="empty-search-msg" hidden>
+            No se encontraron materiales que coincidan con tu búsqueda.
+        </p>
+
+        {modules.map((mod, idx) => (
+            <section class="module-panel" id={`mod-${idx}`}>
+                <header class="panel-header">
+                    <h3 class="panel-title">{mod.name}</h3>
+                    <span class="panel-count">{countFiles(mod)} {countFiles(mod) === 1 ? 'archivo' : 'archivos'}</span>
+                </header>
+
+                <div class="panel-body">
+                    {mod.children && mod.children.length > 0 ? (
+                        <ul class="files-list">
+                            {mod.children.map((child) => (
+                                <DriveNode item={child} />
+                            ))}
+                        </ul>
+                    ) : (
+                        <p class="empty-msg">Sin archivos disponibles.</p>
+                    )}
+                </div>
+            </section>
+        ))}
+    </div>
 </div>
 
+<!-- Modal Visor Integrado -->
 <div id="psu-viewer-modal" class="viewer-modal" hidden>
     <div class="viewer-backdrop" id="psu-viewer-backdrop"></div>
     <div class="viewer-box">
@@ -55,134 +91,266 @@ try {
 </div>
 
 <style is:global>
-    .directory-accordion {
+    .portal-workspace {
+        width: 100%;
+        max-width: 920px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
+        gap: 16px;
+        box-sizing: border-box;
+    }
+
+    .portal-workspace *,
+    .viewer-modal * {
+        box-sizing: border-box;
+    }
+
+    /* Buscador + Selector unificados en PC y Mobile */
+    .portal-toolbar {
+        display: grid;
+        grid-template-columns: 1fr 300px;
         gap: 12px;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 12px;
+        width: 18px;
+        height: 18px;
+        color: #64748b;
+        pointer-events: none;
+    }
+
+    #psu-material-search {
         width: 100%;
+        padding: 10px 12px 10px 38px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 16px;
+        color: var(--brand-900, #1e293b);
+        background: #f8fafc;
+        transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    #psu-material-search:focus {
+        outline: none;
+        border-color: var(--brand-orange, #ea580c);
+        background: #ffffff;
+    }
+
+    .module-select-wrap {
+        display: flex;
+    }
+
+    #psu-module-select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--brand-900, #1e293b);
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    #psu-module-select:focus {
+        outline: none;
+        border-color: var(--brand-orange, #ea580c);
+    }
+
+    /* Directorios limpios */
+    .modules-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .module-panel {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .panel-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--brand-900, #1e293b);
+        line-height: 1.3;
+    }
+
+    .panel-count {
+        flex-shrink: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    .panel-body {
+        padding: 4px 16px 10px;
+    }
+
+    .files-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .files-list.nested {
+        padding-left: 14px;
+        margin-top: 2px;
+        border-left: 2px solid #e2e8f0;
+    }
+
+    .folder-group {
+        padding: 4px 0;
+    }
+
+    .folder-summary {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 6px;
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--brand-900, #1e293b);
+        list-style: none;
+        user-select: none;
+    }
+
+    .folder-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .folder-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sub-icon {
+        width: 17px;
+        height: 17px;
+        color: var(--brand-orange-dark, #c2410c);
+        flex-shrink: 0;
+    }
+
+    .folder-details[open] .folder-arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Fila táctil limpia */
+    .file-row {
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .file-row:last-child {
+        border-bottom: none;
+    }
+
+    .file-row-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 8px;
+        background: transparent;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background 0.15s ease;
+    }
+
+    @media (hover: hover) {
+        .file-row-btn:hover {
+            background: #f8fafc;
+        }
+        .file-row-btn:hover .file-action {
+            background: var(--brand-orange-dark, #c2410c);
+            color: #ffffff;
+        }
+    }
+
+    .file-badge {
+        flex-shrink: 0;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 7px;
+        border-radius: 5px;
+        text-transform: uppercase;
+    }
+
+    .badge-pdf { background: #fee2e2; color: #b91c1c; }
+    .badge-audio { background: #e0e7ff; color: #3730a3; }
+    .badge-video { background: #ffedd5; color: #c2410c; }
+    .badge-other { background: #f1f5f9; color: #475569; }
+
+    .file-title {
+        flex: 1 1 auto;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1e293b;
+        word-break: break-word;
+        line-height: 1.35;
+    }
+
+    .file-action {
+        flex-shrink: 0;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 6px;
+        background: #f1f5f9;
+        color: var(--brand-900, #1e293b);
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .empty-msg,
+    .empty-search-msg {
+        font-size: 14px;
+        color: #64748b;
+        margin: 14px 0;
+        text-align: center;
     }
 
     .error-banner {
-        padding: 12px 16px;
+        padding: 14px 16px;
         background: #fee2e2;
         color: #991b1b;
         border-radius: 8px;
         font-size: 15px;
     }
 
-    .module-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 12px 16px;
-        transition: all 0.2s ease;
-    }
-
-    .module-card[open] {
-        border-color: var(--brand-700, #4f46e5);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-
-    .module-header {
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        user-select: none;
-        text-indent: 0 !important;
-        list-style: none;
-    }
-
-    .module-header::-webkit-details-marker {
-        display: none;
-    }
-
-    .folder-icon {
-        width: 20px;
-        height: 20px;
-        flex: 0 0 20px;
-        color: var(--brand-700, #4f46e5);
-    }
-
-    .module-files {
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid #f1f5f9;
-    }
-
-    .files-ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .files-ul.nested {
-        padding-left: 16px;
-        margin-top: 8px;
-        border-left: 2px solid #e2e8f0;
-    }
-
-    .subfolder-block {
-        padding: 6px 0;
-    }
-
-    .subfolder-header {
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 16px;
-        color: #334155;
-        user-select: none;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 8px 0;
-        font-size: 16px !important;
-        text-indent: 0 !important;
-        border-bottom: 1px solid #f8fafc;
-    }
-
-    .file-item:last-child {
-        border-bottom: none;
-    }
-
-    .file-name {
-        word-break: break-word;
-    }
-
-    .btn-view {
-        padding: 6px 14px;
-        background-color: var(--brand-700, #4f46e5);
-        color: #ffffff;
-        border: none;
-        border-radius: 4px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        flex-shrink: 0;
-        transition: opacity 0.2s ease;
-    }
-
-    .btn-view:hover {
-        opacity: 0.9;
-    }
-
-    .empty-msg {
-        font-size: 14px;
-        color: #64748b;
-        margin: 0;
-    }
-
-    /* Estilos del Visor Modal */
+    /* Modal Visor */
     .viewer-modal {
         position: fixed;
         inset: 0;
-        z-index: 9999;
+        z-index: 20000;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -196,21 +364,20 @@ try {
     .viewer-backdrop {
         position: absolute;
         inset: 0;
-        background: rgba(15, 23, 42, 0.75);
+        background: rgba(15, 23, 42, 0.8);
     }
 
     .viewer-box {
         position: relative;
         z-index: 1;
         width: 100%;
-        max-width: 960px;
-        max-height: 90vh;
+        max-width: 1100px;
+        max-height: 92dvh;
         background: #ffffff;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
     }
 
     .viewer-top {
@@ -218,14 +385,15 @@ try {
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        padding: 14px 20px;
+        padding: 12px 16px;
         background: var(--brand-900, #1e293b);
         color: #ffffff;
+        flex-shrink: 0;
     }
 
     .viewer-top h3 {
         margin: 0;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 600;
         white-space: nowrap;
         overflow: hidden;
@@ -233,26 +401,74 @@ try {
     }
 
     .viewer-close {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.15);
         border: none;
         color: #ffffff;
-        font-size: 20px;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        font-size: 16px;
         cursor: pointer;
-        line-height: 1;
+        flex-shrink: 0;
     }
 
     .viewer-content {
-        padding: 20px;
+        padding: 16px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 260px;
         overflow-y: auto;
+        flex: 1 1 auto;
     }
 
-    .loading-text {
-        color: #475569;
-        font-size: 15px;
+    .btn-action-modal {
+        display: inline-block;
+        padding: 10px 18px;
+        background: var(--brand-orange-dark, #c2410c);
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 720px) {
+        .portal-toolbar {
+            grid-template-columns: 1fr;
+        }
+
+        .panel-header {
+            padding: 12px 14px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+        }
+
+        .panel-body {
+            padding: 4px 10px 10px;
+        }
+
+        .files-list.nested {
+            padding-left: 8px;
+        }
+
+        .viewer-modal {
+            padding: 0;
+        }
+
+        .viewer-box {
+            max-width: 100%;
+            height: 100dvh;
+            max-height: 100dvh;
+            border-radius: 0;
+        }
+
+        .viewer-content {
+            padding: 12px;
+        }
     }
 </style>
 
@@ -263,32 +479,82 @@ try {
     const titleEl = document.getElementById('psu-viewer-title');
     const contentEl = document.getElementById('psu-viewer-content');
 
+    const moduleSelect = document.getElementById('psu-module-select');
+    const panels = document.querySelectorAll('.module-panel');
+    const searchInput = document.getElementById('psu-material-search');
+    const noResultsMsg = document.getElementById('psu-no-results');
+
+    moduleSelect?.addEventListener('change', (e) => {
+        const target = e.target.value;
+        if (searchInput && searchInput.value) {
+            searchInput.value = '';
+            filterMaterials('');
+        }
+        panels.forEach((panel) => {
+            panel.hidden = target !== 'all' && panel.id !== target;
+        });
+    });
+
+    function filterMaterials(query) {
+        const q = query.trim().toLowerCase();
+        let anyVisible = false;
+
+        if (!q) {
+            noResultsMsg.hidden = true;
+            document.querySelectorAll('.js-searchable-item, .js-searchable-folder').forEach((el) => {
+                el.hidden = false;
+            });
+            const target = moduleSelect ? moduleSelect.value : 'all';
+            panels.forEach((p) => {
+                p.hidden = target !== 'all' && p.id !== target;
+            });
+            return;
+        }
+
+        panels.forEach((panel) => {
+            const items = panel.querySelectorAll('.js-searchable-item');
+            let panelHasMatch = false;
+
+            items.forEach((item) => {
+                const match = item.dataset.name.includes(q);
+                item.hidden = !match;
+                if (match) {
+                    panelHasMatch = true;
+                    anyVisible = true;
+                }
+            });
+
+            panel.querySelectorAll('.js-searchable-folder').forEach((folder) => {
+                const visibleChildren = folder.querySelectorAll('.js-searchable-item:not([hidden])');
+                folder.hidden = visibleChildren.length === 0;
+            });
+
+            panel.hidden = !panelHasMatch;
+        });
+
+        noResultsMsg.hidden = anyVisible;
+    }
+
+    searchInput?.addEventListener('input', (e) => filterMaterials(e.target.value));
+
     let cachedDriveToken = null;
     let tokenExpiresAt = 0;
     let inFlightTokenPromise = null;
-
     const fileUrlCache = new Map();
 
     async function getValidDriveToken() {
         const now = Date.now();
-        if (cachedDriveToken && now < tokenExpiresAt) {
-            return cachedDriveToken;
-        }
-        if (inFlightTokenPromise) {
-            return inFlightTokenPromise;
-        }
+        if (cachedDriveToken && now < tokenExpiresAt) return cachedDriveToken;
+        if (inFlightTokenPromise) return inFlightTokenPromise;
 
         inFlightTokenPromise = (async () => {
             try {
                 const tokenRes = await fetch('/api/drive-token', { credentials: 'same-origin' });
-
                 if (tokenRes.status === 401) {
                     window.location.href = '/login';
                     throw new Error('Sesión expirada');
                 }
-                if (!tokenRes.ok) {
-                    throw new Error('Error al autorizar acceso');
-                }
+                if (!tokenRes.ok) throw new Error('Error al autorizar acceso');
 
                 const { token } = await tokenRes.json();
                 cachedDriveToken = token;
@@ -302,21 +568,14 @@ try {
         return inFlightTokenPromise;
     }
 
-    document.querySelectorAll('details').forEach((detailsEl) => {
-        detailsEl.addEventListener('toggle', () => {
-            if (detailsEl.open && (!cachedDriveToken || Date.now() >= tokenExpiresAt)) {
-                getValidDriveToken().catch(() => {});
-            }
-        });
-    });
+    getValidDriveToken().catch(() => {});
 
     function closeModal() {
         const media = contentEl.querySelector('video, audio');
-        if (media) {
-            media.pause();
-        }
+        if (media) media.pause();
         modal.hidden = true;
         contentEl.innerHTML = '';
+        document.body.style.overflow = '';
     }
 
     closeBtn?.addEventListener('click', closeModal);
@@ -325,12 +584,19 @@ try {
         if (e.key === 'Escape' && !modal.hidden) closeModal();
     });
 
+    function isIOSDevice() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
     function renderFileInModal(objectUrl, fileName, mimeType) {
         if (mimeType.includes('pdf')) {
+            const isMobile = window.innerWidth <= 720;
             contentEl.innerHTML = `
+                ${isMobile ? `<a href="${objectUrl}" target="_blank" rel="noopener" class="btn-action-modal" style="margin-bottom: 12px;">Abrir PDF en visor completo</a>` : ''}
                 <iframe
                     src="${objectUrl}#view=FitH"
-                    style="width: 100%; height: 75vh; border: none; border-radius: 6px;"
+                    style="width: 100%; height: 78dvh; border: none; border-radius: 6px;"
                     title="${fileName}"
                 ></iframe>
             `;
@@ -338,18 +604,27 @@ try {
             contentEl.innerHTML = `
                 <div style="width: 100%; max-width: 520px; text-align: center; padding: 24px 0;">
                     <p style="margin-bottom: 16px; font-weight: 600; color: #1e293b;">${fileName}</p>
-                    <audio controls autoplay src="${objectUrl}" style="width: 100%;"></audio>
+                    <audio controls autoplay playsinline src="${objectUrl}" style="width: 100%;"></audio>
                 </div>
             `;
         } else if (mimeType.startsWith('video/')) {
             contentEl.innerHTML = `
-                <video controls autoplay playsinline src="${objectUrl}" style="width: 100%; max-height: 72vh; border-radius: 6px; background: #000;"></video>
+                <video controls autoplay playsinline src="${objectUrl}" style="width: 100%; max-height: 80dvh; border-radius: 6px; background: #000;"></video>
             `;
+            const videoEl = contentEl.querySelector('video');
+            videoEl?.addEventListener('error', () => {
+                contentEl.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <p style="margin-bottom: 14px; color: #1e293b;">No se pudo reproducir este video directamente en el navegador.</p>
+                        <a href="${objectUrl}" download="${fileName}" class="btn-action-modal">Descargar video</a>
+                    </div>
+                `;
+            });
         } else {
             contentEl.innerHTML = `
                 <div style="text-align: center; padding: 20px;">
                     <p style="margin-bottom: 14px;">Este formato no se puede previsualizar directamente.</p>
-                    <a href="${objectUrl}" download="${fileName}" class="btn-view">Descargar archivo</a>
+                    <a href="${objectUrl}" download="${fileName}" class="btn-action-modal">Descargar archivo</a>
                 </div>
             `;
         }
@@ -363,17 +638,31 @@ try {
 
             titleEl.textContent = fileName;
             modal.hidden = false;
+            document.body.style.overflow = 'hidden';
 
             if (mimeType.includes('avi') || fileName.toLowerCase().endsWith('.avi')) {
-                contentEl.innerHTML = `
-                    <iframe
-                        src="https://drive.google.com/file/d/${fileId}/preview"
-                        style="width: 100%; height: 72vh; border: none; border-radius: 6px; background: #000;"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        title="${fileName}"
-                    ></iframe>
-                `;
+                if (isIOSDevice()) {
+                    contentEl.innerHTML = `
+                        <div style="text-align: center; padding: 24px 16px; max-width: 420px;">
+                            <p style="margin-bottom: 16px; color: #1e293b; line-height: 1.5;">
+                                En iPhone/iPad, este video debe abrirse en una pestaña externa para evitar el bloqueo de cookies de Safari.
+                            </p>
+                            <a href="https://drive.google.com/file/d/${fileId}/view" target="_blank" rel="noopener" class="btn-action-modal">
+                                Ver video en pantalla completa
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    contentEl.innerHTML = `
+                        <iframe
+                            src="https://drive.google.com/file/d/${fileId}/preview"
+                            style="width: 100%; height: 76vh; border: none; border-radius: 6px; background: #000;"
+                            allow="autoplay; fullscreen"
+                            allowfullscreen
+                            title="${fileName}"
+                        ></iframe>
+                    `;
+                }
                 return;
             }
 
@@ -386,7 +675,6 @@ try {
 
             try {
                 const token = await getValidDriveToken();
-
                 const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });

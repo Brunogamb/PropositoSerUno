@@ -6,38 +6,51 @@ interface Props {
 }
 
 const { item } = Astro.props;
+
+const isPdf = !item.isFolder && item.mimeType.includes('pdf');
+const isAudio = !item.isFolder && item.mimeType.startsWith('audio/');
+const isVideo = !item.isFolder && (item.mimeType.startsWith('video/') || item.name.toLowerCase().endsWith('.avi'));
+
+const fileTypeLabel = isPdf ? 'PDF' : isAudio ? 'Audio' : isVideo ? 'Video' : 'Archivo';
+const fileTypeClass = isPdf ? 'badge-pdf' : isAudio ? 'badge-audio' : isVideo ? 'badge-video' : 'badge-other';
+const actionLabel = isPdf ? 'Leer' : isAudio ? 'Escuchar' : isVideo ? 'Ver' : 'Abrir';
 ---
 
 {item.isFolder ? (
-    <li class="subfolder-block">
-        <details class="subfolder-card">
-            <summary class="subfolder-header">
-                <span>📂 {item.name}</span>
+    <li class="folder-group js-searchable-folder" data-name={item.name.toLowerCase()}>
+        <details class="folder-details" open>
+            <summary class="folder-summary">
+                <span class="folder-label">
+                    <svg class="sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>{item.name}</span>
+                </span>
+                <span class="folder-arrow" aria-hidden="true">▾</span>
             </summary>
             {item.children && item.children.length > 0 ? (
-                <ul class="files-ul nested">
+                <ul class="files-list nested">
                     {item.children.map((child) => (
                         <Astro.self item={child} />
                     ))}
                 </ul>
             ) : (
-                <p class="empty-msg nested-empty">Carpeta vacía.</p>
+                <p class="empty-msg">Carpeta vacía.</p>
             )}
         </details>
     </li>
 ) : (
-    <li class="file-item">
-        <span class="file-name">{item.name}</span>
+    <li class="file-row js-searchable-item" data-name={item.name.toLowerCase()}>
         <button
             type="button"
-            class="btn-view js-open-file"
+            class="file-row-btn js-open-file"
             data-file-id={item.id}
             data-file-name={item.name}
             data-file-mime={item.mimeType}
         >
-            {item.mimeType.includes('pdf') ? 'Ver PDF' :
-             item.mimeType.startsWith('audio/') ? 'Escuchar' :
-             item.mimeType.startsWith('video/') ? 'Ver Video' : 'Abrir'}
+            <span class={`file-badge ${fileTypeClass}`}>{fileTypeLabel}</span>
+            <span class="file-title">{item.name}</span>
+            <span class="file-action">{actionLabel}</span>
         </button>
     </li>
 )}
