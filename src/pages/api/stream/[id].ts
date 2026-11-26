@@ -14,7 +14,6 @@ export const GET: APIRoute = async ({ params, request, url }) => {
     }
 
     try {
-        // Obtiene el token validando la misma cookie de sesión contra /api/drive-token
         const tokenRes = await fetch(`${url.origin}/api/drive-token`, {
             headers: { cookie: cookieHeader },
         });

@@ -659,7 +659,6 @@ function countFiles(item: DriveItem): number {
             if (isMobileOrTablet()) {
                 await renderPdfPagesMobile(objectUrl);
             } else {
-                // En PC usa el visor nativo con toda la barra de herramientas (zoom, páginas, rotación, búsqueda, descarga)
                 contentEl.classList.add('is-pdf-desktop');
                 contentEl.innerHTML = `
                     <iframe
